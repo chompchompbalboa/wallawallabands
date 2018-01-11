@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 export default class Root extends Component {
 
 	constructor() {
+		super()
 	}
 
 	componentDidMount() {
@@ -13,7 +14,7 @@ export default class Root extends Component {
   render () {
     return (
       <div>
-        Walla Walla Bands 2
+        Walla Walla Bands
 		  </div>
     )
   }
