@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
+
+import Layout from 'src/react/layouts/Default'
 
 @connect()
 export default class Artist extends Component {
@@ -12,10 +16,27 @@ export default class Artist extends Component {
 	}
 
   render () {
+		const {
+			name
+		} = this.props
+
     return (
-      <div>
-        Artist
-		  </div>
+      <Layout>
+				<Container>
+					{ name }
+				</Container>
+		  </Layout>
     )
   }
+}
+
+const Container = styled.div`
+`
+
+Artist.propTypes = {
+	name: PropTypes.string
+}
+
+Artist.defaultProps = {
+	name: "Modest Mouse"
 }
