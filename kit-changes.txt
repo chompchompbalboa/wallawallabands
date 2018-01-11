@@ -1,0 +1,18 @@
+Kit Changes:
+
+1) Update webpack config to bypass host check so that I can run the app off
+   of a "realestate.local" domain during development.  This is a security
+   issue that I will eventually need to come up with a better solution for.
+
+   File: kit/webpack/base.js
+   Lines: 40-43
+   Added the following lines:
+
+   START
+
+   devServer: {
+    compress: true,
+    disableHostCheck: true,
+  },
+
+	 END
