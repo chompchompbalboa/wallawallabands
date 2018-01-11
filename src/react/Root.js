@@ -10,13 +10,6 @@ import NotFound from 'src/react/errors/NotFound'
 
 export default class Root extends Component {
 
-	constructor() {
-		super()
-	}
-
-	componentDidMount() {
-	}
-
   render () {
     return (
       <Container>

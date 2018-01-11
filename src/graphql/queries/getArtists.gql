@@ -1,0 +1,6 @@
+query getArtists {
+  allArtists {
+    name
+    slug
+  }
+}

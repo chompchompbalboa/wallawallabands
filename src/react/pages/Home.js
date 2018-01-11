@@ -7,13 +7,6 @@ import Layout from 'src/react/layouts/Default'
 @connect()
 export default class Home extends Component {
 
-	constructor() {
-		super()
-	}
-
-	componentDidMount() {
-	}
-
   render () {
     return (
       <Layout>

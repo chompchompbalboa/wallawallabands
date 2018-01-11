@@ -1,39 +1,47 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
+import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import getArtists from 'src/graphql/queries/getArtists.gql'
+
 import Layout from 'src/react/layouts/Default'
 
 @connect()
+@graphql(getArtists)
 export default class Home extends Component {
-
-	constructor() {
-		super()
-	}
-
-	componentDidMount() {
-	}
 
   render () {
 		const {
-			artists
-		} = this.props
+			data: {
+				loading,
+				error,
+				allArtists
+		}} = this.props
 
-    return (
-      <Layout>
-				<Container>
-					{artists.map((artist, index) => (
-						<Link to={"artist/" + artist.slug}>
-							<ArtistLink key={ index }>
-								{ artist.name }
-							</ArtistLink>
-						</Link>
-					))}
-				</Container>
-		  </Layout>
-    )
+		if (loading) {
+			return "GraphQL is loading"}
+		if (error) {
+			return "GraphQL is loading"}
+		else {
+			if (typeof allArtists !== "undefined") {
+		    return (
+		      <Layout>
+						<Container>
+							{allArtists.map((artist, index) => (
+								<Link to={"artist/" + artist.slug}>
+									<ArtistLink key={ index }>
+										{ artist.name }
+									</ArtistLink>
+								</Link>
+							))}
+						</Container>
+				  </Layout>
+		    )
+			}
+		}
   }
 }
 
@@ -44,11 +52,11 @@ const ArtistLink = styled.div`
 `
 
 Home.propTypes = {
-	artists: PropTypes.array
+	allArtists: PropTypes.array
 }
 
 Home.defaultProps = {
-	artists: [
+	allArtists: [
 		{ name: "Artist 1", slug: "artist-1"},
 		{ name: "Artist 2", slug: "artist-2" },
 		{ name: "Artist 3", slug: "artist-3" }
