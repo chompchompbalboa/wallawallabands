@@ -50,7 +50,7 @@ import './styles.global.css';
 //
 // 2.  On the client, it will append the correct server URL so that we can
 // call the ReactQL host properly, and let the server handle our requests
-config.setGraphQLEndpoint('https://api.graph.cool/simple/v1/cjc9zvpls0em40197vf5zfo2s');
+config.setGraphQLEndpoint('https://api.graph.cool/simple/v1/cjcbhaa460rsl0175f6kat2ei');
 
 /* SERVER */
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Layout from 'src/react/layouts/Default'
-import MusicPlayer from 'src/react/components/MusicPlayer'
+import MusicPlayer from 'src/react/containers/MusicPlayer'
 
 @connect()
 export default class Artists extends Component {
@@ -19,6 +19,7 @@ export default class Artists extends Component {
         <Menu>
 					<Link to="/">Home</Link>
 					<Link to="/artists">Artists</Link>
+					<Link to="/admin">Login</Link>
 				</Menu>
 				{children}
 				<MusicPlayer />

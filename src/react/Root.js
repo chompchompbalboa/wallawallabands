@@ -3,27 +3,17 @@ import { Link, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import Artist from 'src/react/pages/Artist'
-import Artists from 'src/react/pages/Artists'
-import Home from 'src/react/pages/Home'
-import NotFound from 'src/react/errors/NotFound'
+import Admin from 'src/react/admin/Admin'
+import Site from 'src/react/site/Site'
 
 export default class Root extends Component {
 
   render () {
     return (
-      <Container>
-        <Switch>
-					<Route exact path="/" component={ Home } />
-					<Route path="/artist/:artist" component={ Artist } />
-					<Route path="/artists" component={ Artists } />
-					<Route component={NotFound} />
-				</Switch>
-				<Link to="/artists"/>
-		  </Container>
+      <Switch>
+				<Route path="/admin" component={ Admin } />
+				<Route component={ Site } />
+			</Switch>
     )
   }
 }
-
-const Container = styled.div`
-`

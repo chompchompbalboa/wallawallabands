@@ -1,0 +1,6 @@
+query getBands {
+  allBands {
+    name
+    slug
+  }
+}

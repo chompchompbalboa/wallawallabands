@@ -6,19 +6,18 @@ import styled from 'styled-components'
 import Layout from 'src/react/layouts/Default'
 
 @connect()
-export default class Artist extends Component {
+export default class Admin extends Component {
 
   render () {
 		const {
-			name
 		} = this.props
 
     return (
       <Layout>
-				<Container>
-					{ name }
-				</Container>
-		  </Layout>
+  			<Container>
+          Admin
+  			</Container>
+      </Layout>
     )
   }
 }
@@ -26,10 +25,8 @@ export default class Artist extends Component {
 const Container = styled.div`
 `
 
-Artist.propTypes = {
-	name: PropTypes.string
+Admin.propTypes = {
 }
 
-Artist.defaultProps = {
-	name: "Modest Mouse"
+Admin.defaultProps = {
 }
