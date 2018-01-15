@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import MusicPlayer from 'src/react/site/containers/MusicPlayer'
+import Logout from 'src/react/admin/containers/LogoutButton'
 
 @connect()
 export default class Layout extends Component {
@@ -16,12 +16,9 @@ export default class Layout extends Component {
     return (
       <Container>
         <Menu>
-					<Link to="/">Home</Link>
-					<Link to="/artists">Artists</Link>
-					<Link to="/admin">Login</Link>
+					<Logout />
 				</Menu>
 				{children}
-				<MusicPlayer />
 		  </Container>
     )
   }

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
-import Layout from 'src/react/layouts/Default'
+import Layout from 'src/react/site/layouts/Default'
 
-@connect()
 export default class Artists extends Component {
 
 	constructor() {

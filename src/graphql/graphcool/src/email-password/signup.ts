@@ -10,6 +10,7 @@ interface User {
 interface EventData {
   email: string
   password: string
+  name: string
 }
 
 const SALT_ROUNDS = 10
@@ -69,7 +70,7 @@ async function getUser(api: GraphQLClient, email: string): Promise<{ User }> {
 
 async function createGraphcoolUser(api: GraphQLClient, email: string, password: string, name: string): Promise<string> {
   const mutation = `
-    mutation createGraphcoolUser($email: String!, $password: String!) {
+    mutation createGraphcoolUser($email: String!, $password: String!, $name: String!) {
       createUser(
         email: $email,
         password: $password,
@@ -83,6 +84,7 @@ async function createGraphcoolUser(api: GraphQLClient, email: string, password: 
   const variables = {
     email,
     password: password,
+    name
   }
 
   return api.request<{ createUser: User }>(mutation, variables)

@@ -11,6 +11,7 @@ type User @model {
   updatedAt: DateTime! # read-only (managed by Graphcool)
 
   email: String! @isUnique
+  name: String!
   password: String!
 }
 

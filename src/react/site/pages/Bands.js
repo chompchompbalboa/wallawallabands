@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { graphql } from 'react-apollo'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import getBands from 'src/graphql/queries/getBands.gql'
 
-import Layout from 'src/react/layouts/Default'
+import Layout from 'src/react/site/layouts/Default'
 
-@connect()
+import Loading from 'src/react/site/lib/loading/LoadingDefault'
+
 @graphql(getBands)
 export default class Home extends Component {
 
@@ -20,7 +20,7 @@ export default class Home extends Component {
 		} = data
 
 		if (loading) {
-			return "GraphQL is loading"}
+			return <Loading />}
 		else {
 			if (typeof allBands !== "undefined") {
 		    return (

@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { graphql } from 'react-apollo'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import getBand from 'src/graphql/queries/getBand.gql'
 
-import Layout from 'src/react/layouts/Default'
-import Loading from 'src/react/lib/loading/LoadingDefault'
-import ErrorHandler from 'src/react/lib/errors/GraphQLError'
+import Layout from 'src/react/site/layouts/Default'
+import Loading from 'src/react/site/lib/loading/LoadingDefault'
+import ErrorHandler from 'src/react/site/lib/errors/GraphQLError'
 
-@connect()
 @graphql(getBand, {
 		options: (ownProps) => ({
 			variables: {

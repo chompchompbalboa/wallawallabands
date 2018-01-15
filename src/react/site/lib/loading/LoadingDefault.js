@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-export default class Artists extends Component {
+export default class LoadingDefault extends Component {
 
   render () {
 		const {
@@ -19,3 +19,11 @@ export default class Artists extends Component {
 
 const Container = styled.div`
 `
+
+LoadingDefault.propTypes = {
+  message: PropTypes.string
+}
+
+LoadingDefault.defaultProps = {
+  message: "I'm grabbing the data from Graphcool, thanks for your patience"
+}

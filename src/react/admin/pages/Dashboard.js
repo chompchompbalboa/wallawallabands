@@ -3,6 +3,8 @@ import { PropTypes } from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
+import Layout from 'src/react/admin/layouts/Default'
+
 @connect()
 export default class Dashboard extends Component {
 
@@ -11,9 +13,9 @@ export default class Dashboard extends Component {
 		} = this.props
 
     return (
-			<Container>
+			<Layout>
         Dashboard
-			</Container>
+			</Layout>
     )
   }
 }
