@@ -1,0 +1,17 @@
+Home page:
+  Grid
+
+Artists list:
+  alphabetical list
+  search
+
+Band
+  Bio
+  Photos
+  Discography
+
+Landing page - construction
+
+Hosting - $15/mo as a target
+
+Finding a host, soundcloud
