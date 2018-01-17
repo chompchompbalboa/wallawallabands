@@ -2,17 +2,42 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
+import AddBand from 'src/react/admin/lib/AddBand'
+import EditBand from 'src/react/admin/lib/EditBand'
+import DeleteBand from 'src/react/admin/lib/DeleteBand'
+
 export default class TaskContainer extends Component {
+
+  constructor(props) {
+    super(props)
+  }
+
+  setTask(activeTask) {
+    switch(activeTask) {
+      case 'ADD_BAND':
+        return <AddBand />
+      break;
+      case 'EDIT_BAND':
+        return <EditBand />
+      break;
+      case 'DELETE_BAND':
+        return <DeleteBand />
+      break;
+      default:
+        return <AddBand />
+    }
+  }
 
   render() {
 		const {
       activeTask,
       ...rest
 		} = this.props
+    const task = this.setTask(activeTask)
 
     return (
 			<Container {...rest}>
-        {activeTask}
+        {task}
 			</Container>
     )
   }
@@ -26,13 +51,9 @@ const Container = styled.div`
 `
 
 TaskContainer.propTypes = {
-  sidebar: PropTypes.shape({
-    width: PropTypes.number
-  })
+  activeTask: PropTypes.string
 }
 
 TaskContainer.defaultProps = {
-  sidebar: {
-    width: 15
-  }
+  activeTask: "ADD_BAND"
 }

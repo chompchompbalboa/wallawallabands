@@ -58,6 +58,6 @@ Dashboard.propTypes = {
 
 Dashboard.defaultProps = {
   sidebar: {
-    width: 15
+    width: 17
   }
 }
