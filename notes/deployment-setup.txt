@@ -1,0 +1,35 @@
+// 1
+Follow this tutorial:
+
+https://scotch.io/tutorials/deploying-a-node-app-to-digital-ocean
+
+// 2
+Before npm install on the project, make sure that node and npm are the same
+version as the development environment:
+
+http://www.hostingadvice.com/how-to/update-node-js-latest-version/
+
+// 3
+npm install led to an issue installing 'node-zopfli'. It was solved with help
+from here:
+https://github.com/webpack-contrib/zopfli-webpack-plugin/issues/4
+
+by entering these commands on the droplet:
+sudo apt install build-essential
+npm update
+
+// 4
+Follow the tutorial to completion, add the networking info to digitalocean and
+the registrar, troubleshoot any of the inevitable issues (ugh, initial deployment
+is the worst) and hopefully the app will be up and running
+
+
+
+
+Steps for continuous deployment:
+
+Push changes to github
+ssh into droplet
+git pull origin master
+npm install
+sudo systemctl restart nginx

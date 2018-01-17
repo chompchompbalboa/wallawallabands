@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Helmet } from 'react-helmet'
 import { Link, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -26,6 +27,9 @@ export default class Root extends Component {
     if(!underConstruction) {
       return (
         <Container>
+          <Helmet>
+            <title>Walla Walla Bands</title>
+          </Helmet>
           <Switch>
   					<Route exact path="/" component={ Home } />
   					<Route path="/artist/:slug" component={ Band } />
@@ -37,6 +41,9 @@ export default class Root extends Component {
     }
     return (
       <Container>
+        <Helmet>
+          <title>Walla Walla Bands</title>
+        </Helmet>
         <UnderConstruction />
       </Container>
     )
