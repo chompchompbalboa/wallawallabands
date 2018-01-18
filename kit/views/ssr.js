@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 // ----------------------
 
-const Html = ({ helmet, scripts, window, css, children }) => (
+const Html = ({ helmet, scripts, window, css, styles, children }) => (
   <html lang="en" prefix="og: http://ogp.me/ns#" {...helmet.htmlAttributes.toString()}>
     <head>
       {helmet.title.toComponent()}
@@ -24,6 +24,7 @@ const Html = ({ helmet, scripts, window, css, children }) => (
       {helmet.style.toComponent()}
       {helmet.script.toComponent()}
       {helmet.noscript.toComponent()}
+      {styles}
     </head>
     <body {...helmet.bodyAttributes.toComponent()}>
       <div id="main">{children}</div>

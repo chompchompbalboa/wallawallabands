@@ -99,6 +99,9 @@ import config from 'kit/config';
 // so we can serve static files
 import PATHS from 'config/paths';
 
+/* Custom imports - see notes/kit-changes.txt */
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+
 // ----------------------
 
 // Create a network layer based on settings.  This is an immediate function
@@ -154,13 +157,17 @@ export function createReactHandler(css = [], scripts = [], chunkManifest = {}) {
   return async function reactHandler(ctx) {
     const routeContext = {};
 
+    const sheet = new ServerStyleSheet();
+
     // Generate the HTML from our React tree.  We're wrapping the result
     // in `react-router`'s <StaticRouter> which will pull out URL info and
     // store it in our empty `route` object
     const components = (
       <StaticRouter location={ctx.request.url} context={routeContext}>
         <ApolloProvider store={ctx.store} client={ctx.apollo.client}>
-          <App />
+          <StyleSheetManager sheet={sheet.instance}>
+            <App />
+          </StyleSheetManager>
         </ApolloProvider>
       </StaticRouter>
     );
@@ -215,6 +222,7 @@ export function createReactHandler(css = [], scripts = [], chunkManifest = {}) {
           __STATE__: ctx.store.getState(),
         }}
         css={css}
+        styles={sheet.getStyleElement()}
         scripts={scripts}>
         {components}
       </Html>,
