@@ -32,4 +32,9 @@ Push changes to github
 ssh into droplet
 git pull origin master
 npm install
+npm run build
+pm2 list // get App name
+pm2 restart {App name}
 sudo systemctl restart nginx
+
+Remove fouc by updating kit

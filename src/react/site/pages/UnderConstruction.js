@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
+import { phone, tabletPortrait, tabletLandscape, desktop, retina } from 'src/styles/breakpoints'
+
 import logo from 'static/img/logo.png'
 
 export default class UnderConstruction extends Component {
 
   render() {
+    console.log(tabletPortrait)
 		const {
 		} = this.props
 
@@ -30,10 +33,25 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 36px;
+  @media ${retina} {
+    font-size: 45px;
+  }
 `
 
 const Logo = styled.img`
-  width: 25vw;
+  width: 70vw;
+  @media ${tabletPortrait} {
+    width: 40vw;
+  }
+  @media ${tabletLandscape} {
+    width: 25vw;
+  }
+  @media ${desktop} {
+    width: 20vw;
+  }
+  @media ${retina} {
+    width: 15vw;
+  }
 `
 
 UnderConstruction.propTypes = {
