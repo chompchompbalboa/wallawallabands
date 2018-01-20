@@ -47,7 +47,8 @@ const Container = styled.div`
   position: absolute;
   top: 0;
   left: ${props => props.sidebar.width + 'vw'};
-  width: ${props => (100 - props.sidebar.width) + 'vw'};
+  width: ${props => (100 - 10 - props.sidebar.width) + 'vw'};
+  padding: 4vw 5vw;
 `
 
 TaskContainer.propTypes = {

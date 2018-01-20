@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
+
+import SidebarItem from 'src/react/admin/lib/SidebarItem'
 
 export default class LogoutButton extends Component {
 
@@ -20,16 +21,12 @@ export default class LogoutButton extends Component {
 		} = this.props
 
     return (
-			<Container onClick={(e) => this.handleLogout(e)}>
+			<SidebarItem onClick={(e) => this.handleLogout(e)}>
         Logout
-			</Container>
+			</SidebarItem>
     )
   }
 }
-
-const Container = styled.div`
-  cursor: pointer;
-`
 
 LogoutButton.propTypes = {
 }

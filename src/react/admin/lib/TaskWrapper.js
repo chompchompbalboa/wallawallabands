@@ -6,11 +6,13 @@ export default class TaskWrapper extends Component {
 
   render() {
 		const {
+      header,
       children
 		} = this.props
 
     return (
 			<Container>
+        <Header>{header}</Header>
         {children}
 			</Container>
     )
@@ -18,10 +20,17 @@ export default class TaskWrapper extends Component {
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const Header = styled.h1`
 `
 
 TaskWrapper.propTypes = {
+  header: PropTypes.string
 }
 
 TaskWrapper.defaultProps = {
+  header: "Add Band"
 }

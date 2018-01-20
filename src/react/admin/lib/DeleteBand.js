@@ -4,25 +4,21 @@ import styled from 'styled-components'
 
 import TaskWrapper from 'src/react/admin/lib/TaskWrapper'
 
-export default class AddBand extends Component {
+export default class DeleteBand extends Component {
 
   render() {
 		const {
 		} = this.props
 
     return (
-			<TaskWrapper>
-        Delete band
+			<TaskWrapper header="Delete Band">
 			</TaskWrapper>
     )
   }
 }
 
-const Container = styled.div`
-`
-
-AddBand.propTypes = {
+DeleteBand.propTypes = {
 }
 
-AddBand.defaultProps = {
+DeleteBand.defaultProps = {
 }

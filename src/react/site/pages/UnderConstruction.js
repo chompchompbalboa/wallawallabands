@@ -9,7 +9,6 @@ import logo from 'static/img/logo.png'
 export default class UnderConstruction extends Component {
 
   render() {
-    console.log(tabletPortrait)
 		const {
 		} = this.props
 

@@ -16,3 +16,9 @@ Kit Changes:
   },
 
 	 END
+
+2) Update the kit to fix a FOUC I was seeing thanks to an issue with
+styled-components and SSR.
+
+The fix can be found here:
+https://github.com/reactql/kit/issues/106

@@ -1,0 +1,1 @@
+mutation addBand($name: String!)

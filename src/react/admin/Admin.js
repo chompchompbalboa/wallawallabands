@@ -10,8 +10,21 @@ import LoginRegister from 'src/react/admin/pages/LoginRegister'
 
 export default class Admin extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      ssr: true
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      ssr: false
+    })
+  }
+
   _loggedIn() {
-    if(localStorage.getItem("graphcoolToken") === null) {
+    if(typeof localStorage !== "undefined" && localStorage.getItem("graphcoolToken") === null) {
       return false
     }
     return true
@@ -19,8 +32,13 @@ export default class Admin extends Component {
 
   render () {
 		const {
-		} = this.props
+      ssr
+		} = this.state
     const loggedIn = this._loggedIn()
+
+    if(ssr) {
+      return "Loading"
+    }
 
     if(!loggedIn) {
       return (

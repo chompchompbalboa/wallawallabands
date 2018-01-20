@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
+import TaskWrapper from 'src/react/admin/lib/TaskWrapper'
+
 export default class EditBand extends Component {
 
   render() {
@@ -9,15 +11,11 @@ export default class EditBand extends Component {
 		} = this.props
 
     return (
-			<Container>
-        Edit band
-			</Container>
+			<TaskWrapper header="Edit Band">
+			</TaskWrapper>
     )
   }
 }
-
-const Container = styled.div`
-`
 
 EditBand.propTypes = {
 }

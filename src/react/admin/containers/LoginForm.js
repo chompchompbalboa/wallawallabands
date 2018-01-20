@@ -32,10 +32,14 @@ export default class LoginForm extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault()
+
     const {
       email,
       password
     } = this.state
+    const {
+      authenticateUser
+    } = this.props
 
     const response = await this.props.authenticateUser({variables: {email, password}})
     localStorage.setItem('graphcoolToken', response.data.authenticateUser.token)
