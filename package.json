@@ -1,4 +1,6 @@
 {
+  "name": "walla-walla-bands",
+  "main": "src/app.js",
   "version": "2.10.0",
   "private": true,
   "scripts": {
@@ -83,8 +85,10 @@
     "apollo-local-query": "^0.3.1",
     "apollo-server-koa": "^1.3.2",
     "boxen": "^1.3.0",
+    "casual": "^1.5.19",
     "chalk": "^2.3.0",
     "graphql": "^0.11.7",
+    "graphql-tools": "^2.18.0",
     "history": "^4.7.2",
     "ip": "^1.1.5",
     "isomorphic-fetch": "^2.2.1",
@@ -95,6 +99,7 @@
     "koa-router": "^7.3.0",
     "koa-send": "^4.1.2",
     "koa-sslify": "^2.1.2",
+    "lodash": "^4.17.4",
     "microseconds": "^0.1.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -110,6 +115,8 @@
     "regenerator-runtime": "^0.11.1",
     "seamless-immutable": "^7.1.2",
     "semantic-ui-react": "^0.77.2",
+    "sequelize": "^4.31.2",
+    "sqlite3": "^3.1.13",
     "styled-components": "^2.4.0"
   },
   "engines": {

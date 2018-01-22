@@ -50,17 +50,7 @@ import './styles.global.css';
 //
 // 2.  On the client, it will append the correct server URL so that we can
 // call the ReactQL host properly, and let the server handle our requests
-config.setGraphQLEndpoint('https://api.graph.cool/simple/v1/cjcbhaa460rsl0175f6kat2ei');
-
-config.addApolloMiddleware((req, next) => {
-  if(!req.options.headers) {
-    req.options.headers = {}
-  }
-  const token = localStorage.getItem('graphcoolToken')
-  const authorizationHeader = token ? `Bearer ${token}` : null
-  req.options.headers['authorization'] = authorizationHeader
-  return next();
-});
+config.enableGraphQLServer();
 
 /* SERVER */
 

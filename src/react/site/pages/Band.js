@@ -3,60 +3,80 @@ import { PropTypes } from 'prop-types'
 import { graphql } from 'react-apollo'
 import styled from 'styled-components'
 
-import getBand from 'src/graphql/queries/getBand.gql'
+import getBandBySlug from 'src/graphql/queries/getBandBySlug.gql'
+
+import { colors } from 'src/styles/colors'
 
 import Layout from 'src/react/site/layouts/Default'
 import Loading from 'src/react/site/lib/loading/LoadingDefault'
 import ErrorHandler from 'src/react/site/lib/errors/GraphQLError'
 
-@graphql(getBand, {
+@graphql(getBandBySlug, {
 		options: (ownProps) => ({
 			variables: {
 				slug: ownProps.match.params.slug
 }})})
 export default class Band extends Component {
 
-	_artist(data) {
-		const {
-			loading,
-			Band
-		} = data
-
-		if (loading) {
-			return (<Loading />)}
-		else {
-			if(typeof Band !== "undefined") {
-				return Band.name
-			}
-		}
-		return (
-			<ErrorHandler code="UNABLE_TO_LOAD_ARTIST"/>
-		)
-	}
-
   render () {
 		const {
-			data
+			data,
 		} = this.props
-		const artist = this._artist(data)
 
-    return (
-      <Layout>
-				<Container>
-					{ artist }
-				</Container>
-		  </Layout>
-    )
+		if(data.loading) {
+			return <Loading />
+		}
+		else if(typeof data.getBandBySlug !== "undefined") {
+			const band = data.getBandBySlug
+			return (
+				<Layout>
+					<Container>
+						<Header>
+							<Name>{band.name}</Name>
+							<HeaderLinks>
+								<HeaderLink active={true}>Bio</HeaderLink>
+								<HeaderLink active={false}>Photos</HeaderLink>
+								<HeaderLink active={false}>Music</HeaderLink>
+							</HeaderLinks>
+						</Header>
+						<Bio>{band.bio}</Bio>
+					</Container>
+				</Layout>
+			)
+		}
+		return (
+			<ErrorHandler code="UNABLE_TO_LOAD_BAND" />
+		)
 	}
 }
 
 const Container = styled.div`
 `
 
-Band.propTypes = {
-	name: PropTypes.string
-}
+const Header = styled.div`
+	padding: 0 3.5vw;
+	width: calc(100vw - 7vw);
+	background-color: ${colors.secondary};
+	color: white;
+`
 
-Band.defaultProps = {
-	name: "Modest Mouse"
-}
+const Name = styled.h1`
+	width: 100%;
+	padding: 3vh 0 0 0;
+	font-family: Oswald;
+`
+
+const HeaderLinks = styled.div`
+	width: 100%;
+	padding: 1vh 0 1.5vh 0;
+	display: flex;
+	align-items: center;
+`
+
+const HeaderLink = styled.p`
+	margin: 0 5vw 0 0;
+	border-bottom: ${props => props.active ? '1px solid white' : 'none'};
+`
+
+const Bio = styled.div`
+`

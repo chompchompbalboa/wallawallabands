@@ -1,0 +1,6 @@
+query getBandBySlug($slug: String!) {
+  getBandBySlug(slug: $slug) {
+    name
+    bio
+  }
+}

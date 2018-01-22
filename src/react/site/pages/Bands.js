@@ -1,73 +1,57 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { graphql } from 'react-apollo'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import getBands from 'src/graphql/queries/getBands.gql'
 
-import Layout from 'src/react/site/layouts/Default'
+import { primary, tileBackground } from 'src/styles/colors'
+import { pageHeader } from 'src/styles/fonts'
 
+import BandsList from 'src/react/site/lib/BandsList'
+import ErrorHandler from 'src/react/site/lib/errors/GraphQLError'
+import Layout from 'src/react/site/layouts/Default'
 import Loading from 'src/react/site/lib/loading/LoadingDefault'
 
 @graphql(getBands)
-export default class Home extends Component {
-
-	_artistsList(data) {
-		const {
-			loading,
-			allBands
-		} = data
-
-		if (loading) {
-			return <Loading />}
-		else {
-			if (typeof allBands !== "undefined") {
-		    return (
-					allBands.map((artist, index) => (
-						<Link to={"artist/" + artist.slug} key={ index }>
-							<ArtistLink>
-								{ artist.name }
-							</ArtistLink>
-						</Link>
-		)))}}
-		return (
-			"I'm sorry, I'm having a hard time fetching the artists list from the database"
-		)
-	}
+export default class Bands extends Component {
 
   render () {
 		const {
-			data
+			data,
+			...rest
 		} = this.props
-		const artistsList = this._artistsList(data)
 
+		if(data.loading) {
+			return (<Loading />)
+		}
+		else if(typeof data.allBands !== "undefined") {
+			return (
+				<Layout>
+					<Container>
+						<Header>BANDS</Header>
+						<BandsList bands={data.allBands}/>
+					</Container>
+				</Layout>
+			)
+		}
 		return (
-			<Layout>
-				<Container>
-					{artistsList}
-				</Container>
-			</Layout>
+			<ErrorHandler code="UNABLE_TO_LOAD_BANDS_LIST"/>
 		)
   }
 }
 
 const Container = styled.div`
+	width: 100%;
 `
 
-const ArtistLink = styled.div`
+const Header = styled.div`
+	margin: 3vh 0;
+	padding: 1.5vh 3.5vw;
+	width: calc(100% - 7vw);
+	background-color: ${tileBackground};
+	color: ${primary};
+	font-family: ${pageHeader.family};
+	font-size: ${pageHeader.size};
+	letter-spacing: ${pageHeader.letterSpacing}
 `
-
-Home.propTypes = {
-	data: PropTypes.shape({
-		allBands: PropTypes.array
-})}
-
-Home.defaultProps = {
-	data: {
-		allBands: [
-			{ name: "Artist 1", slug: "artist-1"},
-			{ name: "Artist 2", slug: "artist-2" },
-			{ name: "Artist 3", slug: "artist-3" }
-		]
-}}

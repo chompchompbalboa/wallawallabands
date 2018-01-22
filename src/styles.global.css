@@ -1,6 +1,6 @@
 /* Regular @import url statements work as you'd expect them to -- alternatively
 you can import locally, and they wind up in the resulting bundle */
-@import url('https://fonts.googleapis.com/css?family=Lato:300');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400|Oswald:700');
 
 * {
   margin: 0;
@@ -8,6 +8,6 @@ you can import locally, and they wind up in the resulting bundle */
 }
 
 html {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
 }

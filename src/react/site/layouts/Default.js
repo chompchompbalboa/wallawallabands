@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import Menu from 'src/react/site/lib/Menu'
 import MusicPlayer from 'src/react/site/containers/MusicPlayer'
 
-@connect()
 export default class Layout extends Component {
 
   render () {
@@ -15,12 +13,8 @@ export default class Layout extends Component {
 
     return (
       <Container>
-        <Menu>
-					<Link to="/">Home</Link>
-					<Link to="/artists">Artists</Link>
-					<Link to="/admin">Login</Link>
-				</Menu>
-				{children}
+        <Menu />
+        {children}
 				<MusicPlayer />
 		  </Container>
     )
@@ -28,7 +22,8 @@ export default class Layout extends Component {
 }
 
 const Container = styled.div`
-`
-
-const Menu = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `

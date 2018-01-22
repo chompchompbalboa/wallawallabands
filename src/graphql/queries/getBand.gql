@@ -1,5 +1,0 @@
-query getBand($slug: String!) {
-  Band(slug: $slug) {
-    name
-  }
-}

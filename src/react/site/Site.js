@@ -4,6 +4,8 @@ import { Link, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
+import { background } from 'src/styles/colors'
+
 import Band from 'src/react/site/pages/Band'
 import Bands from 'src/react/site/pages/Bands'
 import Home from 'src/react/site/pages/Home'
@@ -19,7 +21,7 @@ export default class Root extends Component {
   }
 
   underConstruction() {
-    return true
+    return false
   }
 
   render () {
@@ -32,8 +34,8 @@ export default class Root extends Component {
           </Helmet>
           <Switch>
   					<Route exact path="/" component={ Home } />
-  					<Route path="/artist/:slug" component={ Band } />
-  					<Route path="/artists" component={ Bands } />
+  					<Route path="/band/:slug" component={ Band } />
+  					<Route path="/bands" component={ Bands } />
   					<Route component={NotFound} />
   				</Switch>
   		  </Container>
@@ -51,4 +53,6 @@ export default class Root extends Component {
 }
 
 const Container = styled.div`
+  min-height: 100vh;
+  background-color: ${background};
 `

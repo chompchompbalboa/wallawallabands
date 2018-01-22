@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-@connect()
 export default class Dashboard extends Component {
 
-  render () {
+  render() {
 		const {
 		} = this.props
 

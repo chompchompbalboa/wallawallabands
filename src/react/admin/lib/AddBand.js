@@ -26,7 +26,6 @@ export default class AddBand extends Component {
     const {
       name
     } = this.state
-    
   }
 
   render() {

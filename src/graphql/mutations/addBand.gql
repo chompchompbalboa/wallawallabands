@@ -1,1 +1,3 @@
-mutation addBand($name: String!)
+mutation addBand($name: String!) {
+  
+}
