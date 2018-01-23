@@ -10,6 +10,7 @@ import { colors } from 'src/styles/colors'
 import Layout from 'src/react/site/layouts/Default'
 import Loading from 'src/react/site/lib/loading/LoadingDefault'
 import ErrorHandler from 'src/react/site/lib/errors/GraphQLError'
+import Tile from 'src/react/site/lib/BandTile'
 
 @graphql(getBandBySlug, {
 		options: (ownProps) => ({
@@ -17,6 +18,19 @@ import ErrorHandler from 'src/react/site/lib/errors/GraphQLError'
 				slug: ownProps.match.params.slug
 }})})
 export default class Band extends Component {
+
+	constructor(props) {
+		super(props)
+		this.state = {
+			active: "BIO"
+		}
+	}
+
+	changeActive(newActive) {
+		this.setState({
+			active: newActive
+		})
+	}
 
   render () {
 		const {
@@ -28,18 +42,42 @@ export default class Band extends Component {
 		}
 		else if(typeof data.getBandBySlug !== "undefined") {
 			const band = data.getBandBySlug
+			const { active } = this.state
+			const tiles = [
+				"BIO",
+				"PHOTOS",
+				"MUSIC"
+			]
+
 			return (
 				<Layout>
 					<Container>
 						<Header>
 							<Name>{band.name}</Name>
 							<HeaderLinks>
-								<HeaderLink active={true}>Bio</HeaderLink>
-								<HeaderLink active={false}>Photos</HeaderLink>
-								<HeaderLink active={false}>Music</HeaderLink>
+								{tiles.map((tile, index) =>
+										<HeaderLink
+											key={index}
+											active={(active === tile)}
+											onClick={()=>this.changeActive(tile)}>
+											{tile}</HeaderLink>
+								)}
 							</HeaderLinks>
 						</Header>
-						<Bio>{band.bio}</Bio>
+						<Tiles>
+							<Tile
+								first={active === "BIO"}
+								header="BIO">
+								{band.bio}</Tile>
+							<Tile
+								first={active === "PHOTOS"}
+								header="PHOTOS">
+								{band.bio}{band.bio}{band.bio}</Tile>
+							<Tile
+								first={active === "MUSIC"}
+								header="MUSIC">
+								{band.bio}{band.bio}</Tile>
+						</Tiles>
 					</Container>
 				</Layout>
 			)
@@ -78,5 +116,8 @@ const HeaderLink = styled.p`
 	border-bottom: ${props => props.active ? '1px solid white' : 'none'};
 `
 
-const Bio = styled.div`
+const Tiles = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 `
