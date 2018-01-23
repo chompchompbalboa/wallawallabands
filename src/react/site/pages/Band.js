@@ -45,8 +45,8 @@ export default class Band extends Component {
 			const { active } = this.state
 			const tiles = [
 				"BIO",
-				"PHOTOS",
-				"MUSIC"
+				"MUSIC",
+				"PHOTOS"
 			]
 
 			return (
@@ -70,12 +70,12 @@ export default class Band extends Component {
 								header="BIO">
 								{band.bio}</Tile>
 							<Tile
-								first={active === "PHOTOS"}
-								header="PHOTOS">
-								{band.bio}{band.bio}{band.bio}</Tile>
-							<Tile
 								first={active === "MUSIC"}
 								header="MUSIC">
+								{band.bio}{band.bio}{band.bio}</Tile>
+							<Tile
+								first={active === "PHOTOS"}
+								header="PHOTOS">
 								{band.bio}{band.bio}</Tile>
 						</Tiles>
 					</Container>
@@ -93,7 +93,7 @@ const Container = styled.div`
 
 const Header = styled.div`
 	padding: 0 3.5vw;
-	width: calc(100vw - 7vw);
+	width: calc(100% - 7vw);
 	background-color: ${colors.secondary};
 	color: white;
 `
