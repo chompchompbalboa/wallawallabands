@@ -5,7 +5,8 @@ import styled from 'styled-components'
 
 import getBandBySlug from 'src/graphql/queries/getBandBySlug.gql'
 
-import { colors } from 'src/styles/colors'
+import { tabletLandscape } from 'src/styles/breakpoints'
+import { secondary } from 'src/styles/colors'
 
 import Layout from 'src/react/site/layouts/Default'
 import Loading from 'src/react/site/lib/loading/LoadingDefault'
@@ -38,7 +39,13 @@ export default class Band extends Component {
 		} = this.props
 
 		if(data.loading) {
-			return <Loading />
+			return (
+				<Layout>
+					<Container>
+						<Loading />
+					</Container>
+				</Layout>
+			)
 		}
 		else if(typeof data.getBandBySlug !== "undefined") {
 			const band = data.getBandBySlug
@@ -51,7 +58,7 @@ export default class Band extends Component {
 
 			return (
 				<Layout>
-					<Container>
+					<Container visible>
 						<Header>
 							<Name>{band.name}</Name>
 							<HeaderLinks>
@@ -89,12 +96,14 @@ export default class Band extends Component {
 }
 
 const Container = styled.div`
+  opacity: ${props => props.visible ? 1 : 0};
+  transition: opacity 1s;
 `
 
 const Header = styled.div`
 	padding: 0 3.5vw;
 	width: calc(100% - 7vw);
-	background-color: ${colors.secondary};
+	background-color: ${secondary};
 	color: white;
 `
 

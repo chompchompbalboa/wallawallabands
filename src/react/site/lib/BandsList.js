@@ -4,64 +4,68 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import _ from 'lodash'
 
+import { tabletLandscape } from 'src/styles/breakpoints'
 import { text, tileBackground } from 'src/styles/colors'
+import { padding } from 'src/styles/layout'
+
+import Tile from 'src/react/site/lib/BandsTile'
 
 export default class BandsList extends Component {
 
-  groupAndSortBands(bands) {
-    const payload = [];
-    // Group bands by the first letter of their name
-    const groups = _.groupBy(bands, (band) => {return band.name.substring(0,1)})
-    // Sort each group into alphabetical order
-    for (let letter in groups) {
-      let group = groups[letter]
-      payload.push(group = _.sortBy(group, ['name']))
-    }
-    return payload
+  getList(bands) {
+    const letters = "ABCDEFGHIJKLMNOQRSTUVWXYZ".split("")
+    const lastIndex = Object.keys(bands)[Object.keys(bands).length - 1]
+    return letters.map((letter, index) => {
+      let group = (typeof bands[letter] !== "undefined" ? bands[letter] : null)
+      if(group) {
+        return (
+          <Group key={index} id={letters[index]}>
+            <Links>
+              {group.map((band, index) => {
+                  return (
+                    <StyledLink to={"band/" + band.slug} key={index}>
+                      <BandLink>
+                        { band.name }
+                      </BandLink>
+                    </StyledLink>
+              )})}
+            </Links>
+            {letter === lastIndex ? null : <Divider />}
+          </Group>
+    )}})
   }
 
   render() {
 		const {
       bands
 		} = this.props
-    const groupedAndSortedBands = this.groupAndSortBands(bands)
+    const list = this.getList(bands)
 
     return (
 			<Container>
-        {
-          groupedAndSortedBands.map((group, index) => {
-            return (
-              <Group key={index}>
-                {
-                  group.map((band, index) => {
-                    return (
-                      <StyledLink to={"band/" + band.slug} key={index}>
-                        <BandLink>
-                          { band.name }
-                        </BandLink>
-                      </StyledLink>
-                  )})
-                }
-                <Divider />
-              </Group>
-            )})
-        }
+        {list}
 			</Container>
     )
   }
 }
 
-const Container = styled.div`
-  width: calc(100% - 7vw);
-  padding: 1.5vh 3.5vw;
-  background-color: ${tileBackground};
+const Container = styled(Tile)`
+  width: 100%;
+  @media ${tabletLandscape} {
+    width: auto;
+    flex-grow: 2.5;
+    margin-right: ${padding}
+  }
 `
 
+const Links = styled.div``
+
 const Group = styled.div`
-  margin: 0 0 2vh 0;
+  padding-top: 1.25vh
 `
 
 const Divider = styled.div`
+  margin-top: 1.25vh;
   height: 1px;
   background-color: rgb(150,150,150);
   align-self: center;
@@ -73,7 +77,7 @@ const StyledLink = styled(Link)`
 `
 
 const BandLink = styled.div`
-  margin: 0 0 2.5vh 0;
+  padding: 1.25vh 0;
   font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
