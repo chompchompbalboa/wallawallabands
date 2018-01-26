@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { phone, tabletLandscape } from 'src/styles/breakpoints'
 import { primary } from 'src/styles/colors'
+import { padding } from 'src/styles/layout'
 
 import AlphabetLink from 'src/react/site/lib/AlphabetLink'
 import Tile from 'src/react/site/lib/BandsTile'
@@ -40,6 +41,7 @@ export default class BandsHeader extends Component {
 
 const Container = styled(Tile)`
   width: 100%;
+  margin-bottom: ${padding};
   @media ${tabletLandscape} {
     display: flex;
     justify-content: space-between;

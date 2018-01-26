@@ -23,7 +23,6 @@ export default class BandsTile extends Component {
 }
 
 const Container = styled.div`
-  margin-bottom: ${padding};
   padding: 1.5vh ${padding};
 	background-color: ${tileBackground};
 	font-family: Raleway;

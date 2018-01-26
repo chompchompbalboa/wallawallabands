@@ -10,8 +10,6 @@ export default class AlphabetLink extends Component {
   }
 
   handleClick(empty, letter) {
-    // I still need to change this to scroll without changing the location - it
-    // breaks the back button as is
     if(!empty) {document.getElementById(letter).scrollIntoView()}
   }
 
@@ -30,7 +28,7 @@ export default class AlphabetLink extends Component {
 }
 
 const Container = styled.div`
-  cursor: ${props => props.empty ? 'pointer' : 'auto'};
+  cursor: ${props => props.empty ? 'default' : 'pointer'};
   color: gray;
   margin-right: 1vw;
   font-size: 1em;
