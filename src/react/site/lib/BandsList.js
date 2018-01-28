@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import _ from 'lodash'
 
-import { tabletLandscape } from 'src/styles/breakpoints'
+import { tabletLandscape, desktop } from 'src/styles/breakpoints'
 import { text, tileBackground } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
@@ -52,9 +52,7 @@ export default class BandsList extends Component {
 const Container = styled(Tile)`
   width: 100%;
   @media ${tabletLandscape} {
-    width: auto;
-    flex-grow: 2.5;
-    margin-right: ${padding}
+    width: calc(70% - (3 * ${padding}));
   }
 `
 
@@ -82,5 +80,8 @@ const BandLink = styled.div`
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: ${text};
-  font-weight: 300
+  font-weight: 300;
+  @media ${desktop} {
+    font-size: 14px;
+  }
 `

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import { graphql } from 'react-apollo'
+import { compose, graphql } from 'react-apollo'
 import styled from 'styled-components'
 import _ from 'lodash'
 
 import alphabet from 'src/react/site/helpers/alphabet'
 
 import getBands from 'src/graphql/queries/getBands.gql'
+import getFeaturedBands from 'src/graphql/queries/getFeaturedBands.gql'
 
 import BandsContent from 'src/react/site/lib/BandsContent'
 import Content from 'src/react/site/containers/Content'
@@ -15,7 +16,10 @@ import Header from 'src/react/site/lib/BandsHeader'
 import Layout from 'src/react/site/layouts/Default'
 import Loading from 'src/react/site/lib/loading/LoadingDefault'
 
-@graphql(getBands)
+@compose(
+  graphql(getBands, {name: "allBands"}),
+  graphql(getFeaturedBands, {name: "featuredBands"})
+)
 export default class Bands extends Component {
 
   constructor(props) {
@@ -38,11 +42,12 @@ export default class Bands extends Component {
 
   render () {
 		const {
-			data,
+      allBands,
+      featuredBands,
 			...rest
 		} = this.props
 
-		if(data.loading) {
+		if(allBands.loading || featuredBands.loading) {
 			return (
         <Layout>
           <Content visible={false}>
@@ -51,13 +56,13 @@ export default class Bands extends Component {
         </Layout>
       )
 		}
-		else if(typeof data.allBands !== "undefined") {
-      const groupedAndSortedBands = this.groupAndSortBands(data.allBands)
+		else if(typeof allBands !== "undefined" && typeof featuredBands !== "undefined") {
+      const groupedAndSortedBands = this.groupAndSortBands(allBands.allBands)
 			return (
 				<Layout>
 					<Content visible>
 						<Header bands={groupedAndSortedBands}/>
-            <BandsContent bands={groupedAndSortedBands}/>
+            <BandsContent bands={groupedAndSortedBands} featuredBands={featuredBands.getFeaturedBands}/>
 					</Content>
 				</Layout>
 			)

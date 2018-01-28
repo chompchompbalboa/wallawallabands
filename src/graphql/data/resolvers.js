@@ -10,6 +10,9 @@ const resolvers = {
     },
     getBandBySlug(_, args) {
       return Band.find({where: {slug: args.slug}})
+    },
+    getFeaturedBands() {
+      return Band.findAll({where: {featured: true}})
     }
   }
 }

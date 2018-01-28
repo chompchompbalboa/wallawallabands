@@ -7,6 +7,7 @@ const typeDefs = `
     band(id: Int): Band
     allBands: [Band]
     getBandBySlug(slug: String): Band
+    getFeaturedBands: [Band]
   }
 
   type Band {
@@ -14,6 +15,8 @@ const typeDefs = `
     name: String
     slug: String
     bio: String
+    coverImage: String
+    featured: Boolean
   }
 `
 

@@ -1,0 +1,8 @@
+query getFeaturedBands {
+  getFeaturedBands {
+    name
+    coverImage
+    bio
+    slug
+  }
+}

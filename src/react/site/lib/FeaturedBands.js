@@ -4,18 +4,32 @@ import styled from 'styled-components'
 
 import { tabletLandscape } from 'src/styles/breakpoints'
 import { background } from 'src/styles/colors'
+import { padding } from 'src/styles/layout'
 
+import FeaturedBand from 'src/react/site/lib/FeaturedBand'
 import Tile from 'src/react/site/lib/BandsTile'
+
+import bastille from 'static/img/featured-bands/bastille.jpg'
+import blackPistolFire from 'static/img/featured-bands/black-pistol-fire.jpg'
+import modestMouse from 'static/img/featured-bands/modest-mouse.jpg'
 
 export default class FeaturedBands extends Component {
 
   render() {
 		const {
+      featuredBands
 		} = this.props
 
     return (
 			<Container>
-        FeaturedBands
+        {featuredBands.map((band, index) => {
+          return (
+            <FeaturedBand
+              key={index}
+              band={band}
+            />
+          )
+        })}
 			</Container>
     )
   }
@@ -24,7 +38,8 @@ export default class FeaturedBands extends Component {
 const Container = styled(Tile)`
   display: none;
   @media ${tabletLandscape} {
-    flex-grow: 1;
+    padding: 0;
+    width: calc(30%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,7 +48,13 @@ const Container = styled(Tile)`
 `
 
 FeaturedBands.propTypes = {
+  featuredBands: PropTypes.array
 }
 
 FeaturedBands.defaultProps = {
+  featuredBands: [
+    {blurb: "Click through to read some more about your favorite band", header: "Modest Mouse", img: modestMouse, slug: "modest-mouse"},
+    {blurb: "Click through to read some more about your favorite band", header: "Black Pistol Fire", img: blackPistolFire, slug: "black-pistol-fire"},
+    {blurb: "Click through to read some more about your favorite band", header: "Bastille", img: bastille, slug: "bastille"},
+  ]
 }

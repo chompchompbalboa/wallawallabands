@@ -9,13 +9,14 @@ export default class BandsContent extends Component {
 
   render() {
 		const {
-      bands
+      bands,
+      featuredBands
 		} = this.props
 
     return (
 			<React.Fragment>
         <BandsList bands={bands}/>
-        <FeaturedBands bands={bands}/>
+        <FeaturedBands featuredBands={featuredBands}/>
 			</React.Fragment>
     )
   }

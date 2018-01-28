@@ -10,8 +10,8 @@ export default class BandsTile extends Component {
 
   render() {
 		const {
-      children,
-      className
+      className,
+      children
 		} = this.props
 
     return (
