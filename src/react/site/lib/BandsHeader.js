@@ -16,10 +16,10 @@ export default class BandsHeader extends Component {
     return alphabet.map((letter, index) => {
       const empty = (typeof bands[letter] === "undefined")
       return (
-          <AlphabetLink
-            key={letter}
-            empty={empty}
-            letter={letter}/>
+        <AlphabetLink
+          key={letter}
+          empty={empty}
+          letter={letter}/>
       )
     })
   }

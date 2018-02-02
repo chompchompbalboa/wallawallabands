@@ -15,7 +15,6 @@ export default class Layout extends Component {
       <Container>
         <Menu />
         {children}
-				<MusicPlayer />
 		  </Container>
     )
   }

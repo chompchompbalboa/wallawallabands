@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import _ from 'lodash'
 
 import { primary, text, tileBackground } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'

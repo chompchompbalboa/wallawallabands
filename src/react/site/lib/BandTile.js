@@ -2,18 +2,23 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
+import { tabletLandscape, desktop } from 'src/styles/breakpoints'
+import { background, primary } from 'src/styles/colors'
+import { padding } from 'src/styles/layout'
+
 export default class BandTile extends Component {
 
   render() {
 		const {
       first,
       header,
+      className,
       children,
       ...rest
 		} = this.props
 
     return (
-			<Container id={header} first={first}>
+			<Container id={header} className={className} first={first}>
         <Header>{header}</Header>
         <Tile>{children}</Tile>
 			</Container>
@@ -22,27 +27,32 @@ export default class BandTile extends Component {
 }
 
 const Container = styled.div`
+  pointer: default;
   order: ${props => props.first ? '1' : '2'};
-  margin-top: 2vh;
-  padding: 0 5vw;
-  width: calc(100vw - 10vw);
+  width: 100%;
+  margin: calc(${padding} / 2) 0;
+  background-color: white;
+  border-bottom: 3px solid black;
+  @media ${tabletLandscape} {
+    width: calc(100% - ${padding});
+  }
+  &:hover {
+    border-bottom: 3px solid ${primary};
+  }
+  transition: border 0.25s;
 `
 
 const Header = styled.div`
-  width: 100%;
-  padding: 1vh 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: gray;
-  color: white;
+  width: calc(100% - (2 * ${padding}));
+  padding: 1vh ${padding};
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  border-bottom: 2px solid ${background};
 `
 
 const Tile = styled.div`
-  width: calc(100% - 2.5vh);
-  padding: 1.25vh;
-  background-color: white;
+  width: calc(100% - (2 * ${padding}));
+  padding: ${padding};
 `
 
 BandTile.propTypes = {

@@ -2,5 +2,10 @@ query getBandBySlug($slug: String!) {
   getBandBySlug(slug: $slug) {
     name
     bio
+    photos {
+      src
+      width
+      height
+    }
   }
 }

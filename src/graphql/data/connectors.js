@@ -6,22 +6,33 @@ import bastille from 'static/img/featured-bands/bastille.jpg'
 import blackPistolFire from 'static/img/featured-bands/black-pistol-fire.jpg'
 import modestMouse from 'static/img/featured-bands/modest-mouse.jpg'
 
-// Seed casual so it loads the same data every time
-casual.seed(213)
 
-casual.define('coverImage', () => {
-  const images = [
-    bastille,
-    blackPistolFire,
-    modestMouse
-  ]
-  return _.sample(images)
-})
+//------------------------------------------------------------------------------
+// Setup
+//------------------------------------------------------------------------------
 
+// Initialize the database
 const db = new Sequelize('wallawallabands', null, null, {
   dialect: 'sqlite',
   storage: './wallawallabands.sqlite'
 })
+
+// Seed casual so it loads the same data every time
+casual.seed(213)
+
+const images = [
+  {src: bastille, width: 1023, height: 1073},
+  {src: blackPistolFire, width: 1920, height: 1080},
+  {src: modestMouse, width: 1200, height: 1200}
+]
+
+casual.define('coverImage', () => {
+  return _.sample(images).src
+})
+
+//------------------------------------------------------------------------------
+// Band + Photos
+//------------------------------------------------------------------------------
 
 const BandModel = db.define('band', {
   name: {type: Sequelize.STRING},
@@ -30,6 +41,15 @@ const BandModel = db.define('band', {
   coverImage: {type: Sequelize.STRING},
   featured: {type: Sequelize.BOOLEAN}
 })
+
+const PhotoModel = db.define('photo', {
+  src: {type: Sequelize.STRING},
+  width: {type: Sequelize.INTEGER},
+  height: {type: Sequelize.INTEGER}
+})
+
+BandModel.hasMany(PhotoModel)
+PhotoModel.belongsTo(BandModel)
 
 const mockBands = [
   {name: "A Day To Remember", featured: false},
@@ -71,10 +91,20 @@ db.sync({ force: true }).then(() => {
       bio: casual.sentences(5),
       coverImage: casual.coverImage,
       featured: band.featured
+    }).then((author) => {
+      _.times(_.random(3,7), () => {
+        let image = _.sample(images)
+        return author.createPhoto({
+          src: image.src,
+          width: image.width,
+          height: image.height
+        })
+      })
     })
   })
 })
 
 const Band = db.models.band
+const Photo = db.models.photo
 
-export { Band }
+export { Band, Photo }

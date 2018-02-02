@@ -17,6 +17,13 @@ const typeDefs = `
     bio: String
     coverImage: String
     featured: Boolean
+    photos: [Photo]
+  }
+
+  type Photo {
+    src: String
+    width: Int
+    height: Int
   }
 `
 

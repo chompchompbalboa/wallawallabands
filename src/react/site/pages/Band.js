@@ -8,6 +8,9 @@ import getBandBySlug from 'src/graphql/queries/getBandBySlug.gql'
 import { tabletLandscape } from 'src/styles/breakpoints'
 import { secondary } from 'src/styles/colors'
 
+import Header from 'src/react/site/lib/BandHeader'
+import BandContent from 'src/react/site/lib/BandContent'
+import Content from 'src/react/site/containers/Content'
 import Layout from 'src/react/site/layouts/Default'
 import Loading from 'src/react/site/lib/loading/LoadingDefault'
 import ErrorHandler from 'src/react/site/lib/errors/GraphQLError'
@@ -27,7 +30,7 @@ export default class Band extends Component {
 		}
 	}
 
-	changeActive(newActive) {
+	changeActive = (newActive) => {
 		this.setState({
 			active: newActive
 		})
@@ -40,11 +43,11 @@ export default class Band extends Component {
 
 		if(data.loading) {
 			return (
-				<Layout>
-					<Container>
-						<Loading />
-					</Container>
-				</Layout>
+        <Layout>
+          <Content visible={false}>
+            <Loading />
+          </Content>
+        </Layout>
 			)
 		}
 		else if(typeof data.getBandBySlug !== "undefined") {
@@ -52,40 +55,24 @@ export default class Band extends Component {
 			const { active } = this.state
 			const tiles = [
 				"BIO",
-				"MUSIC",
+				"DISCOGRAPHY",
 				"PHOTOS"
 			]
 
 			return (
 				<Layout>
-					<Container visible>
-						<Header>
-							<Name>{band.name}</Name>
-							<HeaderLinks>
-								{tiles.map((tile, index) =>
-										<HeaderLink
-											key={index}
-											active={(active === tile)}
-											onClick={()=>this.changeActive(tile)}>
-											{tile}</HeaderLink>
-								)}
-							</HeaderLinks>
-						</Header>
-						<Tiles>
-							<Tile
-								first={active === "BIO"}
-								header="BIO">
-								{band.bio}</Tile>
-							<Tile
-								first={active === "MUSIC"}
-								header="MUSIC">
-								{band.bio}{band.bio}{band.bio}</Tile>
-							<Tile
-								first={active === "PHOTOS"}
-								header="PHOTOS">
-								{band.bio}{band.bio}</Tile>
-						</Tiles>
-					</Container>
+					<Content visible>
+						<Header
+							active={active}
+							band={band}
+							changeActive={this.changeActive}
+							tiles={tiles}/>
+						<BandContent
+							active={active}
+							band={band}
+							tiles={tiles}
+							/>
+					</Content>
 				</Layout>
 			)
 		}
@@ -94,39 +81,3 @@ export default class Band extends Component {
 		)
 	}
 }
-
-const Container = styled.div`
-  opacity: ${props => props.visible ? 1 : 0};
-  transition: opacity 1s;
-`
-
-const Header = styled.div`
-	padding: 0 3.5vw;
-	width: calc(100% - 7vw);
-	background-color: ${secondary};
-	color: white;
-`
-
-const Name = styled.h1`
-	width: 100%;
-	padding: 3vh 0 0 0;
-	font-family: Oswald;
-`
-
-const HeaderLinks = styled.div`
-	width: 100%;
-	padding: 1vh 0 1.5vh 0;
-	display: flex;
-	align-items: center;
-`
-
-const HeaderLink = styled.p`
-	margin: 0 5vw 0 0;
-	border-bottom: ${props => props.active ? '1px solid white' : 'none'};
-`
-
-const Tiles = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-`

@@ -1,4 +1,4 @@
-import { Band } from './connectors'
+import { Band, Photo } from './connectors'
 
 const resolvers = {
   Query: {
@@ -13,6 +13,11 @@ const resolvers = {
     },
     getFeaturedBands() {
       return Band.findAll({where: {featured: true}})
+    }
+  },
+  Band: {
+    photos(band) {
+      return band.getPhotos()
     }
   }
 }
