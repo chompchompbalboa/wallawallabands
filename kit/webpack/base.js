@@ -37,12 +37,6 @@ export default new WebpackConfig().merge({
   // Format the output stats to avoid too much noise
   stats,
 
-  // SEE kit-changes.txt
-  devServer: {
-   compress: true,
-   disableHostCheck: true,
- },
-
  // Javascript file extensions that webpack will resolve
   resolve: {
     // I tend to use .js exclusively, but .jsx is also allowed

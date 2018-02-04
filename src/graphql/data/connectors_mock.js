@@ -1,42 +1,3 @@
-import path from 'path'
-import Sequelize from 'sequelize'
-import _ from 'lodash'
-
-//import casual from 'casual'
-
-//------------------------------------------------------------------------------
-// Setup
-//------------------------------------------------------------------------------
-
-// Initialize the database
-const db = new Sequelize('wallawallabands', null, null, {
-  dialect: 'sqlite',
-  storage: path.resolve(__dirname, '..', 'data/wallawallabands.sqlite')
-})
-
-const BandModel = db.define('band', {
-  name: {type: Sequelize.STRING},
-  slug: {type: Sequelize.STRING},
-  bio: {type: Sequelize.STRING(1000)},
-  coverImage: {type: Sequelize.STRING},
-  featured: {type: Sequelize.BOOLEAN}
-})
-
-const PhotoModel = db.define('photo', {
-  src: {type: Sequelize.STRING},
-  width: {type: Sequelize.INTEGER},
-  height: {type: Sequelize.INTEGER}
-})
-
-BandModel.hasMany(PhotoModel)
-PhotoModel.belongsTo(BandModel)
-/*
-const images = [
-  {src: "img/featured-bands/modest-mouse.jpg", width: 1200, height: 1200},
-  {src: "img/featured-bands/black-pistol-fire.jpg", width: 1920, height: 1080},
-  {src: "img/featured-bands/bastille.jpg", width: 1023 , height: 1073}
-]
-
 const mockBands = [
   {name: "A Day To Remember", featured: false},
   {name: "Alkaline Trio", featured: false},
@@ -75,7 +36,7 @@ db.sync({ force: true }).then(() => {
       name: band.name,
       slug: casual.word,
       bio: casual.sentences(5),
-      coverImage: _.sample(images)['src'],
+      coverImage: casual.coverImage,
       featured: band.featured
     }).then((author) => {
       _.times(_.random(3,7), () => {
@@ -89,9 +50,3 @@ db.sync({ force: true }).then(() => {
     })
   })
 })
-*/
-
-const Band = db.models.band
-const Photo = db.models.photo
-
-export { Band, Photo }
