@@ -168,10 +168,10 @@ const MoreContainer = styled.div`
 `
 
 const More = styled.div`
-  cursor: pointer;
   color: gray;
   transition: all ${transitionTime};
   @media ${desktop} {
+    cursor: pointer;
     &:hover {
       color: ${primary};
     }

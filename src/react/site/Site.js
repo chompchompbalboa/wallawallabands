@@ -33,9 +33,8 @@ export default class Root extends Component {
             <title>Walla Walla Bands</title>
           </Helmet>
           <Switch>
-  					<Route exact path="/" component={ Home } />
+  					<Route exact path="/" component={ Bands } />
   					<Route path="/band/:slug" component={ Band } />
-  					<Route path="/bands" component={ Bands } />
   					<Route component={NotFound} />
   				</Switch>
   		  </Container>

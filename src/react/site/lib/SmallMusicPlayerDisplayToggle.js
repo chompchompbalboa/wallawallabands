@@ -2,30 +2,34 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { } from 'prop-types'
+import { bool } from 'prop-types'
 import styled from 'styled-components'
 
-import SmallMusicPlayer from 'src/react/site/lib/SmallMusicPlayer'
-import LargeMusicPlayer from 'src/react/site/lib/LargeMusicPlayer'
+import Icon from 'src/react/lib/Icon'
+import { musicNote, xCircle } from 'src/styles/icons'
 
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-export default class Dashboard extends Component {
+export default class SmallMusicPlayerDisplayToggle extends Component {
 
   static propTypes = {
+    contentVisible: bool
   }
 
   static defaultProps = {
+    contentVisible: false
   }
 
   render() {
-		const {} = this.props
+		const { contentVisible, ...rest } = this.props
 
     return (
-			<Container>
-        <SmallMusicPlayer />
-        <LargeMusicPlayer />
+			<Container {...rest}>
+        <Icon
+          icon={contentVisible ? xCircle : musicNote}
+          color={"white"}
+          size={20}/>
 			</Container>
   )}
 }
@@ -34,4 +38,15 @@ export default class Dashboard extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
+  z-index: 100;
+  position: fixed;
+  top: 80vh;
+  right: 0;
+  height: 7vh;
+  width: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  color: white;
 `

@@ -5,13 +5,12 @@ import React, { Component } from 'react'
 import { } from 'prop-types'
 import styled from 'styled-components'
 
-import SmallMusicPlayer from 'src/react/site/lib/SmallMusicPlayer'
-import LargeMusicPlayer from 'src/react/site/lib/LargeMusicPlayer'
+import { tabletLandscape } from 'src/styles/breakpoints'
 
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-export default class Dashboard extends Component {
+export default class LargeMusicPlayer extends Component {
 
   static propTypes = {
   }
@@ -24,8 +23,7 @@ export default class Dashboard extends Component {
 
     return (
 			<Container>
-        <SmallMusicPlayer />
-        <LargeMusicPlayer />
+        LargeMusicPlayer
 			</Container>
   )}
 }
@@ -34,4 +32,8 @@ export default class Dashboard extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
+  display: none;
+  @media ${tabletLandscape} {
+    display: flex;
+  }
 `

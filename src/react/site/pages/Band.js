@@ -26,7 +26,7 @@ export default class Band extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			active: "DISCOGRAPHY"
+			active: "BIO"
 		}
 	}
 
