@@ -25,7 +25,7 @@ RUN apk add --no-cache --virtual .tmp $EPHEMERAL_PACKAGES \
 ADD . .
 
 # Set the default host/port
-ENV HOST 0.0.0.0
+ENV HOST 45.55.26.145
 ENV PORT 4000
 
 # Build distribution
