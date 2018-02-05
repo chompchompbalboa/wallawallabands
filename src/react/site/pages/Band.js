@@ -44,8 +44,8 @@ export default class Band extends Component {
 		if(data.loading) {
 			return (
         <Layout>
+          <Loading />
           <Content visible={false}>
-            <Loading />
           </Content>
         </Layout>
 			)

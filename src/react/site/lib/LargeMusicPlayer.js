@@ -23,7 +23,6 @@ export default class LargeMusicPlayer extends Component {
 
     return (
 			<Container>
-        LargeMusicPlayer
 			</Container>
   )}
 }

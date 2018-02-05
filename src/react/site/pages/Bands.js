@@ -50,8 +50,8 @@ export default class Bands extends Component {
 		if(allBands.loading || featuredBands.loading) {
 			return (
         <Layout>
+          <Loading />
           <Content visible={false}>
-            <Loading />
           </Content>
         </Layout>
       )
