@@ -8,22 +8,18 @@ ENV NPM_CONFIG_LOGLEVEL notice
 # Add PM2, for Node process management
 RUN npm i -g pm2
 
+# Add packages
+ENV PACKAGES="libpng-dev"
+RUN apk add --no-cache $PACKAGES
+
 # Add NPM package config
 ADD package*.json ./
 
-# Install everything (and clean up afterwards)
-RUN apk add --no-cache --virtual .gyp \
-    autoconf \
-    automake \
-    g++ \
-    libpng-dev \
-    libtool \
-    make \
-    nasm \
-    python \
-    git \
+# Add temporary packages, and build the NPM packages/binaries
+ENV EPHEMERAL_PACKAGES="autoconf automake g++ libtool make nasm python git"
+RUN apk add --no-cache --virtual .tmp $EPHEMERAL_PACKAGES \
   && npm i \
-  && apk del .gyp
+  && apk del .tmp
 
 # Add the remaining project files
 ADD . .

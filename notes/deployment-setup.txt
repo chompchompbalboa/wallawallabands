@@ -30,11 +30,12 @@ Steps for continuous deployment:
 
 Push changes to github
 ssh into droplet
+rm rf package-lock.json
 git pull origin master
 npm install
 npm run build
 pm2 list // get App name
 pm2 restart {App name}
-sudo systemctl restart nginx
+sudo systemctl restart nginx (password stored in LastPass secure note)
 
 Remove fouc by updating kit
