@@ -15,13 +15,13 @@ export default class Icon extends Component {
   static propTypes = {
     icon: string,
     color: string,
-    size: number
+    size: string
   }
 
   static defaultProps = {
     icon: musicNote,
     color: "black",
-    size: 24
+    size: "24px"
   }
 
   render() {
@@ -39,8 +39,8 @@ export default class Icon extends Component {
     return (
 			<svg
         style={styles.svg}
-        width={`${size}px`}
-        height={`${size}px`}
+        width={`${size}`}
+        height={`${size}`}
         viewBox="0 0 1024 1024"
         >
         <path

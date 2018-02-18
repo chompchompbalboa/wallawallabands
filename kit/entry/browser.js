@@ -56,7 +56,7 @@ const store = createNewStore(client);
 // (i.e. if we're in development), then we'll wrap the whole thing in an
 // <AppContainer>.  Otherwise, we'll jump straight to the browser router
 function doRender() {
-  ReactDOM.hydrate(
+  ReactDOM.render(
     <Root />,
     document.getElementById('main'),
   );

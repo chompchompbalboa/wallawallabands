@@ -7,8 +7,8 @@ import styled from 'styled-components'
 
 import { tabletLandscape } from 'src/styles/breakpoints'
 
-import DisplayToggle from 'src/react/site/lib/SmallMusicPlayerDisplayToggle.js'
-import Content from 'src/react/site/lib/SmallMusicContent.js'
+import Content from 'src/react/site/lib/SmallMusicPlayerContent.js'
+import ThumbTiles from 'src/react/site/lib/SmallMusicPlayerThumbTiles.js'
 
 //------------------------------------------------------------------------------
 // Component
@@ -38,9 +38,9 @@ export default class SmallMusicPlayer extends Component {
 
     return (
 			<Container>
-        <DisplayToggle
+        <ThumbTiles
           contentVisible={contentVisible}
-          onClick={this.toggleVisibility}
+          toggleVisibility={this.toggleVisibility}
           />
         <Content
           visible={contentVisible}/>

@@ -20,9 +20,6 @@ import config from 'kit/config';
 
 /* App */
 
-// Example counter reducer.  This simply increments the counter by +1
-// import counterReducer from 'reducers/counter';
-
 // Main component -- i.e. the 'root' React component in our app
 import Root from 'src/react/Root';
 
@@ -33,12 +30,13 @@ import './styles.global.css';
 // ----------------------
 
 /* REDUCERS */
+// Import reducers
+import audioReducer from 'src/store/audioReducer'
+import queueReducer from 'src/store/queueReducer'
 
-// Add our custom `counter` reducer, with the initial state as a zero count.
-// Note:  The initial state (3rd param) will automatically be wrapped in
-// `seamless-immutable` by the kit's Redux init code, so plain objects are
-// automatically immutable by default
-// config.addReducer('counter', counterReducer, { count: 0 });
+// Add the reducers by key
+config.addReducer('audio', audioReducer)
+config.addReducer('queue', queueReducer)
 
 /* GRAPHQL */
 
@@ -191,11 +189,7 @@ if (SERVER) {
   // Let's use the latter to add a custom header so we can see middleware in action
   config.addMiddleware(async (ctx, next) => {
     ctx.set('Powered-By', ctx.engine); // <-- `ctx.engine` from `config.getKoaApp()` above!
-
-    // For the fun of it, let's demonstrate that we can fire Redux actions
-    // and it'll manipulate the state on the server side!  View the SSR version
-    // to see that the counter is now 1 and has been passed down the wire
-    ctx.store.dispatch({ type: 'INCREMENT_COUNTER' });
+    ctx.set('Accept-Ranges', 'bytes');
 
     // Always return `next()`, otherwise the request won't 'pass' to the next
     // middleware in the stack (likely, the React handler)

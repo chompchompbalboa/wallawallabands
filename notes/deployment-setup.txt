@@ -30,12 +30,8 @@ Steps for continuous deployment:
 
 Push changes to github
 ssh into droplet
-rm rf package-lock.json
+sudo docker ps (sudo password stored in LastPass secure note if you need it)
+sudo docker stop [ContainerID]
 git pull origin master
-npm install
-npm run build
-pm2 list // get App name
-pm2 restart {App name}
-sudo systemctl restart nginx (password stored in LastPass secure note)
-
-Remove fouc by updating kit
+sudo docker build . -t wallawallabands
+sudo docker run -p 4000:4000 wallawallabands

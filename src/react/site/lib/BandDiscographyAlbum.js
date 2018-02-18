@@ -23,25 +23,10 @@ import DetailsDropdownLink from 'src/react/site/lib/AlbumDetailsDropdownLink'
 export default class BandDiscographyAlbum extends Component {
 
   static propTypes = {
-    album: shape({
-      title: string,
-      year: string,
-      trackCount: number,
-      songs: arrayOf(shape({
-        title: string,
-        length: string,
-        playable: bool
-  }))})}
+  }
 
   static defaultProps = {
-    album: {
-      title: "Default Album Title",
-      year: "2005",
-      trackCount: 12,
-      songs: [
-        {title: "Default Song 1", length: "3:30", playable: false},
-        {title: "Default Song 2", length: "3:31", playable: true}
-  ]}}
+  }
 
   state = {
     detailsActive: false
@@ -56,13 +41,8 @@ export default class BandDiscographyAlbum extends Component {
 
   render() {
 		const {
-      album: {
-        cover,
-        title,
-        year,
-        trackCount,
-        songs,
-    }} = this.props
+      album
+    } = this.props
 
     const {
       detailsActive
@@ -72,15 +52,15 @@ export default class BandDiscographyAlbum extends Component {
 			<Container>
         <AboveFoldContainer>
           <AlbumCover
-            src={cover}
+            src={album.cover}
             width={"10vh"}
             height={"10vh"}/>
           <TextWrapper>
             <AlbumSummaryText>
               <AlbumYear
-                year={year}/>
+                year={album.year}/>
               <AlbumTitle
-                title={title}/>
+                title={album.title}/>
             </AlbumSummaryText>
             <MoreContainer>
               <More onClick={this.changeDetailsActive}>
@@ -93,7 +73,8 @@ export default class BandDiscographyAlbum extends Component {
         </AboveFoldContainer>
         <BelowFoldContainer active={detailsActive}>
           <AlbumSongs
-            songs={songs}/>
+            album={album}
+            songs={album.songs}/>
         </BelowFoldContainer>
 			</Container>
     )

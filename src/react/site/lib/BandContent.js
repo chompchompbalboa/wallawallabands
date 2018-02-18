@@ -11,6 +11,9 @@ import BandPhotos from 'src/react/site/lib/BandPhotos'
 
 export default class BandContent extends Component {
 
+  componentWillUpdate = () => {
+  }
+
   render() {
 		const {
       active,

@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { arrayOf, bool, shape, string } from 'prop-types'
+import { arrayOf, bool, number, object, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import { desktop } from 'src/styles/breakpoints'
@@ -17,19 +17,9 @@ import PlayOptions from 'src/react/site/lib/AlbumPlayOptions'
 export default class AlbumSongs extends Component {
 
   static propTypes = {
-    songs: arrayOf(shape({
-      title: string,
-      length: string,
-      playable: bool
-    }))
   }
 
   static defaultProps = {
-    songs: [{
-      title: "Default Song Title 1",
-      length: "3:32",
-      playable: false
-    }]
   }
 
   areThereAnyPlayableSongs = (songs) => {
@@ -41,7 +31,7 @@ export default class AlbumSongs extends Component {
   }
 
   render() {
-		const { songs } = this.props
+		const { album, songs } = this.props
     const anyPlayableSongs = this.areThereAnyPlayableSongs(songs)
 
     return (
@@ -53,6 +43,7 @@ export default class AlbumSongs extends Component {
               <Title>{song.title}</Title>
               <Length>{song.length}</Length>
               <PlayOptions
+                album={album}
                 song={song}/>
             </Song>)
         })}

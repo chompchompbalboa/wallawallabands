@@ -5,8 +5,10 @@ import React, { Component } from 'react'
 import { bool } from 'prop-types'
 import styled from 'styled-components'
 
-import Icon from 'src/react/lib/Icon'
 import { musicNote, xCircle } from 'src/styles/icons'
+
+import Icon from 'src/react/lib/Icon'
+import ThumbTile from 'src/react/site/lib/SmallMusicPlayerThumbTile'
 
 //------------------------------------------------------------------------------
 // Component
@@ -22,31 +24,20 @@ export default class SmallMusicPlayerDisplayToggle extends Component {
   }
 
   render() {
-		const { contentVisible, ...rest } = this.props
+		const {
+      contentVisible,
+      top,
+      ...rest
+    } = this.props
 
     return (
-			<Container {...rest}>
+			<ThumbTile
+        top={top}
+        {...rest}>
         <Icon
           icon={contentVisible ? xCircle : musicNote}
           color={"white"}
-          size={20}/>
-			</Container>
+          size={"20px"}/>
+      </ThumbTile>
   )}
 }
-
-//------------------------------------------------------------------------------
-// Styled Components
-//------------------------------------------------------------------------------
-const Container = styled.div`
-  z-index: 100;
-  position: fixed;
-  top: 80vh;
-  right: 0;
-  height: 7vh;
-  width: 7vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: gray;
-  color: white;
-`
