@@ -19,8 +19,10 @@ export default function reducers(state, action) {
         album,
         song
       } = action
+      console.log(album)
       const songIndex = _.findIndex(album.songs, {id: song.id})
       const upNext = _.drop(album.songs, songIndex + 1)
+      console.log(upNext)
       return Object.assign({}, state, {
         active: song,
         upNext: upNext

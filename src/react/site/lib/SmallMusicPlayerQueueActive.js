@@ -5,6 +5,8 @@ import React, { Component } from 'react'
 import { } from 'prop-types'
 import styled from 'styled-components'
 
+import Controls from 'src/react/site/lib/SmallMusicPlayerQueueControls'
+import QueueContainer from 'src/react/site/lib/SmallMusicPlayerQueueContainer'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
@@ -20,13 +22,13 @@ export default class SmallMusicPlayerQueueActive extends Component {
 		const {
       active: {
         title
-      }
-    } = this.props
+    }} = this.props
     const text = (typeof title === "undefined" ? 'Choose a song to play!' : title)
 
     return (
 			<Container>
-        {text}
+        <Active>{title}</Active>
+        <Controls />
 			</Container>
   )}
 }
@@ -34,5 +36,8 @@ export default class SmallMusicPlayerQueueActive extends Component {
 //------------------------------------------------------------------------------
 // Styled Components
 //------------------------------------------------------------------------------
-const Container = styled.div`
+const Container = styled(QueueContainer)`
+`
+
+const Active = styled.div`
 `

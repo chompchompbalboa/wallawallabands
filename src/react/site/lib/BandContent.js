@@ -27,7 +27,8 @@ export default class BandContent extends Component {
             first={active === "BIO"}
             bio={band.bio}/>
           <BandDiscography
-            first={active === "DISCOGRAPHY"}/>
+            first={active === "DISCOGRAPHY"}
+            albums={band.albums}/>
           <BandPhotos
             first={active === "PHOTOS"}
             photos={band.photos}/>

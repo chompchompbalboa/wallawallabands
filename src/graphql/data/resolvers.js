@@ -1,4 +1,4 @@
-import { Band, Photo } from './connectors'
+import { Band, Photo, Album, Song } from './connectors'
 
 const resolvers = {
   Query: {
@@ -18,6 +18,14 @@ const resolvers = {
   Band: {
     photos(band) {
       return band.getPhotos()
+    },
+    albums(band) {
+      return band.getAlbums()
+    }
+  },
+  Album: {
+    songs(album) {
+      return album.getSongs()
     }
   }
 }

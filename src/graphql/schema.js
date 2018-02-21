@@ -18,12 +18,29 @@ const typeDefs = `
     coverImage: String
     featured: Boolean
     photos: [Photo]
+    albums: [Album]
   }
 
   type Photo {
+    id: Int
     src: String
     width: Int
     height: Int
+  }
+
+  type Album {
+    id: Int
+    cover: String
+    title: String
+    year: String
+    songs: [Song]
+  }
+
+  type Song {
+    id: Int
+    title: String
+    length: String
+    audio: String
   }
 `
 

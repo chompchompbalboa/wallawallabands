@@ -7,5 +7,16 @@ query getBandBySlug($slug: String!) {
       width
       height
     }
+    albums {
+      cover
+      title
+      year
+      songs {
+        id
+        audio
+        length
+        title
+      }
+    }
   }
 }

@@ -9,7 +9,6 @@ import styled from 'styled-components'
 import { padding } from 'src/styles/layout'
 
 import Active from 'src/react/site/lib/SmallMusicPlayerQueueActive'
-import Controls from 'src/react/site/lib/SmallMusicPlayerQueueControls'
 import PreviouslyPlayed from 'src/react/site/lib/SmallMusicPlayerQueuePreviouslyPlayed'
 import UpNext from 'src/react/site/lib/SmallMusicPlayerQueueUpNext'
 
@@ -43,7 +42,6 @@ export default class SmallMusicPlayerQueue extends Component {
 			<Container>
         <PreviouslyPlayed previouslyPlayed={previouslyPlayed}/>
         <Active active={active}/>
-        <Controls/>
         <UpNext upNext={upNext}/>
 			</Container>
   )}
