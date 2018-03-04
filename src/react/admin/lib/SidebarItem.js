@@ -1,7 +1,13 @@
+//------------------------------------------------------------------------------
+// Imports
+//------------------------------------------------------------------------------
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
+//------------------------------------------------------------------------------
+// Component
+//------------------------------------------------------------------------------
 export default class SidebarItem extends Component {
 
   render() {
@@ -19,6 +25,9 @@ export default class SidebarItem extends Component {
   }
 }
 
+//------------------------------------------------------------------------------
+// Styled Components
+//------------------------------------------------------------------------------
 const Container = styled.div`
   padding: 1.5vh 0.5vw;
   width: calc(100% - 1vw);
@@ -32,9 +41,3 @@ const Container = styled.div`
   }
   transition: background-color 0.05s, color 0.05s, box-shadow 0.05s, border-right 0.05s;
 `
-
-SidebarItem.propTypes = {
-}
-
-SidebarItem.defaultProps = {
-}

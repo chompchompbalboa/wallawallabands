@@ -1,5 +1,4 @@
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools'
-// import mocks from './data/mocks'
 import resolvers from './data/resolvers'
 
 const typeDefs = `
@@ -8,10 +7,18 @@ const typeDefs = `
     allBands: [Band]
     getBandBySlug(slug: String): Band
     getFeaturedBands: [Band]
+    uploads: [File]
+  }
+
+  type Mutation {
+    editBand(id: Int, bio: String, name: String): Band,
+    deletePhoto(id: Int): Band
+    singleUpload(file: Upload!): File!
+    multipleUpload(files: [Upload!]!): [File!]!
   }
 
   type Band {
-    id: Int
+    id: Int!
     name: String
     slug: String
     bio: String
@@ -22,14 +29,14 @@ const typeDefs = `
   }
 
   type Photo {
-    id: Int
+    id: Int!
     src: String
     width: Int
     height: Int
   }
 
   type Album {
-    id: Int
+    id: Int!
     cover: String
     title: String
     year: String
@@ -37,10 +44,20 @@ const typeDefs = `
   }
 
   type Song {
-    id: Int
+    id: Int!
     title: String
     length: String
     audio: String
+  }
+
+  scalar Upload
+
+  type File {
+    id: Int!
+    path: String!
+    filename: String!
+    mimetype: String!
+    encoding: String!
   }
 `
 
@@ -48,7 +65,5 @@ const schema = makeExecutableSchema({
   typeDefs,
   resolvers
 })
-
-// addMockFunctionsToSchema({schema, mocks})
 
 export default schema

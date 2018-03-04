@@ -1,3 +1,6 @@
+//------------------------------------------------------------------------------
+// Imports
+//------------------------------------------------------------------------------
 import React, { Component } from 'react'
 import { } from 'prop-types'
 import { compose, graphql } from 'react-apollo'
@@ -9,12 +12,13 @@ import BandEditor from 'src/react/admin/lib/BandEditorContainer'
 import ChooseBand from 'src/react/admin/lib/ChooseBand'
 import TaskWrapper from 'src/react/admin/lib/TaskWrapper'
 
-const HEADER = "Edit Band"
-
+//------------------------------------------------------------------------------
+// Component
+//------------------------------------------------------------------------------
 @compose(
-  graphql(getBands, {name: "getBands"}),
+  graphql(getBands, {name: "getBands"})
 )
-export default class EditBand extends Component {
+export default class Bands extends Component {
 
   state = {
     activeBandSlug: null
@@ -23,29 +27,32 @@ export default class EditBand extends Component {
   static propTypes = {}
   static defaultProps = {}
 
+  static HEADER = "Bands"
+
   setActiveBand = (slug) => {
     this.setState({
       activeBandSlug: slug
     })
   }
 
-  render() {
+  render = () => {
 		const {
       getBands
 		} = this.props
 
     if(getBands.loading) {
       return (
-        <TaskWrapper header={HEADER} />
+        <TaskWrapper header={this.HEADER} />
       )
     }
     else {
       const bands = getBands.allBands
       const { activeBandSlug } = this.state
+      const slug = (activeBandSlug === null ? bands[0].slug : activeBandSlug)
       return (
-  			<TaskWrapper header={HEADER}>
+  			<TaskWrapper header={this.HEADER}>
           <ChooseBand bands={bands} setActiveBand={this.setActiveBand}/>
-          {activeBandSlug === null ? "" : <BandEditor slug={activeBandSlug}/>}
+          <BandEditor slug={slug}/>
   			</TaskWrapper>
       )
     }

@@ -1,8 +1,10 @@
 query getBandBySlug($slug: String!) {
   getBandBySlug(slug: $slug) {
+    id
     name
     bio
     photos {
+      id
       src
       width
       height

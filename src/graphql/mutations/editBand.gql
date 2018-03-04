@@ -1,0 +1,12 @@
+mutation editBand(
+  $id: Int!,
+  $bio: String!) {
+
+  editBand(
+    id: $id,
+    bio: $bio) {
+
+      id
+      bio
+  }
+}

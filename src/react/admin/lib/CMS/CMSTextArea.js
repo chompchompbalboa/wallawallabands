@@ -9,7 +9,7 @@ import { CMSWidth } from 'src/styles/admin/layout'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-export default class CMSText extends Component {
+export default class CMSTextArea extends Component {
 
   static propTypes = {
     name: string,
@@ -18,10 +18,10 @@ export default class CMSText extends Component {
     onChange: func
   }
   static defaultProps = {
-    name: "Default CMSText - name",
-    placeholder: "Default CMSText - placeholder",
-    value: "Default CMSText - value",
-    onChange: () => {console.warn('You need to define an onChange function for the CMSText component to work properly')}
+    name: "Default CMSTextArea - name",
+    placeholder: "Default CMSTextArea - placeholder",
+    value: "Default CMSTextArea - value",
+    onChange: () => {console.warn('You need to define an onChange function for the CMSTextArea component to work properly')}
   }
 
   render() {
@@ -35,7 +35,6 @@ export default class CMSText extends Component {
 
     return (
 			<Input
-        type="text"
         name={name}
         placeholder={placeholder}
         value={value}
@@ -48,9 +47,9 @@ export default class CMSText extends Component {
 //------------------------------------------------------------------------------
 // Styled Components
 //------------------------------------------------------------------------------
-const Input = styled.input`
+const Input = styled.textarea`
   margin: 1.5vh 0;
   width: ${CMSWidth};
-  height: 2em;
+  min-height: 5em;
   font-size: 1.5em;
 `

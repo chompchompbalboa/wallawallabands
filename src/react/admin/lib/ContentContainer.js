@@ -2,32 +2,43 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { func } from 'prop-types'
+import { string } from 'prop-types'
 import styled from 'styled-components'
 
-import { primary } from 'src/styles/colors'
+import Bands from 'src/react/admin/lib/BandsContainer'
+
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-export default class CMSSaveButton extends Component {
+export default class ContentContainer extends Component {
 
   static propTypes = {
-    onClick: func
+    active: string
   }
-
   static defaultProps = {
-    onClick: () => {console.warn('You need to define an onClick function for the CMSSaveButton to work properly')}
+    active: "BANDS"
   }
 
-  render() {
+  setTask = (activeTask) => {
+    switch(activeTask) {
+      case 'BANDS':
+        return <Bands />
+      break;
+      default:
+        return <Bands />
+    }
+  }
+
+  render = () => {
 		const {
-      onClick
+      activeTask,
+      ...rest
 		} = this.props
+    const task = this.setTask(activeTask)
 
     return (
-			<Container
-        onClick={onClick}>
-        SAVE
+			<Container {...rest}>
+        {task}
 			</Container>
     )
   }
@@ -36,12 +47,10 @@ export default class CMSSaveButton extends Component {
 //------------------------------------------------------------------------------
 // Styled Components
 //------------------------------------------------------------------------------
-const Container = styled.button`
-  width: 10vw;
-  padding: 0.9em;
-  background-color: ${primary};
-  color: white;
-  box-shadow: none;
-  border-radius: 5px;
-  font-size: 14px;
+const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 20vw;
+  width: calc(80vw - 10vw);
+  padding: 4vw 5vw;
 `

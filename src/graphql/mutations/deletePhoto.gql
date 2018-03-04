@@ -1,0 +1,10 @@
+mutation deletePhoto($id: Int!) {
+  deletePhoto(id: $id) {
+    photos {
+      id
+      src
+      height
+      width
+    }
+  }
+}

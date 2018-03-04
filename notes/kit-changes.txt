@@ -22,3 +22,28 @@ styled-components and SSR.
 
 The fix can be found here:
 https://github.com/reactql/kit/issues/106
+
+3) Update the kit to use apollo-upload-server. This allows us to upload files
+   using GraphQL mutations
+
+   File: kit/entry/server.js
+   Lines: 77-79
+   Added the following lines:
+
+   START
+
+   // Apollo Upload Server to allow us to upload files using Apollo
+   // This is not a part of the kit and was added by Rocky
+   import { apolloUploadKoa } from 'apollo-upload-server'
+
+   END
+
+   Same file
+   Line 352
+   Added the following line:
+
+   START
+
+   apolloUploadKoa(),
+
+   END

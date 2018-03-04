@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
-import LoginOrRegister from 'src/react/admin/containers/LoginOrRegister'
-import LoginForm from 'src/react/admin/containers/LoginForm'
-import RegisterForm from 'src/react/admin/containers/RegisterForm'
+import LoginOrRegister from 'src/react/admin/lib/LoginOrRegister'
+import LoginForm from 'src/react/admin/lib/LoginForm'
+import RegisterForm from 'src/react/admin/lib/RegisterForm'
 
 export default class LoginRegister extends Component {
 

@@ -1,41 +1,37 @@
+//------------------------------------------------------------------------------
+// Imports
+//------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
-import { compose, graphql } from 'react-apollo'
-import styled from 'styled-components'
-
-import loggedInUser from 'src/graphql/queries/loggedInUser.gql'
+import { } from 'prop-types'
 
 import Dashboard from 'src/react/admin/pages/Dashboard'
 import LoginRegister from 'src/react/admin/pages/LoginRegister'
 
+//------------------------------------------------------------------------------
+// Component
+//------------------------------------------------------------------------------
 export default class Admin extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      ssr: true
-    }
+  state = {
+    ssr: true
   }
 
-  componentDidMount() {
+  static defaultProps = {}
+  static propTypes = {}
+
+  componentDidMount = () => {
     this.setState({
       ssr: false
     })
   }
 
-  _loggedIn() {
-    return true
-    if(typeof localStorage !== "undefined" && localStorage.getItem("graphcoolToken") === null) {
-      return false
-    }
+  isLoggedIn = () => {
     return true
   }
 
-  render () {
-		const {
-      ssr
-		} = this.state
-    const loggedIn = this._loggedIn()
+  render = () => {
+		const { ssr } = this.state
+    const loggedIn = this.isLoggedIn()
 
     if(ssr) {
       return "Loading"

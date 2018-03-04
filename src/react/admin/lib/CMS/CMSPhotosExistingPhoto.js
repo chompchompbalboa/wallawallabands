@@ -2,46 +2,54 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { func } from 'prop-types'
+import { func, number, string } from 'prop-types'
 import styled from 'styled-components'
 
-import { primary } from 'src/styles/colors'
+import DeleteButton from 'src/react/lib/DeleteButton'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-export default class CMSSaveButton extends Component {
+export default class CMSPhotosExistingPhoto extends Component {
 
   static propTypes = {
-    onClick: func
+    id: number,
+    src: string,
+    onDelete: func
   }
 
   static defaultProps = {
-    onClick: () => {console.warn('You need to define an onClick function for the CMSSaveButton to work properly')}
+    id: 0,
+    src: "default-1.jpg",
+    onDelete: () => console.warn("You need to define an onDelete function for CMSPhotosExistingPhoto to work correctly")
   }
 
   render() {
 		const {
-      onClick
-		} = this.props
+      id,
+      src,
+      onDelete
+    } = this.props
 
     return (
-			<Container
-        onClick={onClick}>
-        SAVE
-			</Container>
-    )
-  }
+      <Container>
+        <DeleteButton
+          onClick={() => onDelete(id)}
+          size={4}/>
+			  <Photo
+          src={src}/>
+      </Container>
+  )}
 }
 
 //------------------------------------------------------------------------------
 // Styled Components
 //------------------------------------------------------------------------------
-const Container = styled.button`
-  width: 10vw;
-  padding: 0.9em;
-  background-color: ${primary};
-  color: white;
-  box-shadow: none;
-  border-radius: 5px;
-  font-size: 14px;
+const Container = styled.div`
+  width: 30%;
+`
+
+const Photo = styled.img`
+  top: 0;
+  left: 0;
+  width: 100%
 `

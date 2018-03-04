@@ -2,24 +2,26 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { } from 'prop-types'
+import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
-import TaskWrapper from 'src/react/admin/lib/TaskWrapper'
-import Select from 'react-select'
+import Item from 'src/react/admin/lib/SidebarItem'
+
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-export default class DeleteBand extends Component {
+export default class LogoutButton extends Component {
+
+  handleLogout = () => {
+    console.log('logout')
+  }
 
   render() {
-		const {
-		} = this.props
 
     return (
-			<TaskWrapper header="Delete Band">
-        <Select />
-			</TaskWrapper>
+			<Item onClick={(e) => this.handleLogout(e)}>
+        Logout
+			</Item>
     )
   }
 }

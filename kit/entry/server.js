@@ -74,6 +74,11 @@ import apolloLocalQuery from 'apollo-local-query';
 // Import all of the GraphQL lib, for use with our Apollo client connection
 import * as graphql from 'graphql';
 
+// Apollo Upload Server to allow us to upload files using Apollo
+// This is not a part of the kit and was added by Rocky
+import { apolloUploadKoa } from 'apollo-upload-server'
+import koaBody from 'koa-body'
+
 /* ReactQL */
 
 // App entry point.  This must come first, because app.js will set-up the
@@ -345,6 +350,7 @@ if (config.graphQLServer) {
   // to listen to POST requests
   router.post(
     config.graphQLEndpoint,
+    apolloUploadKoa(),
     graphqlKoa(context => ({
       // Bind the current request context, so it's accessible within GraphQL
       context,

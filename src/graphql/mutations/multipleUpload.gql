@@ -1,0 +1,5 @@
+mutation multipleUpload($files: [Upload!]!) {
+  multipleUpload(files: $files) {
+    id
+  }
+}
