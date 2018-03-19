@@ -27,9 +27,6 @@ import Root from 'src/react/Root';
 // without any class hashing.  Use this to include default or framework CSS.
 import './styles.global.css';
 
-// Apollo upload client
-import { createUploadLink } from 'apollo-upload-client'
-
 // ----------------------
 
 /* REDUCERS */
@@ -52,15 +49,6 @@ config.addReducer('queue', queueReducer)
 // 2.  On the client, it will append the correct server URL so that we can
 // call the ReactQL host properly, and let the server handle our requests
 config.enableGraphQLServer();
-
-/* APOLLO */
-
-// Add a "link" option to apollo to allow for file uploading.
-// See here for an example:
-// https://github.com/jaydenseric/apollo-upload-examples/blob/master/app/providers/with-data.js
-config.setApolloClientOptions({
-  link: createUploadLink({uri: "http://localhost:8081/graphql"})
-})
 
 /* SERVER */
 
@@ -160,7 +148,7 @@ if (SERVER) {
     // Mimic the default behaviour with an overriden message, so we know it's
     // working
     // eslint-disable-next-line no-console
-    console.log('Custom error: ', e.message);
+    console.log('Custom error: ', e);
     ctx.body = 'Some kind of error. Check your source code.';
   });
 

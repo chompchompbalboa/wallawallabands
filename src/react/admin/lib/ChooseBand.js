@@ -23,9 +23,9 @@ export default class ChooseBand extends Component {
     })
   }
 
-  handleSelectChange = (e) => {
+  handleSelectChange = (e, data) => {
     const { setActiveBand } = this.props
-    setActiveBand(e.target.value)
+    setActiveBand(data.value)
   }
 
   render() {
@@ -37,6 +37,7 @@ export default class ChooseBand extends Component {
     return (
 			<Container>
         <CMSSelect
+          placeholder="Select Band"
           options={options}
           handleChange={this.handleSelectChange}/>
 			</Container>

@@ -1,5 +1,5 @@
-mutation multipleUpload($files: [Upload!]!) {
-  multipleUpload(files: $files) {
+mutation multipleUpload($bandId: Int!, $files: [Upload!]!, $uploadFolder: String!, $dbModel: String!) {
+  multipleUpload(bandId: $bandId, files: $files, uploadFolder: $uploadFolder, dbModel: $dbModel) {
     id
   }
 }

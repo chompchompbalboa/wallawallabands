@@ -6,10 +6,14 @@ import { array, number, shape, string } from 'prop-types'
 import { compose, graphql } from 'react-apollo'
 import styled from 'styled-components'
 
+import setAlbumFolder from 'src/utils/setAlbumFolder'
+import setPhotoFolder from 'src/utils/setPhotoFolder'
+
 import deletePhoto from 'src/graphql/mutations/deletePhoto.gql'
 import editBand from 'src/graphql/mutations/editBand.gql'
 import multipleUpload from 'src/graphql/mutations/multipleUpload.gql'
 
+import CMSAlbums from 'src/react/admin/lib/CMS/CMSAlbums'
 import CMSPhotos from 'src/react/admin/lib/CMS/CMSPhotos'
 import CMSSaveButton from 'src/react/admin/lib/CMS/CMSSaveButton'
 import CMSText from 'src/react/admin/lib/CMS/CMSText'
@@ -51,7 +55,9 @@ export default class BandEditor extends Component {
 	componentWillReceiveProps = (nextProps) => {
 		this.setState({
 			id: nextProps.band.id,
-			bio: nextProps.band.bio
+			albums: nextProps.band.albums,
+			bio: nextProps.band.bio,
+			photos: nextProps.band.photos
 	})}
 
   onChange = (e) => {
@@ -87,11 +93,21 @@ export default class BandEditor extends Component {
 
 	saveNewPhoto = (e) => {
 		const { target: { validity, files }} = e
-		const { multipleUpload } = this.props
-		console.log(files)
+		const {
+			album,
+			band,
+			multipleUpload
+		} = this.props
+		const uploadFolder = setPhotoFolder(band)
+		const dbModel = "photos"
 		multipleUpload({
-			variables: { files }
-		}).then(({data}) => {
+			variables: {
+				bandId: band.id,
+				files: files,
+			 	uploadFolder: uploadFolder,
+				dbModel: dbModel
+		}})
+		.then(({data}) => {
 			console.log('saveNewPhoto', data)
 		})
 	}
@@ -109,11 +125,13 @@ export default class BandEditor extends Component {
           name="bio"
           value={bio}
           placeholder="Bio"
-          onChange={(e) => this.onChange(e)}/>
+          onChange={this.onChange}/>
 				<CMSPhotos
 					photos={photos}
 					deleteExistingPhoto={this.deleteExistingPhoto}
 					saveNewPhoto={this.saveNewPhoto}/>
+				<CMSAlbums
+					albums={albums}/>
         <CMSSaveButton
           onClick={() => this.saveBand()}/>
 			</Container>

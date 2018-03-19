@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 
 import { playAudio } from 'store/audioActions'
-import { clearQueue, startAlbumFromSong } from 'store/queueActions'
+import { startAlbumFromSong } from 'store/queueActions'
 
 import { desktop } from 'src/styles/breakpoints'
 import { primary } from 'src/styles/colors'
@@ -36,8 +36,7 @@ export default class AlbumPlayOptions extends Component {
   )}
 
   handlePlaylistAddClick = () => {
-    const { dispatch } = this.props
-    dispatch(clearQueue())
+    console.log('handlePlaylistAddClick')
   }
 
   render() {

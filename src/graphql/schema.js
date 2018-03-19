@@ -14,7 +14,7 @@ const typeDefs = `
     editBand(id: Int, bio: String, name: String): Band,
     deletePhoto(id: Int): Band
     singleUpload(file: Upload!): File!
-    multipleUpload(files: [Upload!]!): [File!]!
+    multipleUpload(bandId: Int!, files: [Upload!]!, uploadFolder: String!, dbModel: String!): [File!]!
   }
 
   type Band {

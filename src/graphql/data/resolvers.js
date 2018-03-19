@@ -2,9 +2,11 @@
 // Imports
 //------------------------------------------------------------------------------
 import fs from 'fs'
+import mkdirp from 'mkdirp'
 import promisesAll from 'promises-all'
 import shortid from 'shortid'
 import { GraphQLUpload } from 'apollo-upload-server'
+import _ from 'lodash'
 
 import { Band, Photo, Album, Song } from './connectors'
 
@@ -60,8 +62,8 @@ const resolvers = {
 
     singleUpload: (_, { files }) => processUpload(file),
 
-    multipleUpload: async (_, { files }) => {
-      const { resolve, reject } = await promisesAll.all(files.map(processUpload))
+    multipleUpload: async (_, { bandId, files, uploadFolder, dbModel }) => {
+      const { resolve, reject } = await promisesAll.all(files.map(file => processUpload(bandId, file, uploadFolder, dbModel)))
 
       if(reject.length) {
         reject.forEach(({ name, message }) =>
@@ -98,11 +100,16 @@ const resolvers = {
 
 // Uploading Files
 
-const uploadDir = "/uploads"
+const uploadBaseDir = (dbModel) => {
+  const baseDir = (process.env.NODE_ENV==="development" ? "../static/" : "./public/")
+  return baseDir + dbModel
+}
 
-const storeFS = ({ stream, filename }) => {
+const storeFS = ({ stream, filename, uploadFolder, dbModel }) => {
   const id = shortid.generate()
-  const path = `${uploadDir}/${id}-${filename}`
+  const uploadBase = uploadBaseDir(dbModel)
+  mkdirp(`${uploadBase}/${uploadFolder}`)
+  const path = `${uploadBase}/${uploadFolder}/${id}-${filename}`
   return new Promise((resolve, reject) =>
     stream
       .on('error', error => {
@@ -115,15 +122,15 @@ const storeFS = ({ stream, filename }) => {
       .pipe(fs.createWriteStream(path))
 )}
 
-const processUpload = async upload => {
-  console.log(upload)
-  const { stream, filename, mimetype, encoding } = await upload
-  const { id, path } = await storeFS({ stream, filename })
+const processUpload = async (bandId, file, uploadFolder, dbModel) => {
+  const { stream, filename, mimetype, encoding } = await file
+  const { id, path } = await storeFS({ stream, filename, uploadFolder, dbModel })
+  const src = _.replace(path, "../static/", "")
   return Photo.build({
-    filename: filename,
-    mimetype: mimetype,
-    encoding: encoding,
-    path: path
+    src: src,
+    width: 1000,
+    height: 1000,
+    bandId: bandId
   }).save().then((photo) => {
     return photo
   })

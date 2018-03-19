@@ -6,6 +6,7 @@ import { func, string } from 'prop-types'
 import styled from 'styled-components'
 
 import { CMSWidth } from 'src/styles/admin/layout'
+import { Form, TextArea } from 'semantic-ui-react'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
@@ -34,12 +35,14 @@ export default class CMSTextArea extends Component {
 		} = this.props
 
     return (
-			<Input
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        {...rest}/>
+      <Form>
+  			<TextArea
+          autoHeight
+          name={name}
+          value={value}
+          onChange={onChange}
+          style={{width: CMSWidth}}/>
+      </Form>
     )
   }
 }
@@ -47,9 +50,8 @@ export default class CMSTextArea extends Component {
 //------------------------------------------------------------------------------
 // Styled Components
 //------------------------------------------------------------------------------
-const Input = styled.textarea`
+const Input = styled(TextArea)`
   margin: 1.5vh 0;
   width: ${CMSWidth};
-  min-height: 5em;
   font-size: 1.5em;
 `

@@ -22,11 +22,10 @@ import UnderConstruction from 'src/react/site/pages/UnderConstruction'
     audio: state.audio,
     queue: state.queue
 }))
-export default class Root extends Component {
+export default class Site extends Component {
 
   constructor(props) {
     super(props)
-    this.underConstruction = this.underConstruction.bind(this)
   }
 
   componentDidMount() {
@@ -35,16 +34,12 @@ export default class Root extends Component {
     dispatch(setInitialStateQueue())
   }
 
-  underConstruction() {
-    return false
-  }
-
   render () {
     const {
       audio,
       queue
     } = this.props
-    const underConstruction = this.underConstruction()
+    const underConstruction = true
     if(!underConstruction) {
       if (_.size(audio) === 0 || _.size(queue) === 0) {
         return (
@@ -77,7 +72,9 @@ export default class Root extends Component {
   }
 }
 
+// Here is where the background color for the app lives.
+// Add this line to the Container styled component:
+//background-color: ${background};
 const Container = styled.div`
   min-height: 100vh;
-  background-color: ${background};
 `

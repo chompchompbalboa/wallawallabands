@@ -74,7 +74,7 @@ const Root = (() => {
   const Chain = () => (
     <ApolloProvider store={store} client={client}>
       <Router history={history}>
-        <App />
+        <App store={store}/>
       </Router>
     </ApolloProvider>
   );

@@ -27,8 +27,6 @@ export default class Bands extends Component {
   static propTypes = {}
   static defaultProps = {}
 
-  static HEADER = "Bands"
-
   setActiveBand = (slug) => {
     this.setState({
       activeBandSlug: slug
@@ -42,7 +40,7 @@ export default class Bands extends Component {
 
     if(getBands.loading) {
       return (
-        <TaskWrapper header={this.HEADER} />
+        <TaskWrapper header="Bands" />
       )
     }
     else {
@@ -50,7 +48,7 @@ export default class Bands extends Component {
       const { activeBandSlug } = this.state
       const slug = (activeBandSlug === null ? bands[0].slug : activeBandSlug)
       return (
-  			<TaskWrapper header={this.HEADER}>
+  			<TaskWrapper header="Bands">
           <ChooseBand bands={bands} setActiveBand={this.setActiveBand}/>
           <BandEditor slug={slug}/>
   			</TaskWrapper>

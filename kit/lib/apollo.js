@@ -4,9 +4,9 @@
 /* NPM */
 
 // Apollo client library
-import { createNetworkInterface, ApolloClient } from 'react-apollo';
-
-/* ReactQL */
+import { ApolloClient } from 'apollo-client'
+import { createUploadLink } from 'apollo-upload-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // Configuration
 import config from 'kit/config';
@@ -18,10 +18,17 @@ import { getServerURL } from 'kit/lib/env';
 
 // Helper function to create a new Apollo client, by merging in
 // passed options alongside any set by `config.setApolloClientOptions` and defaults
-export function createClient(opt = {}) {
-  return new ApolloClient(Object.assign({
-    reduxRootSelector: state => state.apollo,
-  }, config.apolloClientOptions, opt));
+export function createClient() {
+
+  const uri = config.graphQLServer
+    ? `${getServerURL()}${config.graphQLEndpoint}`
+    : config.graphQLEndpoint;
+
+  return new ApolloClient({
+    link: createUploadLink({uri: uri}),
+    cache: new InMemoryCache(),
+    ssrMode: true,
+  });
 }
 
 // Wrap `createNetworkInterface` to attach middleware
@@ -46,6 +53,6 @@ export function browserClient() {
     ? `${getServerURL()}${config.graphQLEndpoint}` : config.graphQLEndpoint;
 
   return createClient({
-    networkInterface: getNetworkInterface(uri),
+    link: createUploadLink({uri: uri}),
   });
 }

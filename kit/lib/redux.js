@@ -64,17 +64,17 @@ export default function createNewStore(apolloClient) {
     // By default, we'll use just the apollo reducer.  We can easily add our
     // own here, for global store management outside of Apollo
     combineReducers({
-      apollo: apolloClient.reducer(),
+      //apollo: apolloClient.reducer(),
       ...unwind(),
     }),
     // Initial server state, provided by the server.
     {
-      apollo: (hasState && window.__STATE__.apollo) || {},
+      //apollo: (hasState && window.__STATE__.apollo) || {},
       ...unwind(false),
     },
     compose(
       applyMiddleware(
-        apolloClient.middleware(),
+        //apolloClient.middleware(),
         thunkMiddleware,
       ),
       // Enable Redux Devtools on the browser, for easy state debugging
@@ -82,6 +82,5 @@ export default function createNewStore(apolloClient) {
       (!SERVER && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
     ),
   );
-
   return store;
 }

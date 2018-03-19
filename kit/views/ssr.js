@@ -19,6 +19,7 @@ const Html = ({ helmet, scripts, window, css, styles, children }) => (
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       {helmet.meta.toComponent()}
       {helmet.base.toString() ? helmet.base.toComponent() : <base href="/" />}
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
       <link rel="stylesheet" href={css} />
       {helmet.link.toComponent()}
       {helmet.style.toComponent()}

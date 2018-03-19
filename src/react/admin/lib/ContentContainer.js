@@ -37,7 +37,7 @@ export default class ContentContainer extends Component {
     const task = this.setTask(activeTask)
 
     return (
-			<Container {...rest}>
+			<Container>
         {task}
 			</Container>
     )

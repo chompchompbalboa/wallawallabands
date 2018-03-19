@@ -75,9 +75,7 @@ import apolloLocalQuery from 'apollo-local-query';
 import * as graphql from 'graphql';
 
 // Apollo Upload Server to allow us to upload files using Apollo
-// This is not a part of the kit and was added by Rocky
 import { apolloUploadKoa } from 'apollo-upload-server'
-import koaBody from 'koa-body'
 
 /* ReactQL */
 
@@ -171,7 +169,7 @@ export function createReactHandler(css = [], scripts = [], chunkManifest = {}) {
       <StaticRouter location={ctx.request.url} context={routeContext}>
         <ApolloProvider store={ctx.store} client={ctx.apollo.client}>
           <StyleSheetManager sheet={sheet.instance}>
-            <App />
+            <App store={ctx.store}/>
           </StyleSheetManager>
         </ApolloProvider>
       </StaticRouter>
@@ -311,11 +309,6 @@ app.use(async (ctx, next) => {
   // have one
   if (!ctx.apollo.client) {
     ctx.apollo.client = createClient({
-      ssrMode: true,
-      // Create a network request.  If we're running an internal server, this
-      // will be a function that accepts the request's context, to feed through
-      // to the GraphQL schema
-      networkInterface: createNeworkInterface(ctx),
       ...ctx.apollo.options,
     });
   }
