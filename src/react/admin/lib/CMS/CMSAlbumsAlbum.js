@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import { arrayOf, number, string, shape} from 'prop-types'
 import styled from 'styled-components'
 
-import albumCover1 from 'static/img/album-covers/theBlast_lockDownLightsOut.jpg'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
@@ -27,7 +26,7 @@ export default class CMSAlbumsAlbum extends Component {
   static defaultProps = {
     album: {
       id: 1,
-      cover: albumCover1,
+      cover: "img/album-covers/theBlast_lockDownLightsOut.jpg",
       title: "Lock Down Lights Out",
       year: "2007",
       songs: [
