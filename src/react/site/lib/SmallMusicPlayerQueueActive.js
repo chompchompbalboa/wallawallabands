@@ -27,7 +27,7 @@ export default class SmallMusicPlayerQueueActive extends Component {
 
     return (
 			<Container>
-        <Active>{title}</Active>
+        <Active>{text}</Active>
         <Controls />
 			</Container>
   )}

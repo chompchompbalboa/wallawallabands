@@ -30,7 +30,7 @@ export default class SidebarItem extends Component {
 //------------------------------------------------------------------------------
 const Container = styled.div`
   padding: 1.5vh 0.5vw;
-  width: calc(100% - 1vw);
+  width: 100%;
   cursor: ${props => props.active ? 'default' : 'pointer'};
   background-color: ${props => props.active ? 'rgb(226, 35, 26)' : 'transparent'};
   border-right: ${props => props.active ? '2px solid rgb(226, 35, 26)' : 'none'};

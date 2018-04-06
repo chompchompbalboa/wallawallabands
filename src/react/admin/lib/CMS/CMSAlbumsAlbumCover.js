@@ -2,47 +2,32 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { } from 'prop-types'
-import { connect } from 'react-redux'
+import { string } from 'prop-types'
 import styled from 'styled-components'
 
-import { previousSong as previousSongAction } from 'src/store/queueActions'
-
-import { previousSong as previousSongIcon } from 'src/styles/icons'
-import { controlsIconSize } from 'src/styles/layout'
-
-import Icon from 'src/react/lib/Icon'
+import CMSPhoto from 'src/react/admin/lib/CMS/CMSPhoto'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-@connect(
-  state => ({
-    queue: state.queue
-  }),
-  dispatch => ({
-    previousSongDispatch: (queue) => dispatch(previousSongAction(queue))
-  })
-)
-export default class ControlsPreviousSong extends Component {
+export default class CMSAlbumsAlbumCover extends Component {
 
   static propTypes = {
+    cover: string
   }
 
   static defaultProps = {
+    cover: "/default-1.jpg"
   }
 
   render() {
 		const {
-      previousSongDispatch,
-      queue
+      cover
     } = this.props
 
     return (
-			<Container onClick={() => previousSongDispatch(queue)}>
-        <Icon
-          icon={previousSongIcon}
-          color={"black"}
-          size={controlsIconSize}/>
+			<Container>
+        <CMSPhoto
+          src={cover}/>
 			</Container>
   )}
 }
@@ -51,5 +36,4 @@ export default class ControlsPreviousSong extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
-  cursor: pointer;
 `

@@ -3,27 +3,15 @@
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
 import { } from 'prop-types'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import { previousSong as previousSongAction } from 'src/store/queueActions'
-
-import { previousSong as previousSongIcon } from 'src/styles/icons'
-import { controlsIconSize } from 'src/styles/layout'
-
-import Icon from 'src/react/lib/Icon'
+import PreviousSong from 'src/react/site/lib/ControlsPreviousSong'
+import PlayPause from 'src/react/site/lib/ControlsPlayPause'
+import NextSong from 'src/react/site/lib/ControlsNextSong'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-@connect(
-  state => ({
-    queue: state.queue
-  }),
-  dispatch => ({
-    previousSongDispatch: (queue) => dispatch(previousSongAction(queue))
-  })
-)
-export default class ControlsPreviousSong extends Component {
+export default class LargeMusicPlayerControls extends Component {
 
   static propTypes = {
   }
@@ -32,17 +20,15 @@ export default class ControlsPreviousSong extends Component {
   }
 
   render() {
-		const {
-      previousSongDispatch,
-      queue
-    } = this.props
+		const {} = this.props
 
     return (
-			<Container onClick={() => previousSongDispatch(queue)}>
-        <Icon
-          icon={previousSongIcon}
-          color={"black"}
-          size={controlsIconSize}/>
+			<Container>
+        <ActionsContainer>
+          <PreviousSong/>
+          <PlayPause/>
+          <NextSong/>
+        </ActionsContainer>
 			</Container>
   )}
 }
@@ -51,5 +37,11 @@ export default class ControlsPreviousSong extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
-  cursor: pointer;
+  width: 50%;
+`
+
+const ActionsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

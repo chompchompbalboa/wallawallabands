@@ -37,7 +37,7 @@ const PhotosContainer = styled.div`
 `
 
 const Photo = styled.img`
-  width: 100%;
+  width: calc(100% - ${padding});
   margin-bottom: ${padding};
   &:last-child {
     margin-bottom: 0;

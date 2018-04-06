@@ -32,6 +32,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 36px;
+  background-color: white;
   @media ${retina} {
     font-size: 45px;
   }

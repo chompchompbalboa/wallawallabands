@@ -2,48 +2,40 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { } from 'prop-types'
-import { connect } from 'react-redux'
+import { func, number, string } from 'prop-types'
 import styled from 'styled-components'
 
-import { previousSong as previousSongAction } from 'src/store/queueActions'
-
-import { previousSong as previousSongIcon } from 'src/styles/icons'
-import { controlsIconSize } from 'src/styles/layout'
-
-import Icon from 'src/react/lib/Icon'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-@connect(
-  state => ({
-    queue: state.queue
-  }),
-  dispatch => ({
-    previousSongDispatch: (queue) => dispatch(previousSongAction(queue))
-  })
-)
-export default class ControlsPreviousSong extends Component {
+export default class CMSPhoto extends Component {
 
   static propTypes = {
+    src: string,
+    width: string
   }
 
   static defaultProps = {
+    src: "default-1.jpg",
+    width: "10vw"
   }
 
   render() {
 		const {
-      previousSongDispatch,
-      queue
+      src,
+      width
     } = this.props
 
     return (
-			<Container onClick={() => previousSongDispatch(queue)}>
-        <Icon
-          icon={previousSongIcon}
-          color={"black"}
-          size={controlsIconSize}/>
-			</Container>
+      <Container
+        containerWidth={width}
+        onClick={() => this.hiddenInput.click()}>
+			  <Photo
+          src={src}/>
+        <HiddenInput
+          innerRef={c => this.hiddenInput = c}
+          type="file"/>
+      </Container>
   )}
 }
 
@@ -52,4 +44,15 @@ export default class ControlsPreviousSong extends Component {
 //------------------------------------------------------------------------------
 const Container = styled.div`
   cursor: pointer;
+  width: ${props => props.containerWidth};
+`
+
+const Photo = styled.img`
+  top: 0;
+  left: 0;
+  width: 100%
+`
+
+const HiddenInput = styled.input`
+  display: none;
 `

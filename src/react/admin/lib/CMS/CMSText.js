@@ -6,6 +6,7 @@ import { func, string } from 'prop-types'
 import styled from 'styled-components'
 
 import { CMSWidth } from 'src/styles/admin/layout'
+import { Form, Input } from 'semantic-ui-react'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
@@ -34,23 +35,14 @@ export default class CMSText extends Component {
 		} = this.props
 
     return (
-			<Input
-        type="text"
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        {...rest}/>
+      <Form>
+        <Input
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+        />
+      </Form>
     )
   }
 }
-
-//------------------------------------------------------------------------------
-// Styled Components
-//------------------------------------------------------------------------------
-const Input = styled.input`
-  margin: 1.5vh 0;
-  width: ${CMSWidth};
-  height: 2em;
-  font-size: 1.5em;
-`

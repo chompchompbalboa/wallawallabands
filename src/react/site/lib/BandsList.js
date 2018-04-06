@@ -52,7 +52,7 @@ export default class BandsList extends Component {
 const Container = styled(Tile)`
   width: 100%;
   @media ${tabletLandscape} {
-    width: calc(70% - (3 * ${padding}));
+    width: calc(70% - ${padding});
   }
 `
 

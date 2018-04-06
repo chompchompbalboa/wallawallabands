@@ -46,12 +46,3 @@ export default class CMSTextArea extends Component {
     )
   }
 }
-
-//------------------------------------------------------------------------------
-// Styled Components
-//------------------------------------------------------------------------------
-const Input = styled(TextArea)`
-  margin: 1.5vh 0;
-  width: ${CMSWidth};
-  font-size: 1.5em;
-`

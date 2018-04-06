@@ -16,7 +16,6 @@ import multipleUpload from 'src/graphql/mutations/multipleUpload.gql'
 import CMSAlbums from 'src/react/admin/lib/CMS/CMSAlbums'
 import CMSPhotos from 'src/react/admin/lib/CMS/CMSPhotos'
 import CMSSaveButton from 'src/react/admin/lib/CMS/CMSSaveButton'
-import CMSText from 'src/react/admin/lib/CMS/CMSText'
 import CMSTextArea from 'src/react/admin/lib/CMS/CMSTextArea'
 //------------------------------------------------------------------------------
 // Component
@@ -64,6 +63,12 @@ export default class BandEditor extends Component {
     this.setState({
       [e.target.name]: e.target.value
   })}
+
+	updateAlbums = (albums) => {
+		this.setState({
+			albums: albums
+		})
+	}
 
 	saveBand = () => {
 		const { editBand } = this.props
@@ -131,7 +136,8 @@ export default class BandEditor extends Component {
 					deleteExistingPhoto={this.deleteExistingPhoto}
 					saveNewPhoto={this.saveNewPhoto}/>
 				<CMSAlbums
-					albums={albums}/>
+					albums={albums}
+					updateAlbums={this.updateAlbums}/>
         <CMSSaveButton
           onClick={() => this.saveBand()}/>
 			</Container>

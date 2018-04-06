@@ -6,7 +6,7 @@ import { tabletLandscape } from 'src/styles/breakpoints'
 
 import BandBio from 'src/react/site/lib/BandBio'
 import BandDiscography from 'src/react/site/lib/BandDiscography'
-import BandMusic from 'src/react/site/lib/BandMusic'
+import LargeQueue from 'src/react/site/lib/LargeQueue'
 import BandPhotos from 'src/react/site/lib/BandPhotos'
 
 export default class BandContent extends Component {
@@ -34,7 +34,7 @@ export default class BandContent extends Component {
             photos={band.photos}/>
         </LeftColumn>
         <RightColumn>
-          <BandMusic />
+          <LargeQueue />
         </RightColumn>
 			</Container>
     )

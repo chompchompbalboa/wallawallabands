@@ -3,27 +3,12 @@
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
 import { } from 'prop-types'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import { previousSong as previousSongAction } from 'src/store/queueActions'
-
-import { previousSong as previousSongIcon } from 'src/styles/icons'
-import { controlsIconSize } from 'src/styles/layout'
-
-import Icon from 'src/react/lib/Icon'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-@connect(
-  state => ({
-    queue: state.queue
-  }),
-  dispatch => ({
-    previousSongDispatch: (queue) => dispatch(previousSongAction(queue))
-  })
-)
-export default class ControlsPreviousSong extends Component {
+export default class LargeQueueActive extends Component {
 
   static propTypes = {
   }
@@ -33,16 +18,13 @@ export default class ControlsPreviousSong extends Component {
 
   render() {
 		const {
-      previousSongDispatch,
-      queue
+      active: { title }
     } = this.props
+    const text = (typeof title === "undefined" ? 'Choose a song to play!' : title)
 
     return (
-			<Container onClick={() => previousSongDispatch(queue)}>
-        <Icon
-          icon={previousSongIcon}
-          color={"black"}
-          size={controlsIconSize}/>
+			<Container>
+        <Active>{text}</Active>
 			</Container>
   )}
 }
@@ -51,5 +33,6 @@ export default class ControlsPreviousSong extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
-  cursor: pointer;
 `
+
+const Active = styled.div``

@@ -2,47 +2,43 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { } from 'prop-types'
-import { connect } from 'react-redux'
+import { arrayOf, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
-import { nextSong as nextSongAction } from 'src/store/queueActions'
-
-import { nextSong as nextSongIcon } from 'src/styles/icons'
-import { controlsIconSize } from 'src/styles/layout'
-
-import Icon from 'src/react/lib/Icon'
+import CMSText from 'src/react/admin/lib/CMS/CMSText'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-@connect(
-  state => ({
-    queue: state.queue
-  }),
-  dispatch => ({
-    nextSongDispatch: (queue) => dispatch(nextSongAction(queue))
-  })
-)
-export default class ControlsNextSong extends Component {
+export default class CMSSong extends Component {
 
   static propTypes = {
-  }
+    song: arrayOf(shape({
+      id: number,
+      title: string,
+      length: string,
+      audio: string
+  }))}
 
   static defaultProps = {
-  }
+    song: {
+      id: 1,
+      title: "I Like My Heart Broken",
+      length: "3:13",
+      audio: "audio/the-blast/lock-down-lights-out/01 I Like My Heart Broken.mp3"
+  }}
 
   render() {
 		const {
-      nextSongDispatch,
-      queue
-    } = this.props
+      song: {
+        title,
+        length,
+        audio
+    }} = this.props
 
     return (
-			<Container onClick={() => nextSongDispatch(queue)}>
-        <Icon
-          icon={nextSongIcon}
-          color={"black"}
-          size={controlsIconSize}/>
+			<Container>
+        <CMSText
+          name="title"/>
 			</Container>
   )}
 }
@@ -51,5 +47,4 @@ export default class ControlsNextSong extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
-  cursor: pointer;
 `

@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import CMSAlbumsAlbum from 'src/react/admin/lib/CMS/CMSAlbumsAlbum'
@@ -10,6 +10,10 @@ import CMSAlbumsAlbum from 'src/react/admin/lib/CMS/CMSAlbumsAlbum'
 // Component
 //------------------------------------------------------------------------------
 export default class CMSAlbums extends Component {
+
+  state = {
+    albums: this.props.albums
+  }
 
   static propTypes = {
     albums: arrayOf(shape({
@@ -22,7 +26,9 @@ export default class CMSAlbums extends Component {
         title: string,
         length: string,
         playable: string
-  }))}))}
+    }))})),
+    updateAlbums: func
+  }
 
   static defaultProps = {
     albums: [
@@ -46,7 +52,16 @@ export default class CMSAlbums extends Component {
         {id: 12, title: "Sex Kitten", length: "3:04", audio: "audio/the-blast/lock-down-lights-out/12 Sex Kitten.mp3"},
         {id: 12, title: "Dubbs", length: "3:27", audio: "audio/the-blast/lock-down-lights-out/13 Dubbs.mp3"},
         {id: 12, title: "Love You Til You Bleed", length: "8:26", audio: "audio/the-blast/lock-down-lights-out/14 Love You Til You Bleed.mp3"}
-  ]}]}
+    ]}],
+    updateAlbums: () => console.warn("You need to define an updateAlbums function for the CMSAlbums component to work correctly")
+  }
+
+  updateAlbum = (album, index) => {
+    const { albums, updateAlbums } = this.props
+    let newAlbums = albums.slice()
+    newAlbums[index] = album
+    updateAlbums(newAlbums)
+  }
 
   render() {
 		const {
@@ -56,8 +71,13 @@ export default class CMSAlbums extends Component {
     return (
       <Container>
         {albums.map((album, index) => {
-          return <CMSAlbumsAlbum key={index} album={album} />
-        })}
+          return (
+            <CMSAlbumsAlbum
+              key={index}
+              index={index}
+              album={album}
+              updateAlbum={this.updateAlbum}/>
+        )})}
       </Container>
     )
   }
