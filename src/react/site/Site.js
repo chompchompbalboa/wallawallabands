@@ -58,7 +58,7 @@ export default class Site extends Component {
           </Helmet>
           <Switch>
   					<Route exact path="/" component={ UnderConstruction } />
-            <Route exact path="/preview" component={ Bands } />
+            <Route path="/preview" component={ Bands } />
             <Route path="/about" component={ About } />
             <Route path="/donate" component={ Donate } />
   					<Route path="/band/:slug" component={ Band } />
