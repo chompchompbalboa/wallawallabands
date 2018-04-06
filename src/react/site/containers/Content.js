@@ -21,7 +21,7 @@ export default class Content extends Component {
 
 const Container = styled.div`
   padding: ${padding};
-	width: calc(100% - (2 * ${padding}));
+	width: 100%;
   opacity: ${props => props.visible ? 1 : 0};
   transition: opacity 1s;
   display: flex;

@@ -51,7 +51,7 @@ const Header = styled.div`
 `
 
 const Tile = styled.div`
-  width: calc(100% + ${padding});
+  width: 100%;
   padding: ${padding};
 `
 

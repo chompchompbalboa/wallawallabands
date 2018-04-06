@@ -86,8 +86,8 @@ export default class BandDiscographyAlbum extends Component {
 //------------------------------------------------------------------------------
 const transitionTime = '0.25s'
 const Container = styled.div`
-  width: calc(100% - (2 * calc(${padding} / 2)));
-  padding: ${padding} calc(${padding} / 2);
+  width: 100%;
+  padding: calc(${padding} / 2);
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;

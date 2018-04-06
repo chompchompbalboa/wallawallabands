@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import smallLogo from 'static/img/logo_small.png'
 
+import { desktop } from 'src/styles/breakpoints'
 import { primary } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
@@ -37,17 +38,21 @@ const Container = styled.div`
 `
 
 const LinksContainer = styled.div`
-  width: calc(70% - ${padding});
+  width: 100%;
+  padding: 0 ${padding};
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
 
 const DesktopLinks = styled.div`
-  width: 15%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: none;
+  @media ${desktop} {
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `
 
 const HomeLink = styled(Link)`
