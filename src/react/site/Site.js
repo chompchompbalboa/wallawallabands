@@ -41,7 +41,7 @@ export default class Site extends Component {
       audio,
       queue
     } = this.props
-    const underConstruction = false
+    const underConstruction = true
     if(!underConstruction) {
       if (_.size(audio) === 0 || _.size(queue) === 0) {
         return (
