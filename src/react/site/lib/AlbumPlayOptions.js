@@ -11,7 +11,7 @@ import { startAlbumFromSong } from 'store/queueActions'
 
 import { desktop } from 'src/styles/breakpoints'
 import { primary } from 'src/styles/colors'
-import { playCircle, playlistAdd } from 'src/styles/icons'
+import { play } from 'src/styles/icons'
 
 import Icon from 'src/react/lib/Icon'
 //------------------------------------------------------------------------------
@@ -53,15 +53,7 @@ export default class AlbumPlayOptions extends Component {
           playable={playable}
           onClick={playable ? this.handlePlayClick : null}>
           <Icon
-            icon={playCircle}
-            color={"black"}
-            size={"20px"}/>
-        </IconContainer>
-        <IconContainer
-          playable={playable}
-          onClick={playable ? this.handlePlaylistAddClick: null}>
-          <Icon
-            icon={playlistAdd}
+            icon={play}
             color={"black"}
             size={"20px"}/>
         </IconContainer>
@@ -73,7 +65,6 @@ export default class AlbumPlayOptions extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
-  width: 30%;
   justify-content: flex-end;
   align-items: center;
   opacity: 0.7;

@@ -33,9 +33,6 @@ const Container = styled.div`
   margin: calc(${padding} / 2) 0;
   background-color: white;
   border-bottom: 3px solid black;
-  @media ${tabletLandscape} {
-    width: calc(100% - ${padding});
-  }
   &:hover {
     border-bottom: 3px solid ${primary};
   }

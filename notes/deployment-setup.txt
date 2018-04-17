@@ -33,5 +33,7 @@ ssh into droplet
 sudo docker ps (sudo password stored in LastPass secure note if you need it)
 sudo docker stop [ContainerID]
 git pull origin master
+npm install
+npm run build
 sudo docker build . -t wallawallabands
 sudo docker run -p 4000:4000 wallawallabands

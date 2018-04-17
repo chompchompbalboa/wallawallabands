@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
-import { tabletPortrait, abletLandscape, desktop } from 'src/styles/breakpoints'
+import { tabletPortrait, tabletLandscape, desktop } from 'src/styles/breakpoints'
 import { background } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
@@ -27,11 +27,11 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
-  @media ${tabletPortrait} {
-    width: calc(95% - (2 * ${padding}));
+  @media ${tabletLandscape} {
+    width: calc(95% - ${padding});
   }
   @media ${desktop} {
-    width: calc(75% - (2 * ${padding}));
+    width: calc(75% - ${padding});
   }
 `
 

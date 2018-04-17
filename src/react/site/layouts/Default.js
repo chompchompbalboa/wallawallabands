@@ -22,6 +22,7 @@ export default class Layout extends Component {
 }
 
 const Container = styled.div`
+  padding-top: calc(9vh + 5px);
   width: 100vw;
   display: flex;
   flex-direction: column;

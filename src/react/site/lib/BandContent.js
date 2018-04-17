@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 
+import {padding} from 'src/styles/layout'
 import { tabletLandscape } from 'src/styles/breakpoints'
 
 import BandBio from 'src/react/site/lib/BandBio'
@@ -58,13 +59,13 @@ const LeftColumn = Column.extend`
   display: flex;
   flex-direction: column;
   @media ${tabletLandscape} {
-    width: 60%;
+    width: calc(60% - (${padding} / 2));
   }
 `
 const RightColumn = Column.extend`
   display: none;
   @media ${tabletLandscape} {
-    width: 40%;
+    width: calc(40% - (${padding} / 2));
     display: flex;
   }
 `
