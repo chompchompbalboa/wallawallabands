@@ -41,7 +41,7 @@ export default class Site extends Component {
       audio,
       queue
     } = this.props
-    const underConstruction = true
+    const underConstruction = false
     if(!underConstruction) {
       if (_.size(audio) === 0 || _.size(queue) === 0) {
         return (
@@ -57,7 +57,7 @@ export default class Site extends Component {
             <title>Walla Walla Bands</title>
           </Helmet>
           <Switch>
-  					<Route exact path="/" component={ Bands } />
+  					<Route exact path="/" component={ UnderConstruction } />
             <Route path="/preview" component={ Bands } />
             <Route path="/about" component={ About } />
             <Route path="/donate" component={ Donate } />
