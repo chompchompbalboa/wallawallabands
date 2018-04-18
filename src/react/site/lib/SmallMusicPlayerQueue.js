@@ -51,7 +51,7 @@ export default class SmallMusicPlayerQueue extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
-  width: calc(100% - (2 * ${padding}));
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
