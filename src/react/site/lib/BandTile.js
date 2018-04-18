@@ -40,7 +40,7 @@ const Container = styled.div`
 `
 
 const Header = styled.div`
-  width: calc(100%);
+  width: 100%;
   padding: 1vh ${padding};
   letter-spacing: 0.05em;
   text-transform: uppercase;

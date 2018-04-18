@@ -10,6 +10,7 @@ import getBands from 'src/graphql/queries/getBands.gql'
 import getFeaturedBands from 'src/graphql/queries/getFeaturedBands.gql'
 
 import BandsContent from 'src/react/site/lib/BandsContent'
+import BandsMobileSponsor from 'src/react/site/lib/BandsMobileSponsor'
 import Content from 'src/react/site/containers/Content'
 import ErrorHandler from 'src/react/site/lib/errors/GraphQLError'
 import Header from 'src/react/site/lib/BandsHeader'
@@ -61,6 +62,7 @@ export default class Bands extends Component {
 			return (
 				<Layout>
 					<Content visible>
+            <BandsMobileSponsor />
 						<Header bands={groupedAndSortedBands}/>
             <BandsContent bands={groupedAndSortedBands} featuredBands={featuredBands.getFeaturedBands}/>
 					</Content>

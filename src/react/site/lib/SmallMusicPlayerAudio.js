@@ -61,9 +61,11 @@ export default class SmallMusicPlayerAudio extends Component {
           onProgress={updatePlayed}
           onEnded={() => nextSongDispatch(queue)}
           progressInterval={500}
-          fileConfig={{
-              attributes: { autoPlay: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream }
-}}
+          config={{
+            file: {
+              attributes: {
+                autoPlay: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream, preload:"none"
+          }}}}
           />
 			</Container>
   )}
