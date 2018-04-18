@@ -41,7 +41,7 @@ export default class BandsHeader extends Component {
 
 const Container = styled(Tile)`
   width: 100%;
-  margin-bottom: ${padding};
+  margin-bottom: 2px;
   @media ${tabletLandscape} {
     display: flex;
     justify-content: space-between;
