@@ -77,9 +77,6 @@ export default class Site extends Component {
   }
 }
 
-// Here is where the background color for the app lives.
-// Add this line to the Container styled component:
-//background-color: ${background};
 const Container = styled.div`
   background-color: ${background};
   min-height: 100vh;
