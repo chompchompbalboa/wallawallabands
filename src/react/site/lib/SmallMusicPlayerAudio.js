@@ -49,7 +49,6 @@ export default class SmallMusicPlayerAudio extends Component {
       updatePlayed,
       url
     } = this.props
-    alert(playing)
     return (
 			<Container>
         <ReactPlayer
