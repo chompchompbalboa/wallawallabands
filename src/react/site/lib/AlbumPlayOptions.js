@@ -28,15 +28,8 @@ export default class AlbumPlayOptions extends Component {
 
   handlePlayClick = () => {
     const { dispatch, album, song } = this.props
-    console.log(album)
-    dispatch(
-      startAlbumFromSong(album, song))
-    dispatch(
-      playAudio()
-  )}
-
-  handlePlaylistAddClick = () => {
-    console.log('handlePlaylistAddClick')
+    dispatch(startAlbumFromSong(album, song))
+    setTimeout(() => {dispatch(playAudio())}, 100)
   }
 
   render() {
