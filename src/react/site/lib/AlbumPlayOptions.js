@@ -30,8 +30,6 @@ export default class AlbumPlayOptions extends Component {
     const { dispatch, album, song } = this.props
     dispatch(startAlbumFromSong(album, song))
     setTimeout(() => {dispatch(playAudio())}, 10)
-    setTimeout(() => {dispatch(pauseAudio())}, 100)
-    setTimeout(() => {dispatch(playAudio())}, 200)
   }
 
   render() {

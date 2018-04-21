@@ -57,7 +57,7 @@ export default class Site extends Component {
             <title>Walla Walla Bands</title>
           </Helmet>
           <Switch>
-  					<Route exact path="/" component={ UnderConstruction } />
+  					<Route exact path="/" component={ Bands } />
             <Route path="/preview" component={ Bands } />
             <Route path="/about" component={ About } />
             <Route path="/donate" component={ Donate } />
