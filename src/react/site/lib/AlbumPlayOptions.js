@@ -6,7 +6,7 @@ import { } from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 
-import { playAudio } from 'store/audioActions'
+import { pauseAudio, playAudio } from 'store/audioActions'
 import { startAlbumFromSong } from 'store/queueActions'
 
 import { desktop } from 'src/styles/breakpoints'
@@ -29,7 +29,9 @@ export default class AlbumPlayOptions extends Component {
   handlePlayClick = () => {
     const { dispatch, album, song } = this.props
     dispatch(startAlbumFromSong(album, song))
-    setTimeout(() => {dispatch(playAudio())}, 100)
+    setTimeout(() => {dispatch(playAudio())}, 25)
+    setTimeout(() => {dispatch(pauseAudio())}, 25)
+    setTimeout(() => {dispatch(playAudio())}, 25)
   }
 
   render() {
