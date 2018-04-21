@@ -49,7 +49,7 @@ export default class SmallMusicPlayerAudio extends Component {
       updatePlayed,
       url
     } = this.props
-
+    alert(playing)
     return (
 			<Container>
         <ReactPlayer
@@ -58,9 +58,11 @@ export default class SmallMusicPlayerAudio extends Component {
           width="0"
           height="0"
           playing={playing}
+          muted={!playing}
           onProgress={updatePlayed}
           onEnded={() => nextSongDispatch(queue)}
           progressInterval={500}
+          autoPlay
           config={{
             file: {
               attributes: {
