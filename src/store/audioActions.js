@@ -25,6 +25,7 @@ export function updatePlayed(data) {
 }
 
 export function seekTo(percentage) {
+  alert('seekTo')
   return {
     type: 'SEEK_TO',
     seekTo: percentage
