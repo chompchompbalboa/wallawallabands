@@ -20,12 +20,12 @@ export function pauseAudio() {
 export function updatePlayed(data) {
   return {
     type: 'UPDATE_PLAYED',
-    played: data.played
+    played: data.played,
+    playedSeconds: data.playedSeconds
   }
 }
 
 export function seekTo(percentage) {
-  alert('seekTo')
   return {
     type: 'SEEK_TO',
     seekTo: percentage

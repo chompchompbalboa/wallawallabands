@@ -4,6 +4,7 @@ const initialState = {
   active: {},
   previouslyPlayed: [],
   upNext: [],
+  album: {},
   hasStartedPlayingSong: false
 }
 
@@ -25,6 +26,7 @@ export default function reducers(state, action) {
       return Object.assign({}, state, {
         active: song,
         upNext: upNext,
+        album: album,
         hasStartedPlayingSong: true
       })
     }

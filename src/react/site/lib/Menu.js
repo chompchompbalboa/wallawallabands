@@ -63,10 +63,6 @@ export default class Menu extends Component {
             to="/about">
             About
           </MobileMenuLink>
-          <MobileMenuLink
-            to="/donate">
-            Donate
-          </MobileMenuLink>
         </MobileMenu>
 			</Container>
     )

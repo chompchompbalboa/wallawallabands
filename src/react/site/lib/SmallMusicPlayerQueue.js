@@ -20,6 +20,7 @@ import UpNext from 'src/react/site/lib/SmallMusicPlayerQueueUpNext'
     audio: state.audio,
     active: state.queue.active,
     previouslyPlayed: state.queue.previouslyPlayed,
+    album: state.queue.album,
     upNext: state.queue.upNext
 }))
 export default class SmallMusicPlayerQueue extends Component {
@@ -35,13 +36,13 @@ export default class SmallMusicPlayerQueue extends Component {
       audio,
       active,
       previouslyPlayed,
+      album,
       upNext
     } = this.props
 
     return (
 			<Container>
-        <PreviouslyPlayed previouslyPlayed={previouslyPlayed}/>
-        <Active active={active}/>
+        <Active active={active} album={album}/>
         <UpNext upNext={upNext}/>
 			</Container>
   )}
@@ -51,8 +52,9 @@ export default class SmallMusicPlayerQueue extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
+  margin-top: calc(9vh + 5px);
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - (9vh + 5px));
   display: flex;
   flex-direction: column;
   justify-content: center;

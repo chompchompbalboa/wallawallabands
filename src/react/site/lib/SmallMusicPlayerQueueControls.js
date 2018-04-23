@@ -10,6 +10,7 @@ import PreviousSong from 'src/react/site/lib/ControlsPreviousSong'
 import PlayPause from 'src/react/site/lib/ControlsPlayPause'
 import NextSong from 'src/react/site/lib/ControlsNextSong'
 import Length from 'src/react/site/lib/ControlsLength'
+import LengthText from 'src/react/site/lib/ControlsLengthText'
 
 //------------------------------------------------------------------------------
 // Component
@@ -35,6 +36,7 @@ export default class SmallMusicPlayerQueueControls extends Component {
         </ActionsContainer>
         <LengthContainer>
           <Length/>
+          <LengthText />
         </LengthContainer>
 			</Container>
   )}
@@ -62,6 +64,7 @@ const LengthContainer = styled.div`
   margin-top: 2vh;
   width: 80%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `

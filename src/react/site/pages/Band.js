@@ -30,6 +30,10 @@ export default class Band extends Component {
 		}
 	}
 
+	componentDidMount = () => {
+		window.scrollTo(0,0)
+	}
+
 	changeActive = (newActive) => {
 		this.setState({
 			active: newActive

@@ -6,7 +6,6 @@ export function setInitialState() {
 }
 
 export function startAlbumFromSong(album, song) {
-  alert('startAlbumFromSong')
   return {
     type: 'START_ALBUM_FROM_SONG',
     album: album,
@@ -15,7 +14,6 @@ export function startAlbumFromSong(album, song) {
 }
 
 export function nextSong(queue) {
-  alert('nextSong')
   return {
     type: 'NEXT_SONG',
     active: queue.active,
@@ -25,7 +23,6 @@ export function nextSong(queue) {
 }
 
 export function previousSong(queue) {
-  alert('previousSong')
   return {
     type: 'PREVIOUS_SONG',
     active: queue.active,

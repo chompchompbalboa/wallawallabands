@@ -1,6 +1,7 @@
 const initialState = {
   playing: false,
   played: 0.0,
+  playedSeconds: 0.0,
   seekTo: 0.0
 }
 
@@ -26,6 +27,7 @@ export default function reducers(state, action) {
     case 'UPDATE_PLAYED': {
       return Object.assign({}, state, {
         played: action.played,
+        playedSeconds: action.playedSeconds,
         seekTo: 0.0
     })}
 

@@ -18,6 +18,7 @@ import Home from 'src/react/site/pages/Home'
 import Admin from 'src/react/admin/Admin'
 import NotFound from 'src/react/site/pages/NotFound'
 import UnderConstruction from 'src/react/site/pages/UnderConstruction'
+import MusicPlayer from 'src/react/site/containers/MusicPlayer'
 
 @connect(
   state => ({
@@ -64,6 +65,7 @@ export default class Site extends Component {
   					<Route path="/band/:slug" component={ Band } />
   					<Route component={NotFound} />
   				</Switch>
+          <MusicPlayer />
   		  </Container>
     )}
     return (

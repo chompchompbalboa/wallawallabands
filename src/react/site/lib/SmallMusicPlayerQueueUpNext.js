@@ -28,12 +28,14 @@ export default class SmallMusicPlayerQueueUpNext extends Component {
 
     return (
 			<Container>
+        <Header>Up next:</Header>
         {upNext.map((song, index) => {
-          return (
-            <Song key={index}>
-              {song.title}
-            </Song>
-        )})}
+          if (index < 4) {
+            return (
+              <Song key={index}>
+                {song.title}
+              </Song>
+        )}})}
 			</Container>
   )}
 }
@@ -41,8 +43,21 @@ export default class SmallMusicPlayerQueueUpNext extends Component {
 //------------------------------------------------------------------------------
 // Styled Components
 //------------------------------------------------------------------------------
-const Container = styled(QueueContainer)`
+const Container = styled.div`
+margin-top: 5%;
+width: 100%;
+height: 20%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+`
+
+const Header = styled.div`
+font-size: 16px;
+font-weight: bold;
 `
 
 const Song = styled.div`
+font-size: 14px;
 `

@@ -6,7 +6,6 @@ import { } from 'prop-types'
 import styled from 'styled-components'
 
 import Controls from 'src/react/site/lib/SmallMusicPlayerQueueControls'
-import QueueContainer from 'src/react/site/lib/SmallMusicPlayerQueueContainer'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
@@ -20,14 +19,18 @@ export default class SmallMusicPlayerQueueActive extends Component {
 
   render() {
 		const {
-      active: {
-        title
-    }} = this.props
-    const text = (typeof title === "undefined" ? 'Choose a song to play!' : title)
+      active,
+      album
+    } = this.props
+    const albumCover = (typeof album.cover === "undefined" ? '' : album.cover)
+    const albumTitle = (typeof album.title === "undefined" ? '' : album.title)
+    const songTitle = (typeof active.title === "undefined" ? 'Choose a song to play!' : active.title)
 
     return (
 			<Container>
-        <Active>{text}</Active>
+        <AlbumCover src={albumCover}/>
+        <SongTitle>{songTitle}</SongTitle>
+        <AlbumTitle>{albumTitle}</AlbumTitle>
         <Controls />
 			</Container>
   )}
@@ -36,8 +39,27 @@ export default class SmallMusicPlayerQueueActive extends Component {
 //------------------------------------------------------------------------------
 // Styled Components
 //------------------------------------------------------------------------------
-const Container = styled(QueueContainer)`
+const Container = styled.div`
+  width: 100%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
-const Active = styled.div`
+const SongTitle = styled.div`
+  margin-top: 2vh;
+  font-size: 16px;
+`
+
+const AlbumTitle = styled.div`
+  margin-bottom: 2vh;
+  font-size: 18px;
+  font-weight: bold;
+`
+
+const AlbumCover = styled.img`
+  height: 60%;
+  width: auto;
 `

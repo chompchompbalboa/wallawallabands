@@ -39,7 +39,6 @@ export default class SmallMusicPlayerAudio extends Component {
       this.player.seekTo(parseFloat(seekTo))
     }
   }
-
   render() {
 		const {
       nextSongDispatch,
@@ -57,10 +56,9 @@ export default class SmallMusicPlayerAudio extends Component {
           width="0"
           height="0"
           playing={playing}
-          muted={!playing}
           onProgress={updatePlayed}
           onEnded={() => nextSongDispatch(queue)}
-          progressInterval={500}
+          progressInterval={1000}
           autoPlay
           config={{
             file: {

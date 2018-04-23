@@ -48,15 +48,18 @@ export default class SmallMusicPlayerThumbControls extends Component {
       },
       queue
     } = this.props
+    const defaultSize = 20
 
     let visible = false,
         icon = playCircle,
-        onClick = null
+        onClick = null,
+        size = defaultSize + "px"
 
     if (playing) {
       visible = true
       icon = pauseCircle
       onClick = this.pauseAudioDispatch
+      size = defaultSize * 1.2 + "px"
     }
 
     if (!playing && songsInQueue(queue)) {
@@ -65,7 +68,7 @@ export default class SmallMusicPlayerThumbControls extends Component {
       onClick = this.playAudioDispatch
     }
 
-    return { visible, icon, onClick }
+    return { visible, icon, onClick, size }
   }
 
   render() {
@@ -73,7 +76,7 @@ export default class SmallMusicPlayerThumbControls extends Component {
       top,
       ...rest
     } = this.props
-    const { visible, icon, onClick } = this.setCurrent()
+    const { visible, icon, onClick, size } = this.setCurrent()
 
     return (
 			<ThumbTile
@@ -84,7 +87,7 @@ export default class SmallMusicPlayerThumbControls extends Component {
         <Icon
           icon={icon}
           color={"white"}
-          size={"20px"}/>
+          size={size}/>
       </ThumbTile>
   )}
 }
