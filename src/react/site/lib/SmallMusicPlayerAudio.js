@@ -33,7 +33,10 @@ export default class SmallMusicPlayerAudio extends Component {
   static defaultProps = {
   }
 
-  componentDidUpdate = () => {
+  componentDidUpdate = (prevProps) => {
+    console.log(prevProps)
+    console.log(this.props)
+    console.log(this.player)
     const { seekTo } = this.props
     if(seekTo !== 0.0) {
       this.player.seekTo(parseFloat(seekTo))
@@ -52,6 +55,7 @@ export default class SmallMusicPlayerAudio extends Component {
 			<Container>
         <ReactPlayer
           ref={c => this.player = c}
+          controls={false}
           url={url}
           width="0"
           height="0"
@@ -59,6 +63,12 @@ export default class SmallMusicPlayerAudio extends Component {
           onProgress={updatePlayed}
           onEnded={() => nextSongDispatch(queue)}
           progressInterval={1000}
+          autoPlay
+          config={{
+            file: {
+              attributes: {
+                autoPlay: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream, preload:"none"
+          }}}}
           />
 			</Container>
   )}

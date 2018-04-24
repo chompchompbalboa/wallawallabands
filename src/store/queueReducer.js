@@ -5,23 +5,23 @@ const initialState = {
     id: 1, 
     title: "I Like My Heart Broken",
     length: "3:13", 
-    audio: "audio/the-blast/lock-down-lights-out/01 I Like My Heart Broken.mp3"
+    audio: "https://soundcloud.com/famous_dex1/japan"
   },
   previouslyPlayed: [],
   upNext: [
-    {id: 2, title: "Drink Me Beautiful", length: "3:33", audio: "audio/the-blast/lock-down-lights-out/02 Drink Me Beautiful.mp3"},
-    {id: 3, title: "Back Into The Woods", length: "2:58", audio: "audio/the-blast/lock-down-lights-out/03 Back Into The Woods.mp3"},
-    {id: 4, title: "Little Lover", length: "3:36", audio: "audio/the-blast/lock-down-lights-out/04 Little Lover.mp3"},
-    {id: 5, title: "My Apologies", length: "2:17", audio: "audio/the-blast/lock-down-lights-out/05 My Apologies.mp3"},
-    {id: 6, title: "Acid Queen", length: "3:09", audio: "audio/the-blast/lock-down-lights-out/06 Acid Queen.mp3"},
-    {id: 7, title: "Lock Down Lights Out", length: "3:29", audio: "audio/the-blast/lock-down-lights-out/07 Lock Down Lights Out.mp3"},
-    {id: 8, title: "Trouble", length: "2:51", audio: "audio/the-blast/lock-down-lights-out/08 Trouble.mp3"},
-    {id: 9, title: "Jam On District", length: "3:47", audio: "audio/the-blast/lock-down-lights-out/09 Jam On District.mp3"},
-    {id: 10, title: "Rocky Bottom", length: "2:11", audio: "audio/the-blast/lock-down-lights-out/10 Rock Bottom.mp3"},
-    {id: 11, title: "New Orleans", length: "3:23", audio: "audio/the-blast/lock-down-lights-out/11 New Orleans.mp3"},
-    {id: 12, title: "Sex Kitten", length: "3:04", audio: "audio/the-blast/lock-down-lights-out/12 Sex Kitten.mp3"},
-    {id: 12, title: "Dubbs", length: "3:27", audio: "audio/the-blast/lock-down-lights-out/13 Dubbs.mp3"},
-    {id: 12, title: "Love You Til You Bleed", length: "8:26", audio: "audio/the-blast/lock-down-lights-out/14 Love You Til You Bleed.mp3"}
+    {id: 2, title: "Drink Me Beautiful", length: "3:33", audio: "https://soundcloud.com/landoncube/lil-skies-ft-landon-cube-red-roses-prod-menoh-beats"},
+    {id: 3, title: "Back Into The Woods", length: "2:58", audio: "https://soundcloud.com/rich-the-kid/plug-walk-1"},
+    {id: 4, title: "Little Lover", length: "3:36", audio: "https://soundcloud.com/nba-youngboy/through-the-storm"},
+    {id: 5, title: "My Apologies", length: "2:17", audio: "https://soundcloud.com/uiceheidd/lucid-dreams-forget-me"},
+    {id: 6, title: "Acid Queen", length: "3:09", audio: "https://soundcloud.com/wavey-hefner/esskeetit"},
+    {id: 7, title: "Lock Down Lights Out", length: "3:29", audio: "https://soundcloud.com/wnhhlmao/juice-wrld-lucid-dreams-6ix9ine-gummo-billy-rondo-gotti-keke-drake-nice-for-what-famous-dex-japan-lil-uzi-vert-rich-forever-leak-lil-pump-esskeetit-nba-young-boy-diamond-teeth-samurai-through-the-storm-young-thug-anybody-now-up-lil-dicky-freaky-friday"},
+    {id: 8, title: "Trouble", length: "2:51", audio: "https://soundcloud.com/octobersveryown/blocboy-jb-look-alive-ft-drake"},
+    {id: 9, title: "Jam On District", length: "3:47", audio: "https://soundcloud.com/uiceheidd/all-girls-are-same-999-prod-nick-mira"},
+    {id: 10, title: "Rocky Bottom", length: "2:11", audio: "https://soundcloud.com/scumgang6ix9ine/billy"},
+    {id: 11, title: "New Orleans", length: "3:23", audio: "https://soundcloud.com/lil-dicky/freaky-friday-feat-chris-brown"},
+    {id: 12, title: "Sex Kitten", length: "3:04", audio: "https://soundcloud.com/jahseh-onfroy/fuck-love-feat-trippie-redd"},
+    {id: 12, title: "Dubbs", length: "3:27", audio: "https://soundcloud.com/hamzanamira/hamza-namira-dari-ya-alby"},
+    {id: 12, title: "Love You Til You Bleed", length: "8:26", audio: "https://soundcloud.com/rich-the-kid/new-freezer-feat-kendrick"}
   ],
   album: {
     id: 1,
@@ -37,7 +37,6 @@ export default function reducers(state, action) {
   switch (action.type) {
 
     case 'SET_INITIAL_STATE': {
-      console.log(initialState)
       return initialState
     }
 
@@ -74,7 +73,6 @@ export default function reducers(state, action) {
         newActive = _.head(upNext)
         newUpNext = _.drop(upNext)
       }
-
       return Object.assign({}, state, {
         active: newActive,
         previouslyPlayed: newPreviouslyPlayed,

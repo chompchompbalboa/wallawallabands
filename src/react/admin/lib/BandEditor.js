@@ -135,9 +135,6 @@ export default class BandEditor extends Component {
 					photos={photos}
 					deleteExistingPhoto={this.deleteExistingPhoto}
 					saveNewPhoto={this.saveNewPhoto}/>
-				<CMSAlbums
-					albums={albums}
-					updateAlbums={this.updateAlbums}/>
         <CMSSaveButton
           onClick={() => this.saveBand()}/>
 			</Container>

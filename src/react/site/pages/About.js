@@ -56,6 +56,8 @@ const Header = styled(Tile)`
 `
 
 const AboutText = styled(Tile)`
+font-size: 16px;
+line-height: 1.2em;
 width: 100%;
   @media ${tabletLandscape} {
     width: calc(70% - ${padding});

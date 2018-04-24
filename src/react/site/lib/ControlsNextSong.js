@@ -6,6 +6,7 @@ import { } from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
+import { pauseAudio, playAudio } from 'store/audioActions'
 import { nextSong as nextSongAction } from 'src/store/queueActions'
 
 import { nextSong as nextSongIcon } from 'src/styles/icons'
@@ -20,7 +21,9 @@ import Icon from 'src/react/lib/Icon'
     queue: state.queue
   }),
   dispatch => ({
-    nextSongDispatch: (queue) => dispatch(nextSongAction(queue))
+    nextSongDispatch: (queue) => dispatch(nextSongAction(queue)),
+    playSong: () => dispatch(playAudio()),
+    pauseSong: () => dispatch(pauseAudio())
   })
 )
 export default class ControlsNextSong extends Component {
@@ -31,6 +34,11 @@ export default class ControlsNextSong extends Component {
   static defaultProps = {
   }
 
+  handleClick = () => {
+    const { nextSongDispatch, pauseSong, playSong, queue } = this.props
+    nextSongDispatch(queue)
+  }
+
   render() {
 		const {
       nextSongDispatch,
@@ -38,7 +46,7 @@ export default class ControlsNextSong extends Component {
     } = this.props
 
     return (
-			<Container onClick={() => nextSongDispatch(queue)}>
+			<Container onClick={this.handleClick}>
         <Icon
           icon={nextSongIcon}
           color={"black"}
