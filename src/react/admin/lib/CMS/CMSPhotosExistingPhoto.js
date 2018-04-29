@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import { func, number, string } from 'prop-types'
 import styled from 'styled-components'
 
-import DeleteButton from 'src/react/lib/DeleteButton'
+import CMSText from 'src/react/admin/lib/CMS/CMSText'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
@@ -20,23 +20,29 @@ export default class CMSPhotosExistingPhoto extends Component {
   static defaultProps = {
     id: 0,
     src: "default-1.jpg",
-    onDelete: () => console.warn("You need to define an onDelete function for CMSPhotosExistingPhoto to work correctly")
+    onUrlChange: () => console.warn("You need to define an onUrlChange function for CMSPhotosExistingPhoto to work correctly")
   }
 
   render() {
 		const {
       id,
       src,
-      onDelete
+      onUrlChange
     } = this.props
+    const altSource = "/img/image-not-found.png"
 
     return (
       <Container>
-        <DeleteButton
-          onClick={() => onDelete(id)}
-          size={4}/>
-			  <Photo
-          src={src}/>
+        <Photo 
+          innerRef={(c) => this.photo = c}
+          src={src}
+          onError={() => {this.photo.src = altSource}}/>
+        <CMSText
+          label="URL"
+          name={id + ""}
+          value={src}
+          placeholder="URL"
+          onChange={onUrlChange}/>
       </Container>
   )}
 }
@@ -45,11 +51,15 @@ export default class CMSPhotosExistingPhoto extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
-  width: 30%;
+  margin-top: 2vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items; flex-end;
 `
 
 const Photo = styled.img`
-  top: 0;
-  left: 0;
-  width: 100%
+  width: auto;
+  height: 22vh;
+  margin-right: 2vh; 
 `

@@ -28,7 +28,6 @@ export default class Bands extends Component {
   static defaultProps = {}
 
   setActiveBand = (slug) => {
-    console.log(slug)
     this.setState({
       activeBandSlug: slug
     })

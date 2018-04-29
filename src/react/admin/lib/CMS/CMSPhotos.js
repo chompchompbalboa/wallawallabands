@@ -15,34 +15,42 @@ import ExistingPhoto from 'src/react/admin/lib/CMS/CMSPhotosExistingPhoto'
 export default class CMSPhotos extends Component {
 
   static propTypes = {
-    deleteExistingPhoto: func,
     photos: arrayOf(shape({
       id: number,
       src: string,
       height: number,
       width: number
-    })),
-    saveNewPhoto: func
-  }
+  }))}
 
   static defaultProps = {
-    deleteExistingPhoto: () => console.warn("You need to define deleteExistingPhoto for CMSPhotos to work correctly"),
     photos: [
       {id: 0, src: "default-1.jpg", height: 800, width: 1200}
-    ],
-    saveNewPhoto: () => console.warn("You need to define saveNewPhoto for CMSPhotos to work correctly")
+    ]
+  }
+
+  onUrlChange = (e) => {
+    const { photos, updatePhotos } = this.props
+    let newPhotos = []
+    photos.map(photo => {
+      let newPhoto = {}
+      newPhoto.id = photo.id
+      newPhoto.src = (Number(e.target.name) === photo.id ? e.target.value : photo.src)
+      newPhoto.width = photo.width
+      newPhoto.height = photo.height
+      newPhotos.push(newPhoto)
+    })
+    console.log(newPhotos)
+    updatePhotos(newPhotos)
   }
 
   render() {
 		const {
       photos,
-      deleteExistingPhoto,
-      saveNewPhoto
+      updatePhotos
     } = this.props
 
     return (
 			<Container>
-        <input type="file" multiple required onChange={saveNewPhoto} />
         <ExistingPhotosWrapper>
           {photos.map((photo, index) => {
             return (
@@ -50,7 +58,7 @@ export default class CMSPhotos extends Component {
                 key={index}
                 id={photo.id}
                 src={photo.src}
-                onDelete={deleteExistingPhoto}/>
+                onUrlChange={this.onUrlChange}/>
           )})}
         </ExistingPhotosWrapper>
 			</Container>
@@ -68,12 +76,5 @@ const Container = styled.div`
 const ExistingPhotosWrapper = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-`
-
-const StyledDropzone = styled(Dropzone)`
-  width: 100%;
-  min-height: 20vh;
-  border: 1px solid black;
+  flex-direction: column;
 `

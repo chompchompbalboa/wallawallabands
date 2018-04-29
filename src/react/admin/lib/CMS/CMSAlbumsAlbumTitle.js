@@ -3,6 +3,7 @@
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
 import { func, string } from 'prop-types'
+import styled from 'styled-components'
 
 import CMSText from 'src/react/admin/lib/CMS/CMSText'
 //------------------------------------------------------------------------------
@@ -31,10 +32,17 @@ export default class CMSAlbumsAlbumTitle extends Component {
     } = this.props
 
     return (
-      <CMSText
-        name="title"
-        value={title}
-        placeholder="Title"
-        onChange={this.onChange}/>
+      <Container>
+        <CMSText
+          label="Album Title"
+          name="title"
+          value={title}
+          placeholder="Title"
+          onChange={this.onChange}/>
+      </Container>
   )}
 }
+
+const Container = styled.div`
+  margin-bottom: 2vh;
+`

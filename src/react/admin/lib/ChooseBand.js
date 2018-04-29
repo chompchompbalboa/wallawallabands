@@ -33,8 +33,7 @@ export default class ChooseBand extends Component {
       bands
     } = this.props
     const options = this.convertBandsToOptions(bands)
-    console.log(options[0].value)
-    console.log('ok')
+    
     return (
 			<Container>
         <CMSSelect

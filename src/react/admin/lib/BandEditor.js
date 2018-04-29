@@ -4,6 +4,7 @@
 import React, { Component } from 'react'
 import { array, number, shape, string } from 'prop-types'
 import { compose, graphql } from 'react-apollo'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import setAlbumFolder from 'src/utils/setAlbumFolder'
@@ -75,6 +76,12 @@ export default class BandEditor extends Component {
 		})
 	}
 
+	updatePhotos = (photos) => {
+		this.setState({
+			photos: photos
+		})
+	}
+
 	saveBand = () => {
 		const { editBand } = this.props
 		const { id, bio, slug } = this.state
@@ -142,6 +149,11 @@ export default class BandEditor extends Component {
 							value={slug}
 							placeholder="slug"
 							onChange={this.onChange}/>
+						<VisitLink 
+							href={"http://wallawallabands.com/band/" + slug}
+							target="_blank">
+							Go to page
+						</VisitLink>
 					</EditorSectionContent>
 				</EditorSection>
 				<EditorSection>
@@ -159,8 +171,13 @@ export default class BandEditor extends Component {
 					<EditorSectionContent>
 						<CMSPhotos
 							photos={photos}
-							deleteExistingPhoto={this.deleteExistingPhoto}
-							saveNewPhoto={this.saveNewPhoto}/>
+							updatePhotos={this.updatePhotos}/>
+					</EditorSectionContent>
+				</EditorSection>
+				<EditorSection>
+					<EditorSectionHeader>Albums</EditorSectionHeader>
+					<EditorSectionContent>
+						<CMSAlbums />
 					</EditorSectionContent>
 				</EditorSection>
         <CMSSaveButton
@@ -193,6 +210,15 @@ const EditorSectionHeader = styled.h4`
 
 const EditorSectionContent = styled.div`
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-between;
 	align-items: center;
+`
+
+const VisitLink = styled.a`
+	cursor: pointer;
+	color: black;
+	&:hover {
+		color: black;
+		opacity: 0.75;
+	}
 `

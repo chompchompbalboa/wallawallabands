@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { func, string } from 'prop-types'
+import { func, object, string } from 'prop-types'
 import styled from 'styled-components'
 
 import { CMSWidth } from 'src/styles/admin/layout'
@@ -17,6 +17,7 @@ export default class CMSText extends Component {
     name: string,
     placeholder: string,
     size: string,
+    style: object,
     value: string,
     onChange: func
   }
@@ -25,6 +26,7 @@ export default class CMSText extends Component {
     name: "Default CMSText - name",
     placeholder: "Default CMSText - placeholder",
     size: "mini",
+    style: {},
     value: "Default CMSText - value",
     onChange: () => {console.warn('You need to define an onChange function for the CMSText component to work properly')}
   }
@@ -35,6 +37,7 @@ export default class CMSText extends Component {
       name,
       placeholder,
       size,
+      style,
       value,
       onChange,
       ...rest
@@ -47,6 +50,7 @@ export default class CMSText extends Component {
           name={name}
           placeholder={placeholder}
           size={size}
+          style={style}
           value={value}
           onChange={onChange}
         />

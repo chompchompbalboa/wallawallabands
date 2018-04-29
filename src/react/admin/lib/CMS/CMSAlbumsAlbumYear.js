@@ -32,10 +32,17 @@ export default class CMSAlbumsAlbumYear extends Component {
     } = this.props
 
     return (
-      <CMSText
-        name="year"
-        value={year}
-        placeholder="Year"
-        onChange={this.onChange}/>
+      <Container>
+        <CMSText
+          label="Year"
+          name="year"
+          value={year}
+          placeholder="Year"
+          onChange={this.onChange}/>
+      </Container>
   )}
 }
+
+const Container = styled.div`
+  margin-bottom: 2vh;
+`
