@@ -34,9 +34,6 @@ export default class SmallMusicPlayerAudio extends Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    console.log(prevProps)
-    console.log(this.props)
-    console.log(this.player)
     const { seekTo } = this.props
     if(seekTo !== 0.0) {
       this.player.seekTo(parseFloat(seekTo))
@@ -51,9 +48,11 @@ export default class SmallMusicPlayerAudio extends Component {
       updatePlayed,
       url
     } = this.props
+    
     return (
 			<Container>
         <ReactPlayer
+          key="ReactPlayer"
           ref={c => this.player = c}
           controls={false}
           url={url}

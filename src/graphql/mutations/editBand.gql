@@ -1,12 +1,13 @@
 mutation editBand(
   $id: Int!,
-  $bio: String!) {
-
+  $bio: String!,
+  $slug: String!) {
   editBand(
     id: $id,
-    bio: $bio) {
-
+    bio: $bio
+    slug: $slug) {
       id
       bio
+      slug
   }
 }

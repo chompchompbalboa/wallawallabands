@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { } from 'prop-types'
+import { string } from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -26,13 +26,16 @@ import Icon from 'src/react/lib/Icon'
 export default class ControlsPreviousSong extends Component {
 
   static propTypes = {
+    from: string
   }
 
   static defaultProps = {
+    from: "SmallMusicPlayer"
   }
 
   render() {
 		const {
+      from,
       previousSongDispatch,
       queue
     } = this.props
@@ -41,7 +44,7 @@ export default class ControlsPreviousSong extends Component {
 			<Container onClick={() => previousSongDispatch(queue)}>
         <Icon
           icon={previousSongIcon}
-          color={"black"}
+          color={from === "LargeMusicPlayer" ? "white" : "black"}
           size={controlsIconSize}/>
 			</Container>
   )}

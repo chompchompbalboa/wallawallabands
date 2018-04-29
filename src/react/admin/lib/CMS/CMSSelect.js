@@ -32,6 +32,7 @@ export default class CMSSelect extends Component {
 
   render() {
 		const {
+      defaultValue,
       placeholder,
       options,
       handleChange
@@ -39,7 +40,8 @@ export default class CMSSelect extends Component {
 
     return (
       <Dropdown
-        placeholder="Select Band"
+        placeholder={placeholder}
+        defaultValue={defaultValue}
         options={options}
         onChange={handleChange}
         fluid

@@ -22,6 +22,9 @@ const BandModel = db.define('band', {
   featured: {type: Sequelize.BOOLEAN}
 })
 
+const SimilarBandsModel = db.define('similar_bands', {
+})
+
 const PhotoModel = db.define('photo', {
   src: {type: Sequelize.STRING},
   width: {type: Sequelize.INTEGER},
@@ -36,12 +39,14 @@ const AlbumModel = db.define('album', {
 
 const SongModel = db.define('song', {
   title: {type: Sequelize.STRING},
+  trackNumber: {type: Sequelize.INTEGER},
   length: {type: Sequelize.STRING},
   audio: {type: Sequelize.STRING}
 })
 
 BandModel.hasMany(PhotoModel)
 BandModel.hasMany(AlbumModel)
+BandModel.belongsToMany(BandModel, {as: "SimilarBands", through: SimilarBandsModel})
 PhotoModel.belongsTo(BandModel)
 AlbumModel.belongsTo(BandModel)
 AlbumModel.hasMany(SongModel)
@@ -90,20 +95,20 @@ const mockAlbums = [
 ]
 
 const mockSongs = [
-  {title: "I Like My Heart Broken", length: "3:13", audio: "audio/the-blast/lock-down-lights-out/01 I Like My Heart Broken.mp3"},
-  {title: "Drink Me Beautiful", length: "3:33", audio: "audio/the-blast/lock-down-lights-out/02 Drink Me Beautiful.mp3"},
-  {title: "Back Into The Woods", length: "2:58", audio: "audio/the-blast/lock-down-lights-out/03 Back Into The Woods.mp3"},
-  {title: "Little Lover", length: "3:36", audio: "audio/the-blast/lock-down-lights-out/04 Little Lover.mp3"},
-  {title: "My Apologies", length: "2:17", audio: "audio/the-blast/lock-down-lights-out/05 My Apologies.mp3"},
-  {title: "Acid Queen", length: "3:09", audio: "audio/the-blast/lock-down-lights-out/06 Acid Queen.mp3"},
-  {title: "Lock Down Lights Out", length: "3:29", audio: "audio/the-blast/lock-down-lights-out/07 Lock Down Lights Out.mp3"},
-  {title: "Trouble", length: "2:51", audio: "audio/the-blast/lock-down-lights-out/08 Trouble.mp3"},
-  {title: "Jam On District", length: "3:47", audio: "audio/the-blast/lock-down-lights-out/09 Jam On District.mp3"},
-  {title: "Rocky Bottom", length: "2:11", audio: "audio/the-blast/lock-down-lights-out/10 Rock Bottom.mp3"},
-  {title: "New Orleans", length: "3:23", audio: "audio/the-blast/lock-down-lights-out/11 New Orleans.mp3"},
-  {title: "Sex Kitten", length: "3:04", audio: "audio/the-blast/lock-down-lights-out/12 Sex Kitten.mp3"},
-  {title: "Dubbs", length: "3:27", audio: "audio/the-blast/lock-down-lights-out/13 Dubbs.mp3"},
-  {title: "Love You Til You Bleed", length: "8:26", audio: "audio/the-blast/lock-down-lights-out/14 Love You Til You Bleed.mp3"}
+  {title: "I Like My Heart Broken", trackNumber: 1, length: "3:13", audio: "https://soundcloud.com/famous_dex1/japan"},
+  {title: "Drink Me Beautiful", trackNumber: 2, length: "3:33", audio: "https://soundcloud.com/rich-the-kid/plug-walk-1"},
+  {title: "Back Into The Woods", trackNumber: 3, length: "2:58", audio: "https://soundcloud.com/nba-youngboy/through-the-storm"},
+  {title: "Little Lover", trackNumber: 4, length: "3:36", audio: "https://soundcloud.com/uiceheidd/lucid-dreams-forget-me"},
+  {title: "My Apologies", trackNumber: 5, length: "2:17", audio: "https://soundcloud.com/wavey-hefner/esskeetit"},
+  {title: "Acid Queen", trackNumber: 6, length: "3:09", audio: "https://soundcloud.com/wnhhlmao/juice-wrld-lucid-dreams-6ix9ine-gummo-billy-rondo-gotti-keke-drake-nice-for-what-famous-dex-japan-lil-uzi-vert-rich-forever-leak-lil-pump-esskeetit-nba-young-boy-diamond-teeth-samurai-through-the-storm-young-thug-anybody-now-up-lil-dicky-freaky-friday"},
+  {title: "Lock Down Lights Out", trackNumber: 7, length: "3:29", audio: "https://soundcloud.com/octobersveryown/blocboy-jb-look-alive-ft-drake"},
+  {title: "Trouble", trackNumber: 8, length: "2:51", audio: "ahttps://soundcloud.com/uiceheidd/all-girls-are-same-999-prod-nick-mira"},
+  {title: "Jam On District", trackNumber: 9, length: "3:47", audio: "https://soundcloud.com/scumgang6ix9ine/billy"},
+  {title: "Rocky Bottom", trackNumber: 10, length: "2:11", audio: "https://soundcloud.com/lil-dicky/freaky-friday-feat-chris-brown"},
+  {title: "New Orleans", trackNumber: 11, length: "3:23", audio: "https://soundcloud.com/jahseh-onfroy/fuck-love-feat-trippie-redd"},
+  {title: "Sex Kitten", trackNumber: 12, length: "3:04", audio: "https://soundcloud.com/hamzanamira/hamza-namira-dari-ya-alby"},
+  {title: "Dubbs", trackNumber: 13, length: "3:27", audio: "https://soundcloud.com/rich-the-kid/new-freezer-feat-kendrick"},
+  {title: "Love You Til You Bleed", trackNumber: 14, length: "8:26", audio: "https://soundcloud.com/landoncube/lil-skies-ft-landon-cube-red-roses-prod-menoh-beats"}
 ]
 /*
 db.sync({ force: true }).then(() => {
@@ -131,14 +136,16 @@ db.sync({ force: true }).then(() => {
           _.forEach(mockSongs, (song, index) => {
             return model.createSong({
               title: song.title,
+              trackNumber: song.trackNumber,
               length: song.length,
               audio: song.audio
 })})})})})})})
 */
 
 const Band = db.models.band
+const SimilarBands = db.models.similar_bands
 const Photo = db.models.photo
 const Album = db.models.album
 const Song = db.models.song
 
-export { Band, Photo, Album, Song }
+export { Band, SimilarBands, Photo, Album, Song }

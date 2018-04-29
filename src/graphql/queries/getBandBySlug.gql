@@ -3,11 +3,17 @@ query getBandBySlug($slug: String!) {
     id
     name
     bio
+    slug
     photos {
       id
       src
       width
       height
+    }
+    similarBands {
+      name
+      bio
+      slug
     }
     albums {
       cover
@@ -18,6 +24,7 @@ query getBandBySlug($slug: String!) {
         audio
         length
         title
+        trackNumber
       }
     }
   }

@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { background } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
-import SmallMusicPlayerAudio from 'src/react/site/lib/SmallMusicPlayerAudio'
+import MusicPlayerAudio from 'src/react/site/lib/MusicPlayerAudio'
 import SmallMusicPlayerQueue from 'src/react/site/lib/SmallMusicPlayerQueue'
 
 //------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ export default class SmallMusicContent extends Component {
 
     return (
 			<Container visible={visible}>
-        <SmallMusicPlayerAudio />
+        <MusicPlayerAudio />
         <SmallMusicPlayerQueue />
 			</Container>
   )}

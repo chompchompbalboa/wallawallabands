@@ -7,7 +7,7 @@ import { tabletLandscape } from 'src/styles/breakpoints'
 
 import BandBio from 'src/react/site/lib/BandBio'
 import BandDiscography from 'src/react/site/lib/BandDiscography'
-import LargeQueue from 'src/react/site/lib/LargeQueue'
+import BandSidebar from 'src/react/site/lib/BandSidebar'
 import BandPhotos from 'src/react/site/lib/BandPhotos'
 
 export default class BandContent extends Component {
@@ -19,7 +19,7 @@ export default class BandContent extends Component {
 		const {
       active,
       band
-		} = this.props
+    } = this.props
 
     return (
 			<Container>
@@ -29,13 +29,15 @@ export default class BandContent extends Component {
             bio={band.bio}/>
           <BandDiscography
             first={active === "DISCOGRAPHY"}
-            albums={band.albums}/>
+            albums={band.albums}
+            bandName={band.name}/>
           <BandPhotos
             first={active === "PHOTOS"}
             photos={band.photos}/>
         </LeftColumn>
         <RightColumn>
-          <LargeQueue />
+          <BandSidebar 
+            band={band}/>
         </RightColumn>
 			</Container>
     )

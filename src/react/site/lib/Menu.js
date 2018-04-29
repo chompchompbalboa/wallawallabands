@@ -44,25 +44,16 @@ export default class Menu extends Component {
           </HomeLink>
           <DesktopLinks>
             <PageLink to="/about">About</PageLink>
-            <PageLink to="/donate">Donate</PageLink>
           </DesktopLinks>
-          <MobileMenuIcon
-            onClick={this.toggleMobileMenu}>
-            <Icon
-              icon={mobileMenuVisible ? xNoCircle : menu}/>
+          <MobileMenuIcon onClick={this.toggleMobileMenu}>
+            <Icon icon={mobileMenuVisible ? xNoCircle : menu}/>
           </MobileMenuIcon>
         </LinksContainer>
         <LinksBorderBottom />
-        <MobileMenu
-          visible={mobileMenuVisible}>
-          <MobileMenuLink
-            to="">
-            Bands
-          </MobileMenuLink>
-          <MobileMenuLink
-            to="/about">
-            About
-          </MobileMenuLink>
+        <MobileMenu visible={mobileMenuVisible}>
+          <MobileMenuLink to="">Band</MobileMenuLink>
+          <MobileMenuLink to="/about">About
+</MobileMenuLink>
         </MobileMenu>
 			</Container>
     )
@@ -124,7 +115,7 @@ const DesktopLinks = styled.div`
   @media ${tabletLandscape} {
     width: 20%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
   }
 `

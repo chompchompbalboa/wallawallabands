@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const initialState = {
   active: {
-    id: 1, 
+    id: 1,
     title: "I Like My Heart Broken",
     length: "3:13", 
     audio: "https://soundcloud.com/famous_dex1/japan"

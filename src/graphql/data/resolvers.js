@@ -8,7 +8,7 @@ import shortid from 'shortid'
 import { GraphQLUpload } from 'apollo-upload-server'
 import _ from 'lodash'
 
-import { Band, Photo, Album, Song } from './connectors'
+import { Band, SimilarBands, Photo, Album, Song } from './connectors'
 
 //------------------------------------------------------------------------------
 // Resolvers
@@ -40,7 +40,8 @@ const resolvers = {
     editBand(_, args) {
       return Band.findById(args.id).then((bandInstance) => {
         return bandInstance.update({
-          bio: args.bio
+          bio: args.bio,
+          slug: args.slug
         }).then((band) => {
           return band
         })
@@ -81,6 +82,10 @@ const resolvers = {
 
     albums(band) {
       return band.getAlbums()
+    },
+
+    similarBands(band) {
+      return band.getSimilarBands()
     }
   },
 

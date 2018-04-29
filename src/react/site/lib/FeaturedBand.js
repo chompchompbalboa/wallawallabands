@@ -7,16 +7,21 @@ import _ from 'lodash'
 import { primary, text, tileBackground } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
-import logo from 'static/img/logo.png'
-
 export default class FeaturedBand extends Component {
 
-  constructor(props) {
-    super(props)
-    this.getBlurb = this.getBlurb.bind(this)
+  static propTypes = {
   }
 
-  getBlurb(bio) {
+  static defaultProps = {
+    band: {
+      bio: "Quas beatae hic inventore. Sunt culpa aliquid incidunt illum. Facilis dolorem quos sit hic ut ullam. Aut voluptatem consequatur suscipit consequatur odit dolorem. Ut non id corrupti.",
+      coverImage: "img/featured-bands/modest-mouse.jpg",
+      name: "The Blast",
+      slug: "the-blast"
+    }
+  }
+
+  getBlurb = (bio) => {
     return (
       _.truncate(bio, {
       'length': 100,
@@ -60,6 +65,7 @@ const Container = styled(Link)`
   text-decoration: none;
   color: black;
   &:hover {
+    color: black;
     pointer: cursor
   }
 `
@@ -80,11 +86,15 @@ const TextContainer = styled.div`
 const Header = styled.div`
   font-family: Oswald;
   font-size: 22px;
+  margin-bottom: 1vh;
 `
 
 const Blurb = styled.div`
   font-size: 14px;
   font-weight: 300;
+  ${Container}:hover & {
+    opacity: 0.9;
+  }
 `
 
 const More = styled.span`
@@ -104,9 +114,3 @@ const Highlight = styled.div`
     background-color: ${primary}
   }
 `
-
-FeaturedBand.propTypes = {
-}
-
-FeaturedBand.defaultProps = {
-}

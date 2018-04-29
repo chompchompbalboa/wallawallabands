@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { } from 'prop-types'
+import { string } from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -22,9 +22,11 @@ import { seekTo } from 'src/store/audioActions'
 export default class ControlsLength extends Component {
 
   static propTypes = {
+    from: string
   }
 
   static defaultProps = {
+    from: "SmallMusicPlayer"
   }
 
   setWidth = (played) => {
@@ -42,6 +44,7 @@ export default class ControlsLength extends Component {
 
   render() {
 		const {
+      from,
       played
     } = this.props
     const width = this.setWidth(played)
@@ -50,7 +53,7 @@ export default class ControlsLength extends Component {
 			<Container
         innerRef={(c) => {this.container = c}}
         onClick={(e) => this.seekTo(e)}>
-        <Length width={width}/>
+        <Length from={from} width={width}/>
 			</Container>
   )}
 }
@@ -68,5 +71,5 @@ const Length = styled.div.attrs({
   style: ({width}) => ({width})
 })`
   height: 100%;
-  background-color: black;
+  background-color: ${props => props.from === "LargeMusicPlayer" ? 'white' : 'black'};
 `

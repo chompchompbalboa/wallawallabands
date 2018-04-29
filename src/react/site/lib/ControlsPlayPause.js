@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { bool, func } from 'prop-types'
+import { bool, func, string } from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -27,12 +27,14 @@ import Icon from 'src/react/lib/Icon'
 export default class ControlsPlayPause extends Component {
 
   static propTypes = {
+    from: string,
     playing: bool,
     pauseAudio: func,
     playAudio: func
   }
 
   static defaultProps = {
+    from: "SmallMusicPlayer",
     playing: false,
     pauseAudio: null,
     playAudio: null
@@ -40,16 +42,17 @@ export default class ControlsPlayPause extends Component {
 
   render() {
 		const {
-      playing,
+      from,
       pauseAudio,
-      playAudio
+      playAudio,
+      playing
     } = this.props
 
     return (
 			<Container onClick={playing ? pauseAudio : playAudio}>
         <Icon
           icon={playing ? pause : play}
-          color={"black"}
+          color={from === "LargeMusicPlayer" ? "white" : "black"}
           size={controlsIconSize}/>
 			</Container>
   )}

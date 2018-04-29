@@ -11,7 +11,7 @@ import { startAlbumFromSong } from 'store/queueActions'
 
 import { desktop } from 'src/styles/breakpoints'
 import { primary } from 'src/styles/colors'
-import { play } from 'src/styles/icons'
+import { playHollow } from 'src/styles/icons'
 
 import Icon from 'src/react/lib/Icon'
 //------------------------------------------------------------------------------
@@ -28,17 +28,14 @@ export default class AlbumPlayOptions extends Component {
 
   handlePlayClick = () => {
     const { dispatch, album, song } = this.props
+    console.log(album, song)
     dispatch(startAlbumFromSong(album, song))
     setTimeout(() => {dispatch(playAudio())}, 300)
   }
 
   render() {
-		const {
-      album,
-      song
-    } = this.props
+    const { song } = this.props
     const playable = !(song.audio === null)
-
 
     return (
 			<Container>
@@ -46,7 +43,7 @@ export default class AlbumPlayOptions extends Component {
           playable={playable}
           onClick={playable ? this.handlePlayClick : null}>
           <Icon
-            icon={play}
+            icon={playHollow}
             color={"black"}
             size={"20px"}/>
         </IconContainer>

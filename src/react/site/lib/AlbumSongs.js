@@ -2,8 +2,9 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { arrayOf, bool, number, object, shape, string } from 'prop-types'
+import { string } from 'prop-types'
 import styled from 'styled-components'
+import _ from 'lodash'
 
 import { desktop } from 'src/styles/breakpoints'
 import { primary } from 'src/styles/colors'
@@ -22,21 +23,13 @@ export default class AlbumSongs extends Component {
   static defaultProps = {
   }
 
-  areThereAnyPlayableSongs = (songs) => {
-    for (let song of songs) {
-      if(song.playable) {
-        return true
-    }}
-    return false
-  }
-
   render() {
-		const { album, songs } = this.props
-    const anyPlayableSongs = this.areThereAnyPlayableSongs(songs)
+    const { album, songs } = this.props
+    const sortedSongs = _.sortBy(songs, ['trackNumber'])
 
     return (
 			<Container>
-        {songs.map((song, index) =>{
+        {sortedSongs.map((song, index) =>{
           return (
             <Song key={index}>
               <Track>{index + 1}.</Track>

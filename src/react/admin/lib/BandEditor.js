@@ -16,6 +16,7 @@ import multipleUpload from 'src/graphql/mutations/multipleUpload.gql'
 import CMSAlbums from 'src/react/admin/lib/CMS/CMSAlbums'
 import CMSPhotos from 'src/react/admin/lib/CMS/CMSPhotos'
 import CMSSaveButton from 'src/react/admin/lib/CMS/CMSSaveButton'
+import CMSText from 'src/react/admin/lib/CMS/CMSText'
 import CMSTextArea from 'src/react/admin/lib/CMS/CMSTextArea'
 //------------------------------------------------------------------------------
 // Component
@@ -31,7 +32,8 @@ export default class BandEditor extends Component {
 		id: this.props.band.id,
 		albums: this.props.band.albums,
 		bio: this.props.band.bio,
-		photos: this.props.band.photos
+		photos: this.props.band.photos,
+		slug: this.props.band.slug
 	}
 
   static propTypes = {
@@ -39,7 +41,8 @@ export default class BandEditor extends Component {
 			id: number,
 			albums: array,
 			bio: string,
-			photos: array
+			photos: array,
+			slug: string
 	})}
 
   static defaultProps = {
@@ -47,7 +50,8 @@ export default class BandEditor extends Component {
 			id: 1,
 			albums: [],
 			bio: "Default BandEditor - bio",
-			photos: []
+			photos: [],
+			slug: "default-slug"
 		}
   }
 
@@ -56,7 +60,8 @@ export default class BandEditor extends Component {
 			id: nextProps.band.id,
 			albums: nextProps.band.albums,
 			bio: nextProps.band.bio,
-			photos: nextProps.band.photos
+			photos: nextProps.band.photos,
+			slug: nextProps.band.slug
 	})}
 
   onChange = (e) => {
@@ -72,11 +77,12 @@ export default class BandEditor extends Component {
 
 	saveBand = () => {
 		const { editBand } = this.props
-		const { id, bio } = this.state
+		const { id, bio, slug } = this.state
 		editBand({
 			variables: {
 				id: id,
-				bio: bio
+				bio: bio,
+				slug: slug
 			}
 		}).then(({data}) => {
 			console.log('received editBand data', data)
@@ -121,20 +127,42 @@ export default class BandEditor extends Component {
 		const {
 			albums,
 			bio,
-			photos
+			photos,
+			slug
     } = this.state
 
     return (
 			<Container>
-        <CMSTextArea
-          name="bio"
-          value={bio}
-          placeholder="Bio"
-          onChange={this.onChange}/>
-				<CMSPhotos
-					photos={photos}
-					deleteExistingPhoto={this.deleteExistingPhoto}
-					saveNewPhoto={this.saveNewPhoto}/>
+				<EditorSection>
+					<EditorSectionHeader>Slug</EditorSectionHeader>
+					<EditorSectionContent>
+						<CMSText
+							label="http://wallawallabands.com/band/"
+							name="slug"
+							value={slug}
+							placeholder="slug"
+							onChange={this.onChange}/>
+					</EditorSectionContent>
+				</EditorSection>
+				<EditorSection>
+					<EditorSectionHeader>Bio</EditorSectionHeader>
+					<EditorSectionContent>
+						<CMSTextArea
+							name="bio"
+							value={bio}
+							placeholder="Bio"
+							onChange={this.onChange}/>
+					</EditorSectionContent>
+				</EditorSection>
+				<EditorSection>
+					<EditorSectionHeader>Photos</EditorSectionHeader>
+					<EditorSectionContent>
+						<CMSPhotos
+							photos={photos}
+							deleteExistingPhoto={this.deleteExistingPhoto}
+							saveNewPhoto={this.saveNewPhoto}/>
+					</EditorSectionContent>
+				</EditorSection>
         <CMSSaveButton
           onClick={() => this.saveBand()}/>
 			</Container>
@@ -149,4 +177,22 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+`
+
+const EditorSection = styled.div`
+	width: 100%;
+	margin: 1vh 0;
+	border: 1px solid gray;
+	border-radius: 5px;
+	padding: 1vh;
+`
+
+const EditorSectionHeader = styled.h4`
+	margin-bottom: 1vh;
+`
+
+const EditorSectionContent = styled.div`
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 `

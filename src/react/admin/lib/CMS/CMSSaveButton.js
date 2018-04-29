@@ -37,6 +37,7 @@ export default class CMSSaveButton extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.button`
+  cursor: pointer;
   width: 10vw;
   padding: 0.9em;
   background-color: ${primary};
@@ -44,4 +45,9 @@ const Container = styled.button`
   box-shadow: none;
   border-radius: 5px;
   font-size: 14px;
+  box-shadow: none;
+  transition: box-shadow 0.1s;
+  &:hover {
+    box-shadow: 1px 1px 3px gray;
+  }
 `

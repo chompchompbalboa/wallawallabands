@@ -1,1 +1,1 @@
-export const CMSWidth = '60vw'
+export const CMSWidth = 'calc(60vw - 2vh)'

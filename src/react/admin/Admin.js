@@ -3,6 +3,8 @@
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
 import { } from 'prop-types'
+import { Helmet } from 'react-helmet'
+import styled from 'styled-components'
 
 import Dashboard from 'src/react/admin/pages/Dashboard'
 import LoginRegister from 'src/react/admin/pages/LoginRegister'
@@ -43,7 +45,14 @@ export default class Admin extends Component {
       )
     }
     return (
-      <Dashboard />
+      <Container>
+        <Helmet>
+          <title>Walla Walla Bands - Admin</title>
+        </Helmet>
+        <Dashboard />
+      </Container>
     )
   }
 }
+
+const Container = styled.div``

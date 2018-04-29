@@ -28,6 +28,7 @@ const Container = styled.div`
   justify-content: space-between;
   flex-flow: row wrap;
   @media ${tabletLandscape} {
+    padding: ${padding} ${padding} calc(${padding} + 7vh) ${padding};
     width: calc(95% - ${padding});
   }
   @media ${desktop} {

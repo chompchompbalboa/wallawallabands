@@ -41,7 +41,7 @@ export default class CMSTextArea extends Component {
           name={name}
           value={value}
           onChange={onChange}
-          style={{width: CMSWidth}}/>
+          style={{width: CMSWidth, fontSize: "14px"}}/>
       </Form>
     )
   }

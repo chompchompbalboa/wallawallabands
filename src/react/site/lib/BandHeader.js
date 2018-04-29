@@ -6,7 +6,7 @@ import { desktop } from 'src/styles/breakpoints'
 import { secondary } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
-export default class Dashboard extends Component {
+export default class BandHeader extends Component {
 
   render() {
 		const {
@@ -59,9 +59,3 @@ const HeaderLink = styled.p`
 	margin: 0 5vw 0 0;
 	border-bottom: ${props => props.active ? '1px solid black' : 'none'};
 `
-
-Dashboard.propTypes = {
-}
-
-Dashboard.defaultProps = {
-}

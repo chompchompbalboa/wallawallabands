@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { } from 'prop-types'
+import { string } from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -29,18 +29,22 @@ import Icon from 'src/react/lib/Icon'
 export default class ControlsNextSong extends Component {
 
   static propTypes = {
+    from: string
   }
 
   static defaultProps = {
+    from: "SmallMusicPlayer"
   }
 
   handleClick = () => {
-    const { nextSongDispatch, pauseSong, playSong, queue } = this.props
+    const { from, nextSongDispatch, pauseSong, playSong, queue } = this.props
     nextSongDispatch(queue)
+    from === "SmallMusicPlayer" && pauseSong()
   }
 
   render() {
 		const {
+      from, 
       nextSongDispatch,
       queue
     } = this.props
@@ -49,7 +53,7 @@ export default class ControlsNextSong extends Component {
 			<Container onClick={this.handleClick}>
         <Icon
           icon={nextSongIcon}
-          color={"black"}
+          color={from === "LargeMusicPlayer" ? "white" : "black"}
           size={controlsIconSize}/>
 			</Container>
   )}
