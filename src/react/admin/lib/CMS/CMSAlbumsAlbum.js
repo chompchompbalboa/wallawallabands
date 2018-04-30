@@ -81,6 +81,7 @@ export default class CMSAlbumsAlbum extends Component {
 
     return (
 			<Container>
+        <Header>{title}</Header>
         <AlbumInfoContainer>
           <CoverPhoto
             src={cover}/>
@@ -106,6 +107,10 @@ export default class CMSAlbumsAlbum extends Component {
 //------------------------------------------------------------------------------
 const Container = styled.div`
   width: 100%;
+`
+
+const Header = styled.div`
+  margin: 2vh 0;
 `
 
 const AlbumInfoContainer = styled.div`

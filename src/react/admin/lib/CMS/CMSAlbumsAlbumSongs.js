@@ -6,6 +6,8 @@ import { arrayOf, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import CMSText from 'src/react/admin/lib/CMS/CMSText'
+import Icon from 'src/react/lib/Icon'
+import { xNoCircle } from '../../../../styles/icons';
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
@@ -46,7 +48,7 @@ export default class CMSAlbumsAlbumSongs extends Component {
 		const {
       songs
     } = this.props
-    console.log(songs)
+
     return (
 			<Container>
         <Header>Songs</Header>
@@ -70,7 +72,8 @@ export default class CMSAlbumsAlbumSongs extends Component {
                     name="title"
                     value={song.title}
                     placeholder="Title"
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    style={{width: '12vw'}}/>
                 </TitleContainer>
                 <LengthContainer>
                   <CMSText
@@ -79,8 +82,23 @@ export default class CMSAlbumsAlbumSongs extends Component {
                     name="length"
                     value={song.length}
                     placeholder="Length"
-                    onChange={this.onChange}/>
+                    onChange={this.onChange}
+                    style={{width: '4.5vw'}}/>
                 </LengthContainer>
+                <URLContainer>
+                  <CMSText
+                    fluid
+                    label="URL"
+                    name="url"
+                    value={song.audio}
+                    placeholder="URL"
+                    onChange={this.onChange}
+                    style={{width: '18vw'}}/>
+                </URLContainer>
+                <DeleteContainer>
+                  <Icon 
+                    icon={xNoCircle}/>
+                </DeleteContainer>
               </Song>
         )})}
 			</Container>
@@ -91,6 +109,7 @@ export default class CMSAlbumsAlbumSongs extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
+  margin-top: 2vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -112,12 +131,24 @@ const InputContainer = styled.div`
 `
 
 const TrackNumberContainer = InputContainer.extend`
-  width: 6vw;
+  width: 6.75vw;
 `
 const TitleContainer = InputContainer.extend`
-  width: 20vw;
+  width: 17vw;
 `
 
 const LengthContainer = InputContainer.extend`
-  width: 4vw;
+  width: 10.5vw;
+`
+
+const URLContainer = InputContainer.extend`
+  width: 22vw;
+`
+
+const DeleteContainer = InputContainer.extend`
+  cursor: pointer;
+  width: 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
