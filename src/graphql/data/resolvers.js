@@ -38,11 +38,76 @@ const resolvers = {
   Mutation: {
 
     editBand(_, args) {
-      return Band.findById(args.id).then((bandInstance) => {
+      // Albums
+      args.albums.map(album => {
+        // Add new album
+        if(album.id === 0) {
+
+        }
+        // Update existing albums
+        else {
+          Album.findById(album.id).then(albumInstance => {
+            albumInstance.update({
+              cover: album.cover,
+              title: album.title,
+              year: album.year
+            }).then(() => {
+              album.songs.map(song => {
+                // Add new songs
+                if(song.id === 0) {
+                  Song.create({
+                    albumId: album.id,
+                    title: song.title,
+                    trackNumber: song.trackNumber,
+                    length: song.length,
+                    audio: song.audio
+                  })
+                }
+                // Update existing songs
+                else {
+                  Song.findById(song.id).then(songInstance => {
+                    songInstance.update({
+                      title: song.title,
+                      trackNumber: song.trackNumber,
+                      length: song.length,
+                      audio: song.audio
+                    })
+                  })
+                }
+              })
+            })
+          })
+        }
+      })
+      // Photos
+      args.photos.map(photo => {
+        // Save new photos
+        if(photo.id === 0) {
+          Photo.create({
+            bandId: args.id,
+            src: photo.src,
+            height: photo.height,
+            width: photo.width
+          })
+        }
+        // Update existing photos
+        else {
+        Photo.findById(photo.id).then(photoInstance => {
+          photoInstance.update({
+            src: photo.src,
+            height: photo.height,
+            width: photo.width
+          })
+        })
+      }})
+      // Band
+      return Band.findById(args.id).then(bandInstance => {
+        // Update band
         return bandInstance.update({
           bio: args.bio,
-          slug: args.slug
-        }).then((band) => {
+          slug: args.slug,
+          photos: args.photos
+        }).then(band => {
           return band
         })
       }).catch(e => {
@@ -55,6 +120,18 @@ const resolvers = {
         const bandId = photo.bandId
         return photo.destroy().then((response) => {
           return Band.findById(bandId)
+        })
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+
+    deleteSong(_, args) {
+      return Song.findById(args.id).then((song) => {
+        return Album.findById(song.albumId).then(albumInstance => {
+          return song.destroy().then((response) => {
+            return Band.findById(albumInstance.bandId)
+          })
         })
       }).catch(e => {
         console.log(e)

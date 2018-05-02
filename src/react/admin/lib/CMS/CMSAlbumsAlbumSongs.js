@@ -4,10 +4,13 @@
 import React, { Component } from 'react'
 import { arrayOf, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
+import _ from 'lodash'
 
 import CMSText from 'src/react/admin/lib/CMS/CMSText'
 import Icon from 'src/react/lib/Icon'
 import { xNoCircle } from '../../../../styles/icons';
+
+import { Button } from 'semantic-ui-react'
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
@@ -40,67 +43,98 @@ export default class CMSAlbumsAlbumSongs extends Component {
       {id: 12, trackNumber: 14, title: "Love You Til You Bleed", length: "8:26", audio: "audio/the-blast/lock-down-lights-out/14 Love You Til You Bleed.mp3"}
   ]}
 
-  updateSong = () => {
+  addSong = () => {
+    const { songs, updateSongs } = this.props
+    const nextTrackNumber = _.maxBy(songs, (song) => {return song.trackNumber})['trackNumber'] + 1
+    let newSongs = songs.slice()
+    newSongs.push({
+      id: 0,
+      trackNumber: nextTrackNumber,
+      title: "New Track",
+      length: "3:00",
+      audio: ""
+    })
+    updateSongs(newSongs)
+  }
 
+  updateSongs = (e, id, key) => {
+    const { songs, updateSongs } = this.props
+    let newSongs = []
+    songs.map(song => {
+      let updatedSong = Object.assign({}, song)
+      if(song.id === id) {
+        const newValue = (key === 'trackNumber' ? Number(e.target.value) : e.target.value)
+        updatedSong[key] = newValue
+      }
+      newSongs.push(updatedSong)
+    })
+    updateSongs(newSongs)
   }
 
   render() {
 		const {
-      songs
+      songs,
+      deleteSong
     } = this.props
+    const sortedSongs = _.sortBy(songs, ['trackNumber'])
 
     return (
 			<Container>
         <Header>Songs</Header>
-        {songs.map((song, index) => {
+        {sortedSongs.map((song, index) => {
             return (
               <Song key={index}>
                 <TrackNumberContainer>
                   <CMSText
-                    fluid
+                    disabled
                     label="#"
                     name="trackNumber"
                     value={song.trackNumber + ""}
                     placeholder="#"
-                    onChange={this.onChange}
+                    onChange={(e) => this.updateSongs(e, song.id, 'trackNumber')}
                     style={{width: '3.5vw'}}/>
                 </TrackNumberContainer>
                 <TitleContainer>
                   <CMSText
-                    fluid
                     label="Title"
                     name="title"
                     value={song.title}
                     placeholder="Title"
-                    onChange={this.onChange}
+                    onChange={(e) => this.updateSongs(e, song.id, 'title')}
                     style={{width: '12vw'}}/>
                 </TitleContainer>
                 <LengthContainer>
                   <CMSText
-                    fluid
                     label="Length"
                     name="length"
                     value={song.length}
                     placeholder="Length"
-                    onChange={this.onChange}
+                    onChange={(e) => this.updateSongs(e, song.id, 'length')}
                     style={{width: '4.5vw'}}/>
                 </LengthContainer>
                 <URLContainer>
                   <CMSText
-                    fluid
                     label="URL"
                     name="url"
                     value={song.audio}
                     placeholder="URL"
-                    onChange={this.onChange}
+                    onChange={(e) => this.updateSongs(e, song.id, 'audio')}
                     style={{width: '18vw'}}/>
                 </URLContainer>
-                <DeleteContainer>
+                <DeleteContainer
+                  onClick={() => deleteSong(song.id)}
+                  >
                   <Icon 
                     icon={xNoCircle}/>
                 </DeleteContainer>
               </Song>
         )})}
+        <AddSong
+          onClick={() => this.addSong()}
+          size="mini"
+          style={{width: '10vw', marginTop: '2vh'}}>
+          Add Song
+        </AddSong>
 			</Container>
   )}
 }
@@ -151,4 +185,7 @@ const DeleteContainer = InputContainer.extend`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+const AddSong = styled(Button)`
 `

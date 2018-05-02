@@ -16,6 +16,7 @@ query getBandBySlug($slug: String!) {
       slug
     }
     albums {
+      id
       cover
       title
       year

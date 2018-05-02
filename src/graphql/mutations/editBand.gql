@@ -1,13 +1,36 @@
 mutation editBand(
   $id: Int!,
   $bio: String!,
-  $slug: String!) {
+  $slug: String!,
+  $photos: [PhotoInput!]!
+  $albums: [AlbumInput!]!) {
   editBand(
     id: $id,
-    bio: $bio
-    slug: $slug) {
+    bio: $bio,
+    slug: $slug,
+    photos: $photos,
+    albums: $albums) {
       id
       bio
       slug
+      photos {
+        id
+        src
+        width
+        height
+      }
+      albums {
+        id
+        cover
+        title
+        year
+        songs {
+          id
+          trackNumber
+          title
+          length
+          audio
+        }
+      }
+    }
   }
-}

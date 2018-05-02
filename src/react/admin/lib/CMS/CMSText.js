@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { func, object, string } from 'prop-types'
+import { bool, func, object, string } from 'prop-types'
 import styled from 'styled-components'
 
 import { CMSWidth } from 'src/styles/admin/layout'
@@ -13,6 +13,8 @@ import { Form, Input } from 'semantic-ui-react'
 export default class CMSText extends Component {
 
   static propTypes = {
+    fluid: bool,
+    disabled: bool,
     label: string,
     name: string,
     placeholder: string,
@@ -22,6 +24,8 @@ export default class CMSText extends Component {
     onChange: func
   }
   static defaultProps = {
+    fluid: false,
+    disabled: false,
     label: null,
     name: "Default CMSText - name",
     placeholder: "Default CMSText - placeholder",
@@ -33,6 +37,8 @@ export default class CMSText extends Component {
 
   render() {
 		const {
+      fluid,
+      disabled,
       label,
       name,
       placeholder,
@@ -46,6 +52,8 @@ export default class CMSText extends Component {
     return (
       <Form>
         <Input
+          fluid={fluid}
+          disabled={disabled}
           label={label}
           name={name}
           placeholder={placeholder}

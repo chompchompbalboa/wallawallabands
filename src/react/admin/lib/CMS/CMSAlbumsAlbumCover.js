@@ -18,13 +18,17 @@ export default class CMSAlbumsAlbumCover extends Component {
 
   static defaultProps = {
     cover: "/default-1.jpg",
-    onCoverChange: () => console.warn("You need to define an onCoverChange function for CMSAlbumsAlbumCover to work correctly")
+    updateCover: () => console.warn("You need to define an updateCover function for CMSAlbumsAlbumCover to work correctly")
+  }
+
+  onChange = (e) => {
+    const { updateCover } = this.props
+    updateCover(e.target.value)
   }
 
   render() {
 		const {
-      cover,
-      onCoverChange
+      cover
     } = this.props
 
     return (
@@ -34,7 +38,7 @@ export default class CMSAlbumsAlbumCover extends Component {
           name="coverImage"
           value={cover}
           placeholder="Cover Image URL"
-          onChange={onCoverChange}/>
+          onChange={this.onChange}/>
 			</Container>
   )}
 }

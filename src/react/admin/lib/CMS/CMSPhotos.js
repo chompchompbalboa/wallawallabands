@@ -8,6 +8,7 @@ import styled from 'styled-components'
 
 import { CMSWidth } from 'src/styles/admin/layout'
 
+import { Button } from 'semantic-ui-react'
 import ExistingPhoto from 'src/react/admin/lib/CMS/CMSPhotosExistingPhoto'
 //------------------------------------------------------------------------------
 // Component
@@ -39,13 +40,14 @@ export default class CMSPhotos extends Component {
       newPhoto.height = photo.height
       newPhotos.push(newPhoto)
     })
-    console.log(newPhotos)
     updatePhotos(newPhotos)
   }
 
   render() {
 		const {
       photos,
+      addPhoto,
+      deletePhoto,
       updatePhotos
     } = this.props
 
@@ -58,8 +60,15 @@ export default class CMSPhotos extends Component {
                 key={index}
                 id={photo.id}
                 src={photo.src}
+                onDelete={deletePhoto}
                 onUrlChange={this.onUrlChange}/>
           )})}
+          <AddNewButton
+            onClick={() => addPhoto()}
+            size="mini"
+            style={{width: '10vw', marginTop: '2vh'}}>
+            Add New Photo
+          </AddNewButton>
         </ExistingPhotosWrapper>
 			</Container>
   )}
@@ -77,4 +86,7 @@ const ExistingPhotosWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+`
+
+const AddNewButton = styled(Button)`
 `

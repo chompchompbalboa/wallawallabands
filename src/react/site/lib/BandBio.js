@@ -21,6 +21,7 @@ export default class BandBio extends Component {
 }
 
 const Container = styled(Tile)`
+  white-space: pre-line;
 `
 
 BandBio.propTypes = {

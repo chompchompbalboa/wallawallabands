@@ -37,6 +37,9 @@ export default class CMSSaveButton extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.button`
+  position: fixed;
+  right: 2.5vw;
+  bottom: 3vw;
   cursor: pointer;
   width: 10vw;
   padding: 0.9em;

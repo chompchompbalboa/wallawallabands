@@ -65,7 +65,8 @@ export default class CMSAlbums extends Component {
 
   render() {
 		const {
-      albums
+      albums,
+      deleteSong
 		} = this.props
 
     return (
@@ -76,6 +77,7 @@ export default class CMSAlbums extends Component {
               key={index}
               index={index}
               album={album}
+              deleteSong={deleteSong}
               updateAlbum={this.updateAlbum}/>
         )})}
       </Container>

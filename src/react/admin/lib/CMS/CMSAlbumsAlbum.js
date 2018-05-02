@@ -54,6 +54,20 @@ export default class CMSAlbumsAlbum extends Component {
     updateAlbum: () => console.warn("You need to define an updateAlbum function for the CMSAlbumsAlbum component to work correctly")
   }
 
+  updateCover = (newCover) => {
+    const { album, index, updateAlbum } = this.props
+    let newAlbum = Object.assign({}, album)
+    newAlbum.cover = newCover
+    updateAlbum(newAlbum, index)
+  }
+
+  updateSongs = (newSongs) => {
+    const { album, index, updateAlbum } = this.props
+    let newAlbum = Object.assign({}, album)
+    newAlbum.songs = newSongs
+    updateAlbum(newAlbum, index)
+  }
+
   updateTitle = (newTitle) => {
     const { album, index, updateAlbum } = this.props
     let newAlbum = Object.assign({}, album)
@@ -76,18 +90,23 @@ export default class CMSAlbumsAlbum extends Component {
         title,
         year,
         songs
-      }
+      },
+      deleteSong
     } = this.props
+    const altSource = "/img/image-not-found.png"
 
     return (
 			<Container>
         <Header>{title}</Header>
         <AlbumInfoContainer>
           <CoverPhoto
-            src={cover}/>
+            innerRef={(c) => this.photo = c}
+            src={cover}
+            onError={() => {this.photo.src = altSource}}/>
           <AlbumInfoContainerInputs>
             <Cover 
-              cover={cover}/>
+              cover={cover}
+              updateCover={this.updateCover}/>
             <Title
               title={title}
               updateTitle={this.updateTitle}/>
@@ -97,7 +116,9 @@ export default class CMSAlbumsAlbum extends Component {
           </AlbumInfoContainerInputs>
         </AlbumInfoContainer>
         <Songs
-          songs={songs}/>
+          songs={songs}
+          deleteSong={deleteSong}
+          updateSongs={this.updateSongs}/>
 			</Container>
   )}
 }
