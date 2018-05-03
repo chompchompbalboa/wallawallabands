@@ -6,6 +6,8 @@ import { arrayOf, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import _ from 'lodash'
 
+import { primary } from 'src/styles/colors'
+
 import CMSText from 'src/react/admin/lib/CMS/CMSText'
 import Icon from 'src/react/lib/Icon'
 import { xNoCircle } from '../../../../styles/icons';
@@ -45,10 +47,16 @@ export default class CMSAlbumsAlbumSongs extends Component {
 
   addSong = () => {
     const { songs, updateSongs } = this.props
-    const nextTrackNumber = _.maxBy(songs, (song) => {return song.trackNumber})['trackNumber'] + 1
+    let nextTrackNumber
+    try {
+      nextTrackNumber = _.maxBy(songs, (song) => {return song.trackNumber})['trackNumber'] + 1
+    }
+    catch(e) {
+      nextTrackNumber = 1
+    }
     let newSongs = songs.slice()
     newSongs.push({
-      id: 0,
+      id: _.random(1000000, 10000000),
       trackNumber: nextTrackNumber,
       title: "New Track",
       length: "3:00",
@@ -73,7 +81,9 @@ export default class CMSAlbumsAlbumSongs extends Component {
 
   render() {
 		const {
+      albumId,
       songs,
+      deleteAlbum,
       deleteSong
     } = this.props
     const sortedSongs = _.sortBy(songs, ['trackNumber'])
@@ -129,12 +139,20 @@ export default class CMSAlbumsAlbumSongs extends Component {
                 </DeleteContainer>
               </Song>
         )})}
-        <AddSong
-          onClick={() => this.addSong()}
-          size="mini"
-          style={{width: '10vw', marginTop: '2vh'}}>
-          Add Song
-        </AddSong>
+        <ButtonsContainer>
+          <AddSong
+            onClick={() => this.addSong()}
+            size="mini"
+            style={{width: '10vw', marginTop: '2vh'}}>
+            Add Song
+          </AddSong>
+          <DeleteAlbum
+            onClick={() => deleteAlbum(albumId)}
+            size="mini"
+            style={{width: '10vw', marginTop: '2vh', backgroundColor: primary, color: 'white'}}>
+            Delete Album
+          </DeleteAlbum>
+        </ButtonsContainer>
 			</Container>
   )}
 }
@@ -187,5 +205,11 @@ const DeleteContainer = InputContainer.extend`
   align-items: center;
 `
 
+const ButtonsContainer = styled.div``
+
 const AddSong = styled(Button)`
+  margin-right: 2vh;
+`
+
+const DeleteAlbum = styled(Button)`
 `

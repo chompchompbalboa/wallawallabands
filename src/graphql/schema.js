@@ -11,7 +11,8 @@ const typeDefs = `
   }
 
   type Mutation {
-    editBand(id: Int, bio: String, name: String, slug: String, photos: [PhotoInput], albums: [AlbumInput]): Band,
+    editBand(id: Int, bio: String, name: String, slug: String, photos: [PhotoInput], albums: [AlbumInput]): Band
+    deleteAlbum(id: Int): Band
     deletePhoto(id: Int): Band
     deleteSong(id: Int): Band
     singleUpload(file: Upload!): File!

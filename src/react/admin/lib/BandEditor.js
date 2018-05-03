@@ -11,10 +11,10 @@ import _ from 'lodash'
 import setAlbumFolder from 'src/utils/setAlbumFolder'
 import setPhotoFolder from 'src/utils/setPhotoFolder'
 
+import deleteAlbum from 'src/graphql/mutations/deleteAlbum.gql'
 import deletePhoto from 'src/graphql/mutations/deletePhoto.gql'
 import deleteSong from 'src/graphql/mutations/deleteSong.gql'
 import editBand from 'src/graphql/mutations/editBand.gql'
-import multipleUpload from 'src/graphql/mutations/multipleUpload.gql'
 
 import CMSAlbums from 'src/react/admin/lib/CMS/CMSAlbums'
 import CMSPhotos from 'src/react/admin/lib/CMS/CMSPhotos'
@@ -26,9 +26,9 @@ import CMSTextArea from 'src/react/admin/lib/CMS/CMSTextArea'
 //------------------------------------------------------------------------------
 @compose(
 	graphql(editBand, {name: "editBand"}),
+	graphql(deleteAlbum, {name: "deleteAlbum"}),
 	graphql(deletePhoto, {name: "deletePhoto"}),
-	graphql(deleteSong, {name: "deleteSong"}),
-	graphql(multipleUpload, {name: "multipleUpload"})
+	graphql(deleteSong, {name: "deleteSong"})
 )
 export default class BandEditor extends Component {
 
@@ -137,8 +137,8 @@ export default class BandEditor extends Component {
 	deleteExistingPhoto = (id) => {
 		const { deletePhoto } = this.props
 		const { photos } = this.state
-		if(id === 0) {
-			let newPhotos = _.filter(photos, (photo) => {return photo.id > 0})
+		if(id >= 1000000) {
+			let newPhotos = _.filter(photos, (photo) => {return photo.id < 1000000})
 			this.setState({
 				photos: newPhotos
 			})
@@ -158,11 +158,30 @@ export default class BandEditor extends Component {
 
 	deleteSong = (id) => {
 		const { deleteSong } = this.props
-		const { songs } = this.state
-		if (id === 0) {
-			let newSongs = _.filter(songs, (song) => {return song.id > 0})
+		const { albums } = this.state
+		if (id >= 1000000) {
+			let newAlbums = []
+			albums.map(album => {
+				let newSongs = _.filter(album.songs, (song) => {return song.id !== id})
+				const sortedSongs = _.sortBy(newSongs, ['trackNumber']).map((song, index) => {
+					return {
+						id: song.id,
+						title: song.title,
+						trackNumber: index + 1,
+						length: song.length,
+						audio: song.audio
+					}
+				})
+				newAlbums.push({
+					id: album.id,
+					cover: album.cover,
+					title: album.title,
+					year: album.year,
+					songs: sortedSongs
+				})
+			})
 			this.setState({
-				songs: newSongs
+				albums: newAlbums
 			})
 		}
 		else {
@@ -173,6 +192,28 @@ export default class BandEditor extends Component {
 			}).then(({data}) => {
 				this.setState({
 					album: data.deleteSong.album
+				})
+			})
+		}
+	}
+
+	deleteAlbum = (id) => {
+		const { deleteAlbum } = this.props
+		const { albums } = this.state
+		if(id >= 1000000) {
+			let newAlbums = _.filter(albums, (album) => {return album.id < 1000000})
+			this.setState({
+				albums: newAlbums
+			})
+		}
+		else {
+			deleteAlbum({
+				variables: {
+					id: id
+				}
+			}).then(({data}) => {
+				this.setState({
+					albums: data.deleteAlbum.albums
 				})
 			})
 		}
@@ -190,34 +231,13 @@ export default class BandEditor extends Component {
 			})
 		})
 		newPhotos.push({
-			id: 0,
+			id: _.random(1000000, 10000000),
 			src: "",
 			width: 0,
 			height: 0
 		})
 		this.setState({
 			photos: newPhotos
-		})
-	}
-
-	saveNewPhoto = (e) => {
-		const { target: { validity, files }} = e
-		const {
-			album,
-			band,
-			multipleUpload
-		} = this.props
-		const uploadFolder = setPhotoFolder(band)
-		const dbModel = "photos"
-		multipleUpload({
-			variables: {
-				bandId: band.id,
-				files: files,
-			 	uploadFolder: uploadFolder,
-				dbModel: dbModel
-		}})
-		.then(({data}) => {
-			console.log('saveNewPhoto', data)
 		})
 	}
 
@@ -272,6 +292,7 @@ export default class BandEditor extends Component {
 					<EditorSectionContent>
 						<CMSAlbums 
 							albums={albums}
+							deleteAlbum={this.deleteAlbum}
 							deleteSong={this.deleteSong}
 							updateAlbums={this.updateAlbums}/>
 					</EditorSectionContent>

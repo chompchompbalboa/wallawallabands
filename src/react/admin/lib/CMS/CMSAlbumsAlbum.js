@@ -86,11 +86,13 @@ export default class CMSAlbumsAlbum extends Component {
 		const {
       index,
       album: {
+        id,
         cover,
         title,
         year,
         songs
       },
+      deleteAlbum,
       deleteSong
     } = this.props
     const altSource = "/img/image-not-found.png"
@@ -117,6 +119,8 @@ export default class CMSAlbumsAlbum extends Component {
         </AlbumInfoContainer>
         <Songs
           songs={songs}
+          albumId={id}
+          deleteAlbum={deleteAlbum}
           deleteSong={deleteSong}
           updateSongs={this.updateSongs}/>
 			</Container>

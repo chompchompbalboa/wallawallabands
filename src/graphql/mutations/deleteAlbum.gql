@@ -1,0 +1,17 @@
+mutation deleteAlbum($id: Int!) {
+  deleteAlbum(id: $id) {
+    albums {
+      id
+      cover
+      title
+      year
+      songs {
+        id
+        audio
+        length
+        title
+        trackNumber
+      }
+    }
+  }
+}

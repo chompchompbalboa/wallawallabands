@@ -41,8 +41,23 @@ const resolvers = {
       // Albums
       args.albums.map(album => {
         // Add new album
-        if(album.id === 0) {
-
+        if(album.id >= 1000000) {
+          Album.create({
+            bandId: args.id,
+            cover: album.cover,
+            title: album.title,
+            year: album.year
+          }).then(albumInstance => {
+            album.songs.map(song => {
+              Song.create({
+                albumId: albumInstance.id,
+                title: song.title,
+                trackNumber: song.trackNumber,
+                length: song.length,
+                audio: song.audio
+              })
+            })
+          })
         }
         // Update existing albums
         else {
@@ -54,7 +69,7 @@ const resolvers = {
             }).then(() => {
               album.songs.map(song => {
                 // Add new songs
-                if(song.id === 0) {
+                if(song.id >= 1000000) {
                   Song.create({
                     albumId: album.id,
                     title: song.title,
@@ -82,7 +97,7 @@ const resolvers = {
       // Photos
       args.photos.map(photo => {
         // Save new photos
-        if(photo.id === 0) {
+        if(photo.id >= 1000000) {
           Photo.create({
             bandId: args.id,
             src: photo.src,
@@ -109,6 +124,22 @@ const resolvers = {
           photos: args.photos
         }).then(band => {
           return band
+        })
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+
+    deleteAlbum(_, args) {
+      Song.destroy({
+        where: {
+          albumId: args.id
+        }
+      })
+      return Album.findById(args.id).then(album => {
+        const bandId = album.bandId
+        return album.destroy().then(response => {
+          return Band.findById(bandId)
         })
       }).catch(e => {
         console.log(e)

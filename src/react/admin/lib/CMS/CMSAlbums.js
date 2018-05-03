@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
+import { Button } from 'semantic-ui-react'
 import CMSAlbumsAlbum from 'src/react/admin/lib/CMS/CMSAlbumsAlbum'
 //------------------------------------------------------------------------------
 // Component
@@ -56,6 +57,21 @@ export default class CMSAlbums extends Component {
     updateAlbums: () => console.warn("You need to define an updateAlbums function for the CMSAlbums component to work correctly")
   }
 
+  addAlbum = () => {
+    const { albums, updateAlbums } = this.props
+    let newAlbums = albums.slice()
+    newAlbums.push({
+      id: _.random(1000000, 10000000),
+      cover: "",
+      title: "New Album",
+      year: "Year",
+      songs: [
+        {id: _.random(1000000, 10000000), trackNumber: 1, title: "New Track", length: "3:00", audio: ""}
+      ]
+    })
+    updateAlbums(newAlbums)
+  }
+
   updateAlbum = (album, index) => {
     const { albums, updateAlbums } = this.props
     let newAlbums = albums.slice()
@@ -66,6 +82,7 @@ export default class CMSAlbums extends Component {
   render() {
 		const {
       albums,
+      deleteAlbum,
       deleteSong
 		} = this.props
 
@@ -77,9 +94,16 @@ export default class CMSAlbums extends Component {
               key={index}
               index={index}
               album={album}
+              deleteAlbum={deleteAlbum}
               deleteSong={deleteSong}
               updateAlbum={this.updateAlbum}/>
         )})}
+        <AddAlbum
+          onClick={() => this.addAlbum()}
+          size="mini"
+          style={{width: '10vw', marginTop: '2vh'}}>
+          Add Album
+        </AddAlbum>
       </Container>
     )
   }
@@ -91,3 +115,6 @@ export default class CMSAlbums extends Component {
 const Container = styled.div`
   width: 100%;
 `
+
+const AddAlbum = styled(Button)``
+
