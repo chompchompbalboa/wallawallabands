@@ -35,7 +35,7 @@ export default class ChooseBand extends Component {
 		const {
       activeBandSlug,
       bands,
-      addBand,\
+      addBand
     } = this.props
     const options = this.convertBandsToOptions(bands)
     
