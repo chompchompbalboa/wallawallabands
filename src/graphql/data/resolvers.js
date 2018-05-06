@@ -38,7 +38,7 @@ const resolvers = {
   Mutation: {
 
     editBand(_, args) {
-      // Albums
+      //-- Albums --
       args.albums.map(album => {
         // Add new album
         if(album.id >= 1000000) {
@@ -94,7 +94,8 @@ const resolvers = {
           })
         }
       })
-      // Photos
+
+      //-- Photos --
       args.photos.map(photo => {
         // Save new photos
         if(photo.id >= 1000000) {
@@ -115,7 +116,23 @@ const resolvers = {
           })
         })
       }})
-      // Band
+
+      //-- Similar Bands --
+      // Delete existing similar bands
+      SimilarBands.destroy({
+        where: {
+          bandId: args.id
+        }
+      })
+      // Add updated similar bands
+      args.similarBands.map(similarBand => {
+        SimilarBands.create({
+            bandId: args.id,
+            similarBandId: Number(similarBand.similarBandId)
+        })
+      })
+
+      //-- Band --
       return Band.findById(args.id).then(bandInstance => {
         // Update band
         return bandInstance.update({

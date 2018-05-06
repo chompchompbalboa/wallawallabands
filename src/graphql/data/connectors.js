@@ -22,7 +22,9 @@ const BandModel = db.define('band', {
   featured: {type: Sequelize.BOOLEAN}
 })
 
-const SimilarBandsModel = db.define('similar_bands', {
+const SimilarBandsModel = db.define('similar_bands', { 
+  bandId: {type: Sequelize.INTEGER},
+  similarBandId: {type: Sequelize.INTEGER}
 })
 
 const PhotoModel = db.define('photo', {

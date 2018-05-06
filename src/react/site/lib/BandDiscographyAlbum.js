@@ -141,6 +141,7 @@ const AlbumSummaryText = styled.div`
 `
 
 const MoreContainer = styled.div`
+  cursor: pointer;
   margin-top: 2vh;
   width: 100%;
   display: flex;

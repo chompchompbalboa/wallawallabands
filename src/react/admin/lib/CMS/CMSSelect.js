@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { arrayOf, func, shape, string } from 'prop-types'
+import { arrayOf, func, object, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import { Dropdown } from 'semantic-ui-react'
@@ -17,7 +17,8 @@ export default class CMSSelect extends Component {
       text: string,
       value: string
     })),
-    handleChange: func
+    handleChange: func,
+    style: object
 }
 
   static defaultProps = {
@@ -27,26 +28,29 @@ export default class CMSSelect extends Component {
       {text: "Option 2", value: "Option 2"},
       {text: "Option 3", value: "Option 3"}
     ],
-    handleChange: () => {console.warn("You need to define a handleChange function for CMSSelect to work properly")}
+    handleChange: () => {console.warn("You need to define a handleChange function for CMSSelect to work properly")},
+    style: {}
   }
 
   render() {
 		const {
-      defaultValue,
+      value,
       placeholder,
       options,
-      handleChange
-		} = this.props
+      handleChange,
+      style
+    } = this.props
 
     return (
       <Dropdown
         placeholder={placeholder}
-        defaultValue={defaultValue}
+        value={value}
         options={options}
         onChange={handleChange}
         fluid
         search
         selection
+        style={style}
       />
     )
   }

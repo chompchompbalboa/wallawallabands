@@ -27,6 +27,7 @@ export default class BandEditorContainer extends Component {
 
   render() {
 		const {
+      bands,
       data
     } = this.props
 
@@ -37,7 +38,8 @@ export default class BandEditorContainer extends Component {
       const band = data.getBandBySlug
       return (
   			<BandEditor
-					band={band}/>
+					band={band}
+          bands={bands}/>
       )
     }
   }

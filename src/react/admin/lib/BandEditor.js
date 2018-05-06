@@ -19,6 +19,7 @@ import editBand from 'src/graphql/mutations/editBand.gql'
 import CMSAlbums from 'src/react/admin/lib/CMS/CMSAlbums'
 import CMSPhotos from 'src/react/admin/lib/CMS/CMSPhotos'
 import CMSSaveButton from 'src/react/admin/lib/CMS/CMSSaveButton'
+import CMSSimilarBands from 'src/react/admin/lib/CMS/CMSSimilarBands'
 import CMSText from 'src/react/admin/lib/CMS/CMSText'
 import CMSTextArea from 'src/react/admin/lib/CMS/CMSTextArea'
 //------------------------------------------------------------------------------
@@ -37,6 +38,7 @@ export default class BandEditor extends Component {
 		albums: this.props.band.albums,
 		bio: this.props.band.bio,
 		photos: this.props.band.photos,
+		similarBands: this.props.band.similarBands,
 		slug: this.props.band.slug
 	}
 
@@ -46,6 +48,7 @@ export default class BandEditor extends Component {
 			albums: array,
 			bio: string,
 			photos: array,
+			similarBands: array,
 			slug: string
 	})}
 
@@ -55,6 +58,7 @@ export default class BandEditor extends Component {
 			albums: [],
 			bio: "Default BandEditor - bio",
 			photos: [],
+			similarBands: [],
 			slug: "default-slug"
 		}
   }
@@ -65,6 +69,7 @@ export default class BandEditor extends Component {
 			albums: nextProps.band.albums,
 			bio: nextProps.band.bio,
 			photos: nextProps.band.photos,
+			similarBands: nextProps.band.similarBands,
 			slug: nextProps.band.slug
 	})}
 
@@ -85,9 +90,15 @@ export default class BandEditor extends Component {
 		})
 	}
 
+	updateSimilarBands = (similarBands) => {
+		this.setState({
+			similarBands: similarBands
+		})
+	}
+
 	saveBand = () => {
 		const { editBand } = this.props
-		const { albums, id, bio, photos, slug } = this.state
+		const { albums, id, bio, photos, similarBands, slug } = this.state
 		// Remove __typename from photos objects to conform to the GraphQL schema
 		const filteredPhotos = photos.map(photo => {
 			return {
@@ -115,13 +126,20 @@ export default class BandEditor extends Component {
 				})
 			}
 		})
+		// Remove __typename and unneeded info from similarBands object
+		const filteredSimilarBands = similarBands.map(similarBand => {
+			return {
+				similarBandId: similarBand.id
+			}
+		})
 		editBand({
 			variables: {
 				id: id,
 				bio: bio,
 				slug: slug,
 				photos: filteredPhotos,
-				albums: filteredAlbums
+				albums: filteredAlbums,
+				similarBands: filteredSimilarBands
 			}
 		}).then(({data}) => {
 			this.setState({
@@ -129,12 +147,13 @@ export default class BandEditor extends Component {
 				albums: data.editBand.albums,
 				bio: data.editBand.bio,
 				photos: data.editBand.photos,
+				similarBands: data.editBand.similarBands,
 				slug: data.editBand.slug
 			})
 		})
 	}
 
-	deleteExistingPhoto = (id) => {
+	deletePhoto = (id) => {
 		const { deletePhoto } = this.props
 		const { photos } = this.state
 		if(id >= 1000000) {
@@ -243,11 +262,15 @@ export default class BandEditor extends Component {
 
   render = () => {
 		const {
+			bands
+		} = this.props
+		const {
 			albums,
 			bio,
 			photos,
+			similarBands,
 			slug
-    } = this.state
+		} = this.state
 
     return (
 			<Container>
@@ -283,7 +306,7 @@ export default class BandEditor extends Component {
 						<CMSPhotos
 							photos={photos}
 							addPhoto={this.addPhoto}
-							deletePhoto={this.deleteExistingPhoto}
+							deletePhoto={this.deletePhoto}
 							updatePhotos={this.updatePhotos}/>
 					</EditorSectionContent>
 				</EditorSection>
@@ -295,6 +318,15 @@ export default class BandEditor extends Component {
 							deleteAlbum={this.deleteAlbum}
 							deleteSong={this.deleteSong}
 							updateAlbums={this.updateAlbums}/>
+					</EditorSectionContent>
+				</EditorSection>
+				<EditorSection>
+					<EditorSectionHeader>Similar Bands</EditorSectionHeader>
+					<EditorSectionContent>
+						<CMSSimilarBands 
+							bands={bands}
+							similarBands={similarBands}
+							updateSimilarBands={this.updateSimilarBands}/>
 					</EditorSectionContent>
 				</EditorSection>
         <CMSSaveButton

@@ -11,6 +11,7 @@ query getBandBySlug($slug: String!) {
       height
     }
     similarBands {
+      id
       name
       bio
       slug

@@ -49,8 +49,11 @@ export default class Bands extends Component {
       const slug = (activeBandSlug === null ? bands[0].slug : activeBandSlug)
       return (
   			<TaskWrapper header="Bands">
-          <ChooseBand bands={bands} setActiveBand={this.setActiveBand}/>
-          <BandEditor slug={slug}/>
+          <ChooseBand 
+            activeBandSlug={slug}
+            bands={bands} 
+            setActiveBand={this.setActiveBand}/>
+          <BandEditor bands={bands} slug={slug}/>
   			</TaskWrapper>
       )
     }

@@ -30,6 +30,7 @@ export default class ChooseBand extends Component {
 
   render() {
 		const {
+      activeBandSlug,
       bands
     } = this.props
     const options = this.convertBandsToOptions(bands)
@@ -39,6 +40,7 @@ export default class ChooseBand extends Component {
         <CMSSelect
           placeholder="Select Band"
           defaultValue={options[0].value}
+          value={activeBandSlug}
           options={options}
           handleChange={this.handleSelectChange}/>
 			</Container>
