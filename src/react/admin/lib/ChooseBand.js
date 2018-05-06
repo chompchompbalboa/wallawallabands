@@ -5,6 +5,9 @@ import React, { Component } from 'react'
 import { } from 'prop-types'
 import styled from 'styled-components'
 
+import { primary } from 'src/styles/colors'
+
+import { Button } from 'semantic-ui-react'
 import CMSSelect from 'src/react/admin/lib/CMS/CMSSelect'
 //------------------------------------------------------------------------------
 // Component
@@ -31,7 +34,9 @@ export default class ChooseBand extends Component {
   render() {
 		const {
       activeBandSlug,
-      bands
+      bands,
+      addBand,
+      deleteBand
     } = this.props
     const options = this.convertBandsToOptions(bands)
     
@@ -43,6 +48,18 @@ export default class ChooseBand extends Component {
           value={activeBandSlug}
           options={options}
           handleChange={this.handleSelectChange}/>
+        <AddBand
+          onClick={addBand}
+          size="mini"
+          style={{width: '15vw', marginLeft: '1vh'}}>
+          Add New Band
+        </AddBand>
+        <DeleteBand
+          onClick={deleteBand}
+          size="mini"
+          style={{width: '12vw', marginLeft: '1vh', backgroundColor: primary, color: "white"}}>
+          Delete Band
+        </DeleteBand>
 			</Container>
   )}
 }
@@ -51,4 +68,12 @@ export default class ChooseBand extends Component {
 // Styled Components
 //------------------------------------------------------------------------------
 const Container = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
+
+const AddBand = styled(Button)``
+
+const DeleteBand = styled(Button)``

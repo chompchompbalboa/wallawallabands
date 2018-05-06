@@ -27,6 +27,15 @@ export default class Bands extends Component {
   static propTypes = {}
   static defaultProps = {}
 
+  addBand = () => {
+    this.setState({
+      activeBandSlug: "newBand"
+    })
+  }
+
+  deleteBand = () => {
+  }
+
   setActiveBand = (slug) => {
     this.setState({
       activeBandSlug: slug
@@ -53,7 +62,9 @@ export default class Bands extends Component {
             activeBandSlug={slug}
             bands={bands} 
             setActiveBand={this.setActiveBand}/>
-          <BandEditor bands={bands} slug={slug}/>
+          <BandEditor 
+            bands={bands} 
+            slug={slug}/>
   			</TaskWrapper>
       )
     }
