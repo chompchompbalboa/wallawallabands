@@ -5,7 +5,9 @@ import React, { Component } from 'react'
 import { } from 'prop-types'
 import { compose, graphql } from 'react-apollo'
 import styled from 'styled-components'
+import _ from 'lodash'
 
+import deleteBand from 'src/graphql/mutations/deleteBand.gql'
 import getBands from 'src/graphql/queries/getBands.gql'
 
 import BandEditor from 'src/react/admin/lib/BandEditorContainer'
@@ -16,7 +18,12 @@ import TaskWrapper from 'src/react/admin/lib/TaskWrapper'
 // Component
 //------------------------------------------------------------------------------
 @compose(
-  graphql(getBands, {name: "getBands"})
+  graphql(getBands, 
+    {
+      name: "getBands",
+      options: {fetchPolicy: "network-only", ssr: true}
+    }),
+  graphql(deleteBand, {name: "deleteBand"})
 )
 export default class Bands extends Component {
 
@@ -34,6 +41,23 @@ export default class Bands extends Component {
   }
 
   deleteBand = () => {
+    const { deleteBand, getBands } = this.props
+    const { activeBandSlug } = this.state
+    const bands = getBands.allBands
+    const slug = (activeBandSlug === null ? bands[0].slug : activeBandSlug)
+    const activeBand = _.find(bands, {slug: slug})
+    deleteBand({
+      variables: {
+        id: activeBand.id
+      }
+    }).then(response => {
+      const { data: {deleteBand: { success }}} = response
+      if(success) {
+        this.setState({
+          activeBandSlug: bands[0].slug
+        })
+      }
+    })
   }
 
   setActiveBand = (slug) => {
@@ -61,6 +85,8 @@ export default class Bands extends Component {
           <ChooseBand 
             activeBandSlug={slug}
             bands={bands} 
+            addBand={this.addBand}
+            deleteBand={this.deleteBand}
             setActiveBand={this.setActiveBand}/>
           <BandEditor 
             bands={bands} 

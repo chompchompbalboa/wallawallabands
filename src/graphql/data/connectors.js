@@ -46,12 +46,12 @@ const SongModel = db.define('song', {
   audio: {type: Sequelize.STRING}
 })
 
-BandModel.hasMany(PhotoModel)
-BandModel.hasMany(AlbumModel)
+BandModel.hasMany(PhotoModel, {onDelete: 'cascade'})
+BandModel.hasMany(AlbumModel, {onDelete: 'cascade'})
 BandModel.belongsToMany(BandModel, {as: "SimilarBands", through: SimilarBandsModel})
 PhotoModel.belongsTo(BandModel)
 AlbumModel.belongsTo(BandModel)
-AlbumModel.hasMany(SongModel)
+AlbumModel.hasMany(SongModel, {onDelete: 'cascade'})
 SongModel.belongsTo(AlbumModel)
 
 const images = [

@@ -35,6 +35,7 @@ export default class BandEditor extends Component {
 
 	state = {
 		id: this.props.band.id,
+		name: this.props.band.name,
 		albums: this.props.band.albums,
 		bio: this.props.band.bio,
 		photos: this.props.band.photos,
@@ -45,6 +46,7 @@ export default class BandEditor extends Component {
   static propTypes = {
 		band: shape({
 			id: number,
+			name: string,
 			albums: array,
 			bio: string,
 			photos: array,
@@ -55,6 +57,7 @@ export default class BandEditor extends Component {
   static defaultProps = {
 		band: {
 			id: 1,
+			name: "Default Band",
 			albums: [],
 			bio: "Default BandEditor - bio",
 			photos: [],
@@ -66,6 +69,7 @@ export default class BandEditor extends Component {
 	componentWillReceiveProps = (nextProps) => {
 		this.setState({
 			id: nextProps.band.id,
+			name: nextProps.band.name,
 			albums: nextProps.band.albums,
 			bio: nextProps.band.bio,
 			photos: nextProps.band.photos,
@@ -98,7 +102,7 @@ export default class BandEditor extends Component {
 
 	saveBand = () => {
 		const { editBand } = this.props
-		const { albums, id, bio, photos, similarBands, slug } = this.state
+		const { albums, id, name, bio, photos, similarBands, slug } = this.state
 		// Remove __typename from photos objects to conform to the GraphQL schema
 		const filteredPhotos = photos.map(photo => {
 			return {
@@ -135,6 +139,7 @@ export default class BandEditor extends Component {
 		editBand({
 			variables: {
 				id: id,
+				name: name,
 				bio: bio,
 				slug: slug,
 				photos: filteredPhotos,
@@ -144,6 +149,7 @@ export default class BandEditor extends Component {
 		}).then(({data}) => {
 			this.setState({
 				id: data.editBand.id,
+				name: data.editBand.name,
 				albums: data.editBand.albums,
 				bio: data.editBand.bio,
 				photos: data.editBand.photos,
@@ -265,15 +271,32 @@ export default class BandEditor extends Component {
 			bands
 		} = this.props
 		const {
+			id,
+			name,
 			albums,
 			bio,
 			photos,
 			similarBands,
 			slug
 		} = this.state
+		const findBands = _.filter(bands, {name: name})
+		const nameInBands = findBands.length > 0
 
     return (
 			<Container>
+				{(id === 0 || !nameInBands) &&
+				<EditorSection>
+					<EditorSectionHeader>Name</EditorSectionHeader>
+					<EditorSectionContent>
+						<CMSText
+							label="Name"
+							name="name"
+							value={name}
+							placeholder="Name"
+							onChange={this.onChange}/>
+					</EditorSectionContent>
+				</EditorSection>
+				}
 				<EditorSection>
 					<EditorSectionHeader>Slug</EditorSectionHeader>
 					<EditorSectionContent>
@@ -281,7 +304,7 @@ export default class BandEditor extends Component {
 							label="http://wallawallabands.com/band/"
 							name="slug"
 							value={slug}
-							placeholder="slug"
+							placeholder="Slug"
 							onChange={this.onChange}/>
 						<VisitLink 
 							href={"http://wallawallabands.com/band/" + slug}

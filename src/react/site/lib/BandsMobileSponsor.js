@@ -28,8 +28,8 @@ export default class BandsMobileSponsor extends Component {
 			<Container>
         <Header>Sponsored By:</Header>
         <Logo
-          src="/img/sponsors/music_together_walla_walla.png"></Logo>
-        <Blurb>Music and movement classes for babies, toddlers, preschoolers, and the grown ups who love them, in the Walla Walla area</Blurb>
+          src="/img/sponsors/Vrex-Banner.png"></Logo>
+        <Blurb>Walla Walla’s only dinosaur themed independent rock n roll music machine</Blurb>
 			</Container>
   )}
 }

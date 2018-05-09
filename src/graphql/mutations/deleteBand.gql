@@ -1,0 +1,5 @@
+mutation deleteBand($id: Int!) {
+  deleteBand(id: $id) {
+    success
+  }
+}

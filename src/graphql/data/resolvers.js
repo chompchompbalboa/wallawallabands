@@ -37,114 +37,163 @@ const resolvers = {
 
   Mutation: {
 
+    deleteBand(_, args) {
+      return {
+        success: Band.destroy({
+          where: {
+            id: args.id
+          }
+        }).then(affectedRows => {
+          return (affectedRows > 0)
+        })
+      };
+    },
+
     editBand(_, args) {
-      //-- Albums --
-      args.albums.map(album => {
-        // Add new album
-        if(album.id >= 1000000) {
-          Album.create({
-            bandId: args.id,
-            cover: album.cover,
-            title: album.title,
-            year: album.year
-          }).then(albumInstance => {
-            album.songs.map(song => {
-              Song.create({
-                albumId: albumInstance.id,
-                title: song.title,
-                trackNumber: song.trackNumber,
-                length: song.length,
-                audio: song.audio
-              })
+      if(args.id === 0) {
+        return Band.create({
+          name: args.name,
+          slug: args.slug,
+          bio: args.bio
+        }).then(bandInstance=> {
+          args.photos.map(photo => {
+            Photo.create({
+              bandId: bandInstance.id,
+              src: photo.src,
+              height: photo.height,
+              width: photo.width
             })
           })
-        }
-        // Update existing albums
-        else {
-          Album.findById(album.id).then(albumInstance => {
-            albumInstance.update({
+          args.albums.map(album=> {
+            Album.create({
+              bandId: args.id,
               cover: album.cover,
               title: album.title,
               year: album.year
-            }).then(() => {
+            }).then(albumInstance => {
               album.songs.map(song => {
-                // Add new songs
-                if(song.id >= 1000000) {
-                  Song.create({
-                    albumId: album.id,
-                    title: song.title,
-                    trackNumber: song.trackNumber,
-                    length: song.length,
-                    audio: song.audio
-                  })
-                }
-                // Update existing songs
-                else {
-                  Song.findById(song.id).then(songInstance => {
-                    songInstance.update({
+                Song.create({
+                  albumId: albumInstance.id,
+                  title: song.title,
+                  trackNumber: song.trackNumber,
+                  length: song.length,
+                  audio: song.audio
+                })
+              })
+            })
+          })
+          return bandInstance
+        })
+      }
+      else {
+        //-- Albums --
+        args.albums.map(album => {
+          // Add new album
+          if(album.id >= 1000000) {
+            Album.create({
+              bandId: args.id,
+              cover: album.cover,
+              title: album.title,
+              year: album.year
+            }).then(albumInstance => {
+              album.songs.map(song => {
+                Song.create({
+                  albumId: albumInstance.id,
+                  title: song.title,
+                  trackNumber: song.trackNumber,
+                  length: song.length,
+                  audio: song.audio
+                })
+              })
+            })
+          }
+          // Update existing albums
+          else {
+            Album.findById(album.id).then(albumInstance => {
+              albumInstance.update({
+                cover: album.cover,
+                title: album.title,
+                year: album.year
+              }).then(() => {
+                album.songs.map(song => {
+                  // Add new songs
+                  if(song.id >= 1000000) {
+                    Song.create({
+                      albumId: album.id,
                       title: song.title,
                       trackNumber: song.trackNumber,
                       length: song.length,
                       audio: song.audio
                     })
-                  })
-                }
+                  }
+                  // Update existing songs
+                  else {
+                    Song.findById(song.id).then(songInstance => {
+                      songInstance.update({
+                        title: song.title,
+                        trackNumber: song.trackNumber,
+                        length: song.length,
+                        audio: song.audio
+                      })
+                    })
+                  }
+                })
               })
             })
-          })
-        }
-      })
+          }
+        })
 
-      //-- Photos --
-      args.photos.map(photo => {
-        // Save new photos
-        if(photo.id >= 1000000) {
-          Photo.create({
-            bandId: args.id,
-            src: photo.src,
-            height: photo.height,
-            width: photo.width
+        //-- Photos --
+        args.photos.map(photo => {
+          // Save new photos
+          if(photo.id >= 1000000) {
+            Photo.create({
+              bandId: args.id,
+              src: photo.src,
+              height: photo.height,
+              width: photo.width
+            })
+          }
+          // Update existing photos
+          else {
+          Photo.findById(photo.id).then(photoInstance => {
+            photoInstance.update({
+              src: photo.src,
+              height: photo.height,
+              width: photo.width
+            })
           })
-        }
-        // Update existing photos
-        else {
-        Photo.findById(photo.id).then(photoInstance => {
-          photoInstance.update({
-            src: photo.src,
-            height: photo.height,
-            width: photo.width
+        }})
+
+        //-- Similar Bands --
+        // Delete existing similar bands
+        SimilarBands.destroy({
+          where: {
+            bandId: args.id
+          }
+        })
+        // Add updated similar bands
+        args.similarBands.map(similarBand => {
+          SimilarBands.create({
+              bandId: args.id,
+              similarBandId: Number(similarBand.similarBandId)
           })
         })
-      }})
 
-      //-- Similar Bands --
-      // Delete existing similar bands
-      SimilarBands.destroy({
-        where: {
-          bandId: args.id
-        }
-      })
-      // Add updated similar bands
-      args.similarBands.map(similarBand => {
-        SimilarBands.create({
-            bandId: args.id,
-            similarBandId: Number(similarBand.similarBandId)
+        //-- Band --
+        return Band.findById(args.id).then(bandInstance => {
+          // Update band
+          return bandInstance.update({
+            bio: args.bio,
+            slug: args.slug,
+            photos: args.photos
+          }).then(band => {
+            return band
+          })
+        }).catch(e => {
+          console.log(e)
         })
-      })
-
-      //-- Band --
-      return Band.findById(args.id).then(bandInstance => {
-        // Update band
-        return bandInstance.update({
-          bio: args.bio,
-          slug: args.slug,
-          photos: args.photos
-        }).then(band => {
-          return band
-        })
-      }).catch(e => {
-        console.log(e)
-      })
+      }
     },
 
     deleteAlbum(_, args) {

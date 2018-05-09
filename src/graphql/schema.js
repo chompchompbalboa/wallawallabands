@@ -11,8 +11,9 @@ const typeDefs = `
   }
 
   type Mutation {
-    editBand(id: Int, bio: String, name: String, slug: String, photos: [PhotoInput], albums: [AlbumInput], similarBands: [SimilarBandsInput]): Band
+    editBand(id: Int, name: String, bio: String, slug: String, photos: [PhotoInput], albums: [AlbumInput], similarBands: [SimilarBandsInput]): Band
     deleteAlbum(id: Int): Band
+    deleteBand(id: Int): DeleteResponse
     deletePhoto(id: Int): Band
     deleteSong(id: Int): Band
     singleUpload(file: Upload!): File!
@@ -62,6 +63,10 @@ const typeDefs = `
     filename: String!
     mimetype: String!
     encoding: String!
+  }
+
+  type DeleteResponse {
+    success: Boolean
   }
 
   input PhotoInput {
