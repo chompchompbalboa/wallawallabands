@@ -16,6 +16,7 @@ export default class LargeMusicPlayerSongDetails extends Component {
       title: string
     }),
     album: shape({
+      band: string,
       cover: string
     })
   }
@@ -25,6 +26,7 @@ export default class LargeMusicPlayerSongDetails extends Component {
       title: "Default Song"
     },
     album: {
+      band: "Default Band",
       cover: "img/default.jpeg"
     }
   }
@@ -38,7 +40,7 @@ export default class LargeMusicPlayerSongDetails extends Component {
     return (
 			<Container>
         <AlbumCover src={album.cover} />
-        <SongTitle>{active.title}</SongTitle>
+        <SongTitle>{album.band} - {active.title}</SongTitle>
 			</Container>
   )}
 }

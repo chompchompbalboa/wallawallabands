@@ -16,6 +16,7 @@ import ExistingPhoto from 'src/react/admin/lib/CMS/CMSPhotosExistingPhoto'
 export default class CMSPhotos extends Component {
 
   static propTypes = {
+    coverImage: string,
     photos: arrayOf(shape({
       id: number,
       src: string,
@@ -24,6 +25,7 @@ export default class CMSPhotos extends Component {
   }))}
 
   static defaultProps = {
+    coverImage: "",
     photos: [
       {id: 0, src: "default-1.jpg", height: 800, width: 1200}
     ]
@@ -45,9 +47,11 @@ export default class CMSPhotos extends Component {
 
   render() {
 		const {
+      coverImage,
       photos,
       addPhoto,
       deletePhoto,
+      updateCoverImage,
       updatePhotos
     } = this.props
 
@@ -59,8 +63,10 @@ export default class CMSPhotos extends Component {
               <ExistingPhoto
                 key={index}
                 id={photo.id}
+                coverImage={coverImage}
                 src={photo.src}
                 onDelete={deletePhoto}
+                updateCoverImage={updateCoverImage}
                 onUrlChange={this.onUrlChange}/>
           )})}
           <AddNewButton

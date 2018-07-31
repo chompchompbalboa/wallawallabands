@@ -32,6 +32,8 @@ export default class BandEditorContainer extends Component {
     name: "New Band",
     slug: "new-band-" + _.random(1000,9999),
     bio: "Enter in some information about the new band here",
+    featured: false,
+    coverImage: "",
     albums: [],
     photos: [],
     similarBands: []

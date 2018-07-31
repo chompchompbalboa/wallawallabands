@@ -3,6 +3,8 @@ query getBandBySlug($slug: String!) {
     id
     name
     bio
+    coverImage
+    featured
     slug
     photos {
       id

@@ -2,7 +2,7 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { array, number, shape, string } from 'prop-types'
+import { array, bool, number, shape, string } from 'prop-types'
 import { compose, graphql } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -16,6 +16,7 @@ import deletePhoto from 'src/graphql/mutations/deletePhoto.gql'
 import deleteSong from 'src/graphql/mutations/deleteSong.gql'
 import editBand from 'src/graphql/mutations/editBand.gql'
 
+import { Checkbox } from 'semantic-ui-react'
 import CMSAlbums from 'src/react/admin/lib/CMS/CMSAlbums'
 import CMSPhotos from 'src/react/admin/lib/CMS/CMSPhotos'
 import CMSSaveButton from 'src/react/admin/lib/CMS/CMSSaveButton'
@@ -37,7 +38,9 @@ export default class BandEditor extends Component {
 		id: this.props.band.id,
 		name: this.props.band.name,
 		albums: this.props.band.albums,
-		bio: this.props.band.bio,
+    bio: this.props.band.bio,
+    coverImage: this.props.band.coverImage,
+    featured: this.props.band.featured,
 		photos: this.props.band.photos,
 		similarBands: this.props.band.similarBands,
 		slug: this.props.band.slug
@@ -48,7 +51,9 @@ export default class BandEditor extends Component {
 			id: number,
 			name: string,
 			albums: array,
-			bio: string,
+      bio: string,
+      coverImage: string,
+      featured: bool,
 			photos: array,
 			similarBands: array,
 			slug: string
@@ -59,7 +64,9 @@ export default class BandEditor extends Component {
 			id: 1,
 			name: "Default Band",
 			albums: [],
-			bio: "Default BandEditor - bio",
+      bio: "Default BandEditor - bio",
+      coverImage: "",
+      featured: true,
 			photos: [],
 			similarBands: [],
 			slug: "default-slug"
@@ -71,7 +78,9 @@ export default class BandEditor extends Component {
 			id: nextProps.band.id,
 			name: nextProps.band.name,
 			albums: nextProps.band.albums,
-			bio: nextProps.band.bio,
+      bio: nextProps.band.bio,
+      coverImage: nextProps.band.coverImage,
+      featured: nextProps.band.featured,
 			photos: nextProps.band.photos,
 			similarBands: nextProps.band.similarBands,
 			slug: nextProps.band.slug
@@ -87,6 +96,19 @@ export default class BandEditor extends Component {
 			albums: albums
 		})
 	}
+  
+  updateCoverImage = (src) => {
+    this.setState({
+      coverImage: src
+    })
+  }
+  
+  updateFeatured = () => {
+    const nextFeatured = !this.state.featured
+    this.setState({
+      featured: nextFeatured
+    })
+  }
 
 	updatePhotos = (photos) => {
 		this.setState({
@@ -98,11 +120,11 @@ export default class BandEditor extends Component {
 		this.setState({
 			similarBands: similarBands
 		})
-	}
+  }
 
 	saveBand = () => {
 		const { editBand } = this.props
-		const { albums, id, name, bio, photos, similarBands, slug } = this.state
+		const { albums, id, name, bio, coverImage, featured, photos, similarBands, slug } = this.state
 		// Remove __typename from photos objects to conform to the GraphQL schema
 		const filteredPhotos = photos.map(photo => {
 			return {
@@ -140,7 +162,9 @@ export default class BandEditor extends Component {
 			variables: {
 				id: id,
 				name: name,
-				bio: bio,
+        bio: bio,
+        coverImage: coverImage,
+        featured: featured,
 				slug: slug,
 				photos: filteredPhotos,
 				albums: filteredAlbums,
@@ -152,6 +176,8 @@ export default class BandEditor extends Component {
 				name: data.editBand.name,
 				albums: data.editBand.albums,
 				bio: data.editBand.bio,
+				coverImage: data.editBand.coverImage,
+				featured: data.editBand.featured,
 				photos: data.editBand.photos,
 				similarBands: data.editBand.similarBands,
 				slug: data.editBand.slug
@@ -274,13 +300,15 @@ export default class BandEditor extends Component {
 			id,
 			name,
 			albums,
-			bio,
+      bio,
+      coverImage,
+      featured,
 			photos,
 			similarBands,
 			slug
 		} = this.state
 		const findBands = _.filter(bands, {name: name})
-		const nameInBands = findBands.length > 0
+    const nameInBands = findBands.length > 0
 
     return (
 			<Container>
@@ -306,11 +334,17 @@ export default class BandEditor extends Component {
 							value={slug}
 							placeholder="Slug"
 							onChange={this.onChange}/>
-						<VisitLink 
-							href={"http://wallawallabands.com/band/" + slug}
-							target="_blank">
-							Go to page
-						</VisitLink>
+            <VerticalContainer>
+              <StyledCheckbox
+                label="Featured Band"
+                checked={featured}
+                onChange={this.updateFeatured}/>
+              <VisitLink 
+                href={"http://wallawallabands.com/band/" + slug}
+                target="_blank">
+                Go to page
+              </VisitLink>
+            </VerticalContainer>
 					</EditorSectionContent>
 				</EditorSection>
 				<EditorSection>
@@ -327,9 +361,11 @@ export default class BandEditor extends Component {
 					<EditorSectionHeader>Photos</EditorSectionHeader>
 					<EditorSectionContent>
 						<CMSPhotos
+              coverImage={coverImage}
 							photos={photos}
 							addPhoto={this.addPhoto}
-							deletePhoto={this.deletePhoto}
+              deletePhoto={this.deletePhoto}
+              updateCoverImage={this.updateCoverImage}
 							updatePhotos={this.updatePhotos}/>
 					</EditorSectionContent>
 				</EditorSection>
@@ -386,6 +422,13 @@ const EditorSectionContent = styled.div`
 	align-items: center;
 `
 
+const VerticalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+`
+
 const VisitLink = styled.a`
 	cursor: pointer;
 	color: black;
@@ -393,4 +436,9 @@ const VisitLink = styled.a`
 		color: black;
 		opacity: 0.75;
 	}
+`
+
+const StyledCheckbox = styled(Checkbox)`
+  position: relative;
+  top: -3vh;
 `

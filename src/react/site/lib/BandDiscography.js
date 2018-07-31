@@ -16,6 +16,7 @@ import Tile from 'src/react/site/lib/BandTile'
 export default class BandDiscography extends Component {
 
   static propTypes = {
+    bandName: string,
     albums: arrayOf(shape({
       cover: string,
       title: string,
@@ -28,6 +29,7 @@ export default class BandDiscography extends Component {
   }))}))}
 
   static defaultProps = {
+    bandName: "The Blast",
     albums: [
       {
       id: 1,
@@ -52,15 +54,17 @@ export default class BandDiscography extends Component {
   ]}]}
 
   render() {
-		const { albums, first } = this.props
+		const { bandName, albums, first } = this.props
 
     return (
 			<Container header="Discography" first={first}>
         {albums.map((album, index) => {
+          let albumWithBandName = Object.assign({}, album)
+          albumWithBandName.band = bandName
           return (
             <Album
               key={index}
-              album={album}/>
+              album={albumWithBandName}/>
           )
         })
         }

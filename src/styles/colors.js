@@ -1,4 +1,4 @@
-export const primary = 'rgb(226, 35, 26)'
+export const primary = 'rgb(65, 153, 163)'
 export const secondary = 'rgb(201,70,63)'
 export const background = 'rgb(225,225,225)'
 export const tileBackground = 'white'

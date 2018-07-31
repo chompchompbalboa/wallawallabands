@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 
 import Dashboard from 'src/react/admin/pages/Dashboard'
-import LoginRegister from 'src/react/admin/pages/LoginRegister'
+import Login from 'src/react/admin/lib/Login'
 
 //------------------------------------------------------------------------------
 // Component
@@ -15,11 +15,10 @@ import LoginRegister from 'src/react/admin/pages/LoginRegister'
 export default class Admin extends Component {
 
   state = {
+    loggedIn: true,
+    password: "",
     ssr: true
   }
-
-  static defaultProps = {}
-  static propTypes = {}
 
   componentDidMount = () => {
     this.setState({
@@ -27,13 +26,29 @@ export default class Admin extends Component {
     })
   }
 
-  isLoggedIn = () => {
-    return true
+  changePassword = (e) => {
+    const correctPassword = "bandsBigz18"
+    const loggedIn = (e.target.value === correctPassword ? true : false)
+    const password = (e.target.value === correctPassword ? "" : e.target.value)
+    this.setState({
+      loggedIn: loggedIn,
+      password: password
+    })
+  }
+
+  logout = () => {
+    this.setState({
+      loggedIn: false,
+      password: ""
+    })
   }
 
   render = () => {
-		const { ssr } = this.state
-    const loggedIn = this.isLoggedIn()
+		const { 
+      loggedIn, 
+      password, 
+      ssr 
+    } = this.state
 
     if(ssr) {
       return "Loading"
@@ -41,7 +56,7 @@ export default class Admin extends Component {
 
     if(!loggedIn) {
       return (
-        <LoginRegister />
+        <Login changePassword={this.changePassword} password={password}/>
       )
     }
     return (
@@ -49,7 +64,8 @@ export default class Admin extends Component {
         <Helmet>
           <title>Walla Walla Bands - Admin</title>
         </Helmet>
-        <Dashboard />
+        <Dashboard
+          logout={this.logout}/>
       </Container>
     )
   }

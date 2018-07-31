@@ -15,7 +15,7 @@ import Logout from 'src/react/admin/lib/LogoutButton'
 export default class Sidebar extends Component {
 
   render = () => {
-    const { activeTask , ...rest} = this.props
+    const { activeTask, logout, ...rest} = this.props
     return (
 			<Container {...rest}>
         <Header />
@@ -24,7 +24,7 @@ export default class Sidebar extends Component {
           id="BANDS">
           Bands
         </Item>
-        <Logout />
+        <Logout logout={logout}/>
 			</Container>
     )
   }

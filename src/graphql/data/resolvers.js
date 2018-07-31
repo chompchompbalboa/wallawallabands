@@ -185,6 +185,8 @@ const resolvers = {
           // Update band
           return bandInstance.update({
             bio: args.bio,
+            coverImage: args.coverImage,
+            featured: args.featured,
             slug: args.slug,
             photos: args.photos
           }).then(band => {

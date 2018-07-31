@@ -82,7 +82,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: rgba(50,50,50,0.9);
+    background-color: rgba(50,50,50,0.8);
     transition: top 0.5s;
     color: white;
   }

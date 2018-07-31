@@ -12,14 +12,11 @@ import Item from 'src/react/admin/lib/SidebarItem'
 //------------------------------------------------------------------------------
 export default class LogoutButton extends Component {
 
-  handleLogout = () => {
-    console.log('logout')
-  }
-
   render() {
+    const { logout } = this.props
 
     return (
-			<Item onClick={(e) => this.handleLogout(e)}>
+			<Item onClick={logout}>
         Logout
 			</Item>
     )

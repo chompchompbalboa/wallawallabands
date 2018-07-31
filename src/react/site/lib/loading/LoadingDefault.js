@@ -15,7 +15,7 @@ export default class LoadingDefault extends Component {
   }
 
   static defaultProps = {
-    src: "icons/loading.gif"
+    src: "icons/loading.svg"
   }
 
   render () {
@@ -25,8 +25,6 @@ export default class LoadingDefault extends Component {
 
     return (
       <Container>
-        <LoadingGif
-          src={src}/>
 		  </Container>
     )
   }
@@ -46,6 +44,6 @@ const Container = styled.div`
 `
 
 const LoadingGif = styled.img`
-  width: 30vh;
-  height: 30vh;
+  width: 15vh;
+  height: 15vh;
 `

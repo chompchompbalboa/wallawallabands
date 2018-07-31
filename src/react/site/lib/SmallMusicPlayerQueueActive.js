@@ -24,13 +24,14 @@ export default class SmallMusicPlayerQueueActive extends Component {
     } = this.props
     const albumCover = (typeof album.cover === "undefined" ? '' : album.cover)
     const albumTitle = (typeof album.title === "undefined" ? '' : album.title)
+    const bandName = (typeof album.band === "undefined" ? '' : album.band)
     const songTitle = (typeof active.title === "undefined" ? 'Choose a song to play!' : active.title)
 
     return (
 			<Container>
         <AlbumCover src={albumCover}/>
         <SongTitle>{songTitle}</SongTitle>
-        <AlbumTitle>{albumTitle}</AlbumTitle>
+        <AlbumTitle>{bandName} - {albumTitle}</AlbumTitle>
         <Controls />
 			</Container>
   )}

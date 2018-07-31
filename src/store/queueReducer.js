@@ -25,6 +25,7 @@ const initialState = {
   ],
   album: {
     id: 1,
+    band: "The Blast",
     cover: "img/album-covers/theBlast_lockDownLightsOut.jpg",
     title: "Lock Down Lights Out",
     year: "2007",

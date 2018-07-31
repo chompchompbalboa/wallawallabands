@@ -13,7 +13,7 @@ import Tile from 'src/react/site/lib/BandsTile'
 export default class BandsList extends Component {
 
   getList(bands) {
-    const letters = "0123456789ABCDEFGHIJKLMNOQRSTUVWXYZ".split("")
+    const letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
     const lastIndex = Object.keys(bands)[Object.keys(bands).length - 1]
     return letters.map((letter, index) => {
       let group = (typeof bands[letter] !== "undefined" ? bands[letter] : null)

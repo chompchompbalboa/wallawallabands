@@ -12,7 +12,7 @@ import Tile from 'src/react/site/lib/BandsTile'
 export default class BandsHeader extends Component {
 
   getLetters(bands) {
-    const alphabet = "ABCDEFGHIJKLMNOQRSTUVWXYZ".split("")
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
     return alphabet.map((letter, index) => {
       const empty = (typeof bands[letter] === "undefined")
       return (

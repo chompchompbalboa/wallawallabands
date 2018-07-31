@@ -35,6 +35,8 @@ export default class Menu extends Component {
       mobileMenuVisible
     } = this.state
 
+    const submitBandLink = "https://docs.google.com/forms/d/e/1FAIpQLScuDzV1r8k9eNrmJ5_Gd4O1grsdLPvaVxcZmrNYyRwE0egXmQ/viewform?usp=sf_link"
+
     return (
 			<Container>
         <LinksBorderTop />
@@ -43,7 +45,9 @@ export default class Menu extends Component {
             <SmallLogo src={smallLogo} />
           </HomeLink>
           <DesktopLinks>
+            <PageLink to="/">Bands</PageLink>
             <PageLink to="/about">About</PageLink>
+            <ExternalPageLink target="_blank" href={submitBandLink}>Submit A Band</ExternalPageLink>
           </DesktopLinks>
           <MobileMenuIcon onClick={this.toggleMobileMenu}>
             <Icon icon={mobileMenuVisible ? xNoCircle : menu}/>
@@ -51,9 +55,9 @@ export default class Menu extends Component {
         </LinksContainer>
         <LinksBorderBottom />
         <MobileMenu visible={mobileMenuVisible}>
-          <MobileMenuLink to="">Band</MobileMenuLink>
-          <MobileMenuLink to="/about">About
-</MobileMenuLink>
+          <MobileMenuLink to="/">Bands</MobileMenuLink>
+          <MobileMenuLink to="/about">About</MobileMenuLink>
+          <ExternalMobileMenuLink target="_blank" href={submitBandLink}>Submit A Band</ExternalMobileMenuLink>
         </MobileMenu>
 			</Container>
     )
@@ -113,7 +117,6 @@ const LinksBorderBottom = styled.div`
 const DesktopLinks = styled.div`
   display: none;
   @media ${tabletLandscape} {
-    width: 20%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -131,10 +134,25 @@ const SmallLogo = styled.img`
 `
 
 const PageLink = styled(Link)`
+  margin-left: 2vw;
   color: black;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: .05em;
+  &:hover {
+    color: ${primary};
+  }
+`
+
+const ExternalPageLink = styled.a`
+  margin-left: 2vw;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  &:hover {
+    color: ${primary};
+  }
 `
 
 const MobileMenuIcon = styled.div`
@@ -167,6 +185,11 @@ const MobileMenu = styled.div`
 `
 
 const MobileMenuLink = PageLink.extend`
+  margin: 1vh 0;
+  font-family: Raleway, sans-serif;
+`
+
+const ExternalMobileMenuLink = ExternalPageLink.extend`
   margin: 1vh 0;
   font-family: Raleway, sans-serif;
 `

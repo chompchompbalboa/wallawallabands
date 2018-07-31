@@ -27,12 +27,14 @@ export default class Dashboard extends Component {
   }
 
   render = () => {
+    const { logout } = this.props
 		const { activeTask } = this.state
 
     return (
 			<Container>
         <Sidebar
           activeTask={activeTask}
+          logout={logout}
           setActiveTask={this.setActiveTask}/>
         <Content
           activeTask={activeTask}/>

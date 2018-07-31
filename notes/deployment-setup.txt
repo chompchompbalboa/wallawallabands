@@ -36,4 +36,4 @@ git pull origin master
 npm install
 npm run build
 sudo docker build . -t wallawallabands
-sudo docker run -p 4000:4000 wallawallabands
+sudo docker run -p 4000:4000 -v /data/wallawallabands.sqlite:/data/wallawallabands.sqlite wallawallabands

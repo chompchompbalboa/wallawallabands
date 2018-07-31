@@ -2,6 +2,8 @@ mutation editBand(
   $id: Int!,
   $name: String!,
   $bio: String!,
+  $coverImage: String!,
+  $featured: Boolean!,
   $slug: String!,
   $photos: [PhotoInput!]!
   $albums: [AlbumInput!]!
@@ -10,6 +12,8 @@ mutation editBand(
     id: $id,
     name: $name,
     bio: $bio,
+    coverImage: $coverImage,
+    featured: $featured,
     slug: $slug,
     photos: $photos,
     albums: $albums,
@@ -17,6 +21,8 @@ mutation editBand(
       id
       name
       bio
+      coverImage
+      featured
       slug
       photos {
         id
