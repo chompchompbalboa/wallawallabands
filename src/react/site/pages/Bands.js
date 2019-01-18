@@ -1,7 +1,9 @@
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+import { object } from 'prop-types'
 import { compose, graphql } from 'react-apollo'
-import styled from 'styled-components'
 import _ from 'lodash'
 
 import alphabet from 'src/react/site/helpers/alphabet'
@@ -17,43 +19,64 @@ import Header from 'src/react/site/lib/BandsHeader'
 import Layout from 'src/react/site/layouts/Default'
 import Loading from 'src/react/site/lib/loading/LoadingDefault'
 
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
 @compose(
   graphql(getBands, {name: "allBands"}),
   graphql(getFeaturedBands, {name: "featuredBands"})
 )
 export default class Bands extends Component {
 
-  constructor(props) {
-    super(props)
-    this.groupAndSortBands = this.groupAndSortBands.bind(this)
+  static propTypes = {
+    allBands: object,
+    featuredBands: object
   }
 
-  groupAndSortBands(bands) {
-    // Initialize as {"A": {}, "B": {}, "C": {}...}
-    let groupedAndSorted = alphabet
-    // Group bands by the first letter of their name
-    const grouped = _.groupBy(bands, (band) => {return band.name.substring(0,1)})
-    // Sort each group into alphabetical order and add to groupedAndSorted
-    for (let letter in grouped) {
-      let group = grouped[letter]
-      groupedAndSorted[letter] = _.sortBy(group, ['name'])
+  state = {
+    hasLoaded: false
+  }
+
+  componentDidUpdate = () => {
+    const {
+      allBands,
+      featuredBands
+    } = this.props
+    const {
+      hasLoaded
+    } = this.state
+
+    if(!hasLoaded) {
+      if(!allBands.loading && !featuredBands.loading) {
+        this.setState({
+          hasLoaded: true
+        })
+      }
     }
+  }
+
+  groupAndSortBands = (bands) => {
+    let groupedAndSorted = alphabet // Initialize as {"A": {}, "B": {}, "C": {}...}
+    const grouped = _.groupBy(bands, (band) => {return band.name.substring(0,1)}) // Group bands by the first letter of their name
+    _.map(grouped, (group, index) => {
+      groupedAndSorted[index] = _.sortBy(group, ['name'])
+    }) // Sort each group into alphabetical order and add to groupedAndSorted
     return groupedAndSorted
   }
 
   render () {
 		const {
       allBands,
-      featuredBands,
-			...rest
-		} = this.props
+      featuredBands
+    } = this.props
+    const {
+      hasLoaded
+    } = this.state
 
-		if(allBands.loading || featuredBands.loading) {
+		if(!hasLoaded) {
 			return (
         <Layout>
-          <Loading />
-          <Content visible={false}>
-          </Content>
+          <Loading/>
         </Layout>
       )
 		}
@@ -61,16 +84,20 @@ export default class Bands extends Component {
       const groupedAndSortedBands = this.groupAndSortBands(allBands.allBands)
 			return (
 				<Layout>
-					<Content visible>
-            <BandsMobileSponsor />
-						<Header bands={groupedAndSortedBands}/>
-            <BandsContent bands={groupedAndSortedBands} featuredBands={featuredBands.getFeaturedBands}/>
+          <Content>
+            <BandsMobileSponsor/>
+            <Header 
+              bands={groupedAndSortedBands}/>
+            <BandsContent 
+              bands={groupedAndSortedBands} 
+              featuredBands={featuredBands.getFeaturedBands}/>
 					</Content>
 				</Layout>
 			)
 		}
 		return (
-			<ErrorHandler code="UNABLE_TO_LOAD_BANDS_LIST"/>
+      <ErrorHandler 
+        code="UNABLE_TO_LOAD_BANDS_LIST"/>
 		)
   }
 }

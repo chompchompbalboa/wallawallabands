@@ -1,18 +1,23 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+import React from 'react'
+import { object } from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import _ from 'lodash'
 
 import { tabletLandscape, desktop } from 'src/styles/breakpoints'
-import { text, tileBackground } from 'src/styles/colors'
+import { text } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
-import Tile from 'src/react/site/lib/BandsTile'
+import BandsTile from 'src/react/site/lib/BandsTile'
 
-export default class BandsList extends Component {
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
+const BandsList = ({ bands }) => {
 
-  getList(bands) {
+  const bandsList = () => {
     const letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
     const lastIndex = Object.keys(bands)[Object.keys(bands).length - 1]
     return letters.map((letter, index) => {
@@ -35,21 +40,24 @@ export default class BandsList extends Component {
     )}})
   }
 
-  render() {
-		const {
-      bands
-		} = this.props
-    const list = this.getList(bands)
-
-    return (
-			<Container>
-        {list}
-			</Container>
-    )
-  }
+  return (
+    <Container>
+      {bandsList()}
+    </Container>
+  )
 }
 
-const Container = styled(Tile)`
+//-----------------------------------------------------------------------------
+// Props
+//-----------------------------------------------------------------------------
+BandsList.propTypes = {
+  bands: object
+}
+
+//-----------------------------------------------------------------------------
+// Styled Components
+//-----------------------------------------------------------------------------
+const Container = styled(BandsTile)`
   width: 100%;
   @media ${tabletLandscape} {
     width: calc(70% - ${padding});
@@ -85,3 +93,5 @@ const BandLink = styled.div`
     font-size: 14px;
   }
 `
+
+export default BandsList

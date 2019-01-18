@@ -1,31 +1,41 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+import React from 'react'
+import { bool, node, string } from 'prop-types'
 import styled from 'styled-components'
 
-import { tabletLandscape, desktop } from 'src/styles/breakpoints'
 import { background, primary } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
-export default class BandTile extends Component {
-
-  render() {
-		const {
-      first,
-      header,
-      className,
-      children,
-      ...rest
-		} = this.props
-
-    return (
-			<Container id={header} className={className} first={first}>
-        <Header>{header}</Header>
-        <Tile>{children}</Tile>
-			</Container>
-    )
-  }
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
+const BandTile = ({ first,  children, className, header }) => (
+  <Container
+    className={className} 
+    first={first}>
+    <Header>
+      {header}
+    </Header>
+    <Content>
+      {children}
+    </Content>
+  </Container>
+)
+//-----------------------------------------------------------------------------
+// Props
+//-----------------------------------------------------------------------------
+BandTile.propTypes = {
+  first: bool,
+  children: node,
+  className: string, /* Required by styled-components for styled(BandTile) to work */
+  header: string
 }
 
+//-----------------------------------------------------------------------------
+// Styled Components
+//-----------------------------------------------------------------------------
 const Container = styled.div`
   pointer: default;
   order: ${props => props.first ? '1' : '2'};
@@ -47,17 +57,9 @@ const Header = styled.div`
   border-bottom: 2px solid ${background};
 `
 
-const Tile = styled.div`
+const Content = styled.div`
   width: 100%;
   padding: ${padding};
 `
 
-BandTile.propTypes = {
-  first: PropTypes.bool,
-  header: PropTypes.string
-}
-
-BandTile.defaultProps = {
-  first: false,
-  header: "Header"
-}
+export default BandTile

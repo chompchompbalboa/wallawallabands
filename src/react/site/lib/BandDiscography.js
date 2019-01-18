@@ -2,11 +2,8 @@
 // Imports
 //------------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { arrayOf, bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
-
-import { padding } from 'src/styles/layout'
-
 import Album from 'src/react/site/lib/BandDiscographyAlbum'
 import Tile from 'src/react/site/lib/BandTile'
 
@@ -26,7 +23,9 @@ export default class BandDiscography extends Component {
         title: string,
         length: string,
         playable: string
-  }))}))}
+    }))})),
+    first: bool
+  }
 
   static defaultProps = {
     bandName: "The Blast",

@@ -1,8 +1,6 @@
 // 1
 Follow this tutorial:
 
-https://scotch.io/tutorials/deploying-a-node-app-to-digital-ocean
-
 // 2
 Before npm install on the project, make sure that node and npm are the same
 version as the development environment:
@@ -26,7 +24,7 @@ is the worst) and hopefully the app will be up and running
 
 
 
-Steps for continuous deployment:
+Steps for deployment:
 
 Push changes to github
 ssh into droplet
@@ -37,3 +35,14 @@ npm install
 npm run build
 sudo docker build . -t wallawallabands
 sudo docker run -p 4000:4000 -v /data/wallawallabands.sqlite:/data/wallawallabands.sqlite wallawallabands
+
+
+Backing up the database:
+ssh into droplet
+cd into wallawallabands_db folder
+git status -- confirm that we are up-to-date with master
+sudo docker ps -- Get the container name
+sudo docker cp [ContainerName]:/src/data/wallawallabands.sqlite .
+git add .
+git commit -m "[Date]"
+git push -f origin master

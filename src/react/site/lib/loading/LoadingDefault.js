@@ -1,34 +1,15 @@
 //------------------------------------------------------------------------------
 // Imports
 //------------------------------------------------------------------------------
-import React, { Component } from 'react'
-import { string } from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
 
 //------------------------------------------------------------------------------
 // Component
 //------------------------------------------------------------------------------
-export default class LoadingDefault extends Component {
-
-  static propTypes = {
-    src: string
-  }
-
-  static defaultProps = {
-    src: "icons/loading.svg"
-  }
-
-  render () {
-		const {
-			src
-		} = this.props
-
-    return (
-      <Container>
-		  </Container>
-    )
-  }
-}
+const LoadingDefault = () => (
+  <Container />
+)
 
 //------------------------------------------------------------------------------
 // Styled Components
@@ -43,7 +24,4 @@ const Container = styled.div`
   align-items: center;
 `
 
-const LoadingGif = styled.img`
-  width: 15vh;
-  height: 15vh;
-`
+export default LoadingDefault

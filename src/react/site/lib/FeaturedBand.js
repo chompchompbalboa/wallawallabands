@@ -1,5 +1,8 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+//------------------------------------------------------------------------------
+// Imports
+//------------------------------------------------------------------------------
+import React from 'react'
+import { shape, string } from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import _ from 'lodash'
@@ -7,21 +10,12 @@ import _ from 'lodash'
 import { primary, text, tileBackground } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
-export default class FeaturedBand extends Component {
+//------------------------------------------------------------------------------
+// Component
+//------------------------------------------------------------------------------
+const FeaturedBand = ({ band: { bio, coverImage, name, slug } }) => {
 
-  static propTypes = {
-  }
-
-  static defaultProps = {
-    band: {
-      bio: "Quas beatae hic inventore. Sunt culpa aliquid incidunt illum. Facilis dolorem quos sit hic ut ullam. Aut voluptatem consequatur suscipit consequatur odit dolorem. Ut non id corrupti.",
-      coverImage: "img/featured-bands/modest-mouse.jpg",
-      name: "The Blast",
-      slug: "the-blast"
-    }
-  }
-
-  getBlurb = (bio) => {
+  const getBlurb = () => {
     return (
       _.truncate(bio, {
       'length': 100,
@@ -29,32 +23,41 @@ export default class FeaturedBand extends Component {
     }))
   }
 
-  render() {
-		const {
-      band: {
-        bio,
-        coverImage,
-        name,
-        slug
-      }
-		} = this.props
-    const blurb = this.getBlurb(bio)
-
-    return (
-			<Container to={"band/" + slug}>
-        <ImageContainer>
-          <Image src={coverImage}/>
-        </ImageContainer>
-        <TextContainer>
-          <Header>{name}</Header>
-          <Blurb>{blurb}<More>&nbsp;&nbsp;&nbsp;read more >></More></Blurb>
-        </TextContainer>
-        <Highlight/>
-			</Container>
-    )
-  }
+  return (
+    <Container 
+      to={"band/" + slug}>
+      <ImageContainer>
+        <Image 
+          src={coverImage}/>
+      </ImageContainer>
+      <TextContainer>
+        <Header>
+          {name}
+        </Header>
+        <Blurb>
+          {getBlurb()}<More>&nbsp;&nbsp;&nbsp;read more >></More>
+        </Blurb>
+      </TextContainer>
+      <Highlight/>
+    </Container>
+  )
 }
 
+//------------------------------------------------------------------------------
+// Props
+//------------------------------------------------------------------------------
+FeaturedBand.propTypes = {
+  band: shape({
+    bio: string,
+    coverImage: string,
+    name: string,
+    slug: string
+  })
+}
+
+//------------------------------------------------------------------------------
+// Styled Components
+//------------------------------------------------------------------------------
 const transitionTime = '0.2s'
 
 const Container = styled(Link)`
@@ -114,3 +117,5 @@ const Highlight = styled.div`
     background-color: ${primary}
   }
 `
+
+export default FeaturedBand

@@ -1,62 +1,62 @@
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
 import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
-import { graphql } from 'react-apollo'
-import styled from 'styled-components'
+import { object } from 'prop-types'
+import { compose, graphql } from 'react-apollo'
 
 import getBandBySlug from 'src/graphql/queries/getBandBySlug.gql'
 
-import { tabletLandscape } from 'src/styles/breakpoints'
-import { secondary } from 'src/styles/colors'
-
-import Header from 'src/react/site/lib/BandHeader'
+import BandHeader from 'src/react/site/lib/BandHeader'
 import BandContent from 'src/react/site/lib/BandContent'
 import Content from 'src/react/site/containers/Content'
 import Layout from 'src/react/site/layouts/Default'
-import Loading from 'src/react/site/lib/loading/LoadingDefault'
 import ErrorHandler from 'src/react/site/lib/errors/GraphQLError'
-import Tile from 'src/react/site/lib/BandTile'
 
-@graphql(getBandBySlug, {
-		options: (ownProps) => ({
-			variables: {
-				slug: ownProps.match.params.slug
-}})})
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
+@compose(
+  graphql(getBandBySlug, {
+      name: "bandData",
+      options: (ownProps) => ({
+        variables: {
+          slug: ownProps.match.params.slug
+  }})})
+)
 export default class Band extends Component {
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			active: "BIO"
-		}
-	}
+  static propTypes = {
+    bandData: object
+  }
+
+  state = {
+    active: "BIO"
+  }
 
 	componentDidMount = () => {
 		window.scrollTo(0,0)
 	}
 
-	changeActive = (newActive) => {
+	changeActive = (nextActive) => {
 		this.setState({
-			active: newActive
+			active: nextActive
 		})
 	}
 
   render () {
 		const {
-			data,
-		} = this.props
+      bandData
+    } = this.props
 
-		if(data.loading) {
-			return (
-        <Layout>
-          <Loading />
-          <Content visible={false}>
-          </Content>
-        </Layout>
-			)
+		if(bandData.loading) {
+			return null
 		}
-		else if(typeof data.getBandBySlug !== "undefined") {
-			const band = data.getBandBySlug
-			const { active } = this.state
+		else if(typeof bandData.getBandBySlug !== "undefined") {
+			const { 
+        active 
+      } = this.state
+			const band = bandData.getBandBySlug
 			const tiles = [
 				"BIO",
 				"DISCOGRAPHY",
@@ -65,8 +65,8 @@ export default class Band extends Component {
 
 			return (
 				<Layout>
-					<Content visible>
-						<Header
+					<Content>
+						<BandHeader
 							active={active}
 							band={band}
 							changeActive={this.changeActive}
@@ -74,14 +74,14 @@ export default class Band extends Component {
 						<BandContent
 							active={active}
 							band={band}
-							tiles={tiles}
-							/>
+							tiles={tiles}/>
 					</Content>
 				</Layout>
 			)
 		}
 		return (
-			<ErrorHandler code="UNABLE_TO_LOAD_BAND" />
+      <ErrorHandler
+        code="UNABLE_TO_LOAD_BAND" />
 		)
 	}
 }

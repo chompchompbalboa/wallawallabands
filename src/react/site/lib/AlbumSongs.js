@@ -35,9 +35,6 @@ export default class AlbumSongs extends Component {
               <Track>{index + 1}.</Track>
               <Title>{song.title}</Title>
               <Length>{song.length}</Length>
-              <PlayOptions
-                album={album}
-                song={song}/>
             </Song>)
         })}
 			</Container>

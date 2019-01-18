@@ -1,5 +1,8 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+import React from 'react'
+import { array, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import {padding} from 'src/styles/layout'
@@ -10,40 +13,46 @@ import BandDiscography from 'src/react/site/lib/BandDiscography'
 import BandSidebar from 'src/react/site/lib/BandSidebar'
 import BandPhotos from 'src/react/site/lib/BandPhotos'
 
-export default class BandContent extends Component {
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
+const BandContent = ({ active, band }) => (
+  <Container>
+    <LeftColumn>
+      <BandBio
+        first={active === "BIO"}
+        bio={band.bio}/>
+      <BandDiscography
+        first={active === "DISCOGRAPHY"}
+        albums={band.albums}
+        bandName={band.name}/>
+      <BandPhotos
+        first={active === "PHOTOS"}
+        photos={band.photos}/>
+    </LeftColumn>
+    <RightColumn>
+      <BandSidebar 
+        band={band}/>
+    </RightColumn>
+  </Container>
+)
 
-  componentWillUpdate = () => {
-  }
-
-  render() {
-		const {
-      active,
-      band
-    } = this.props
-
-    return (
-			<Container>
-        <LeftColumn>
-          <BandBio
-            first={active === "BIO"}
-            bio={band.bio}/>
-          <BandDiscography
-            first={active === "DISCOGRAPHY"}
-            albums={band.albums}
-            bandName={band.name}/>
-          <BandPhotos
-            first={active === "PHOTOS"}
-            photos={band.photos}/>
-        </LeftColumn>
-        <RightColumn>
-          <BandSidebar 
-            band={band}/>
-        </RightColumn>
-			</Container>
-    )
-  }
+//-----------------------------------------------------------------------------
+// Props
+//-----------------------------------------------------------------------------
+BandContent.propTypes = {
+  active: string,
+  band: shape({
+    albums: array,
+    bio: string,
+    name: string,
+    photos: array,
+  })
 }
 
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -72,8 +81,4 @@ const RightColumn = Column.extend`
   }
 `
 
-BandContent.propTypes = {
-}
-
-BandContent.defaultProps = {
-}
+export default BandContent

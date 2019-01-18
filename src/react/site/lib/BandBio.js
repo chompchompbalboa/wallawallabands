@@ -1,31 +1,35 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+import React from 'react'
+import { bool, string } from 'prop-types'
 import styled from 'styled-components'
 
-import Tile from 'src/react/site/lib/BandTile'
+import BandTile from 'src/react/site/lib/BandTile'
 
-export default class BandBio extends Component {
-
-  render() {
-		const {
-      first,
-      bio
-		} = this.props
-
-    return (
-			<Container header="Bio" first={first}>
-        {bio}
-			</Container>
-    )
-  }
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
+const BandBio = ({ first, bio }) => (
+  <Container
+    header="Bio"
+    first={first}>
+    {bio}
+  </Container>
+)
+//-----------------------------------------------------------------------------
+// Props
+//-----------------------------------------------------------------------------
+BandBio.propTypes = {
+  first: bool,
+  bio: string
 }
 
-const Container = styled(Tile)`
+//-----------------------------------------------------------------------------
+// Styled Components
+//-----------------------------------------------------------------------------
+const Container = styled(BandTile)`
   white-space: pre-line;
 `
 
-BandBio.propTypes = {
-}
-
-BandBio.defaultProps = {
-}
+export default BandBio

@@ -1,29 +1,30 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
-import styled from 'styled-components'
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+import React from 'react'
+import { array, object } from 'prop-types'
 
 import BandsList from 'src/react/site/lib/BandsList'
 import FeaturedBands from 'src/react/site/lib/FeaturedBands'
 
-export default class BandsContent extends Component {
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
+const BandsContent = ({ bands, featuredBands }) => (
+  <React.Fragment>
+    <BandsList 
+      bands={bands}/>
+    <FeaturedBands 
+      featuredBands={featuredBands}/>
+  </React.Fragment>
+)
 
-  render() {
-		const {
-      bands,
-      featuredBands
-		} = this.props
-
-    return (
-			<React.Fragment>
-        <BandsList bands={bands}/>
-        <FeaturedBands featuredBands={featuredBands}/>
-			</React.Fragment>
-    )
-  }
-}
-
+//-----------------------------------------------------------------------------
+// Props
+//-----------------------------------------------------------------------------
 BandsContent.propTypes = {
+  bands: object.isRequired,
+  featuredBands: array.isRequired
 }
 
-BandsContent.defaultProps = {
-}
+export default BandsContent

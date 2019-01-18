@@ -1,28 +1,35 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+import React from 'react'
+import { node } from 'prop-types'
 import styled from 'styled-components'
 
-import { tabletPortrait, tabletLandscape, desktop } from 'src/styles/breakpoints'
-import { background } from 'src/styles/colors'
+import { tabletLandscape, desktop } from 'src/styles/breakpoints'
 import { padding } from 'src/styles/layout'
 
-export default class Content extends Component {
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
+const Content = ({ children }) => (
+  <Container>
+    {children}
+  </Container>
+)
 
-  render() {
-		const { visible, children } = this.props
-
-    return (
-			<Container visible={visible}>
-        {children}
-			</Container>
-    )
-  }
+//-----------------------------------------------------------------------------
+// Props
+//-----------------------------------------------------------------------------
+Content.propTypes = {
+  children: node
 }
 
+//-----------------------------------------------------------------------------
+// Styled Components
+//-----------------------------------------------------------------------------
 const Container = styled.div`
   padding: ${padding};
 	width: 100%;
-  opacity: ${props => props.visible ? 1 : 0};
   transition: opacity 1s;
   display: flex;
   justify-content: space-between;
@@ -36,10 +43,4 @@ const Container = styled.div`
   }
 `
 
-Content.propTypes = {
-  visible: PropTypes.bool
-}
-
-Content.defaultProps = {
-  visible: true
-}
+export default Content

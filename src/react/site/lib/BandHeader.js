@@ -1,40 +1,48 @@
-import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+import React from 'react'
+import { array, func, object, string } from 'prop-types'
 import styled from 'styled-components'
 
-import { desktop } from 'src/styles/breakpoints'
-import { secondary } from 'src/styles/colors'
 import { padding } from 'src/styles/layout'
 
-export default class BandHeader extends Component {
+//-----------------------------------------------------------------------------
+// Component
+//-----------------------------------------------------------------------------
+const BandHeader = ({ active, band, changeActive, tiles }) => (
+  <Container>
+    <Wrapper>
+      <Name>
+        {band.name}
+      </Name>
+      <HeaderLinks>
+        {tiles.map((tile, index) =>
+          <HeaderLink
+            key={index}
+            active={(active === tile)}
+            onClick={() => changeActive(tile)}>
+            {tile}
+          </HeaderLink>
+        )}
+      </HeaderLinks>
+    </Wrapper>
+  </Container>
+)
 
-  render() {
-		const {
-      active,
-      band,
-      changeActive,
-      tiles
-		} = this.props
-
-    return (
-			<Container>
-        <Wrapper>
-          <Name>{band.name}</Name>
-          <HeaderLinks>
-            {tiles.map((tile, index) =>
-              <HeaderLink
-                key={index}
-                active={(active === tile)}
-                onClick={() => changeActive(tile)}>
-                {tile}</HeaderLink>
-            )}
-          </HeaderLinks>
-        </Wrapper>
-			</Container>
-    )
-  }
+//-----------------------------------------------------------------------------
+// Props
+//-----------------------------------------------------------------------------
+BandHeader.propTypes = {
+  active: string,
+  band: object,
+  changeActive: func,
+  tiles: array
 }
 
+//-----------------------------------------------------------------------------
+// Styled Components
+//-----------------------------------------------------------------------------
 const Container = styled.div`
 	width: 100%;
 `
@@ -59,3 +67,5 @@ const HeaderLink = styled.p`
 	margin: 0 5vw 0 0;
 	border-bottom: ${props => props.active ? '1px solid black' : 'none'};
 `
+
+export default BandHeader
