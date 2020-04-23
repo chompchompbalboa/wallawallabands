@@ -6,8 +6,7 @@ import { object } from 'prop-types'
 import { Provider as ReduxProvider } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 
-import Admin from 'src/react/admin/Admin'
-import Site from 'src/react/site/Site'
+import UnderConstruction from 'src/react/site/pages/UnderConstruction'
 
 //-----------------------------------------------------------------------------
 // Component
@@ -17,10 +16,7 @@ const Root = ({ store }) =>  (
     store={store}>
     <Switch>
       <Route 
-        path="/admin" 
-        component={Admin}/>
-      <Route 
-        component={Site}/>
+        component={UnderConstruction}/>
     </Switch>
   </ReduxProvider>
 )

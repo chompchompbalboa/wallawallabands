@@ -40,6 +40,7 @@ const Container = styled.div`
 
 const Logo = styled.img`
   width: 70vw;
+  margin-bottom: 3vh;
   @media ${tabletPortrait} {
     width: 40vw;
   }
